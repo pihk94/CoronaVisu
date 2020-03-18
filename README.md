@@ -19,9 +19,13 @@ Main Dataset :
 
 *https://www.kaggle.com/sudalairajkumar/novel-corona-virus-2019-dataset/tasks?taskId=508&fbclid=IwAR0dbknEuKSjzmZeyhFaVEaNwP9Ung5N2FZlaD2TKV2lyJelEZkJclGlgqU
 https://docs.google.com/spreadsheets/d/e/2PACX-1vQU0SIALScXx8VXDX7yKNKWWPKE1YjFlWc6VTEVSN45CklWWf-uWmprQIyLtoPDA18tX9cFDr-aQ9S6/pubhtml
+
 *https://ourworldindata.org/coronavirus-source-data
+
 *https://www.tableau.com/covid-19-coronavirus-data-resources?fbclid=IwAR3PnY-UcxDANzsltrBFRMrnS1KjKc8VDVps1q0NsSIzgvB3N99-ExVLZ74
+
 *https://www.ecdc.europa.eu/en/publications-data/download-todays-data-geographic-distribution-covid-19-cases-worldwide
+
 *https://www.data.gouv.fr/fr/datasets/cas-confirmes-dinfection-au-covid-19-par-region/ (données FR)
 
 
