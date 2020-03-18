@@ -45,6 +45,7 @@ Puis impact sur différent
   *https://public.tableau.com/profile/ihph.geohealth.centre#!/vizhome/Corona2019-GeoHealthCentre/Story1
   
 2. Différence avec la grippe espagnole/grippe 
+
 -https://www.nytimes.com/2020/03/09/health/coronavirus-is-very-different-from-the-spanish-flu-of-1918-heres-how.html
 
 -https://www.nytimes.com/2020/02/29/health/coronavirus-flu.html
@@ -52,6 +53,7 @@ Puis impact sur différent
 -EBOLA?
 
 3. Simulation de propagation
+
 https://meltingasphalt.com/interactive/outbreak/?fbclid=IwAR1X8FYRzTGM1OBFzo4D6Jbb7HsgT0nkKxQOgJgffqAyjVCAn3jlHurQxRI
 
 4. Travail sur différentes thématiques : 
