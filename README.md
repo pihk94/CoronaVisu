@@ -37,11 +37,14 @@ Puis impact sur différent
 
 1. Visualisation général sur le COVID-19
   *https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca
+  
   *https://www.lci.fr/high-tech/coronavirus-quatre-tableaux-de-bord-et-de-l-open-data-pour-suivre-l-epidemie-en-temps-reel-covid-19-2147708.html?fbclid=IwAR0Vjwrg0zpAVHRBzGKZ3MNTnLTB3fEufjRpxMfjmw6IarirtEI84OzJY50
   
 2. Différence avec la grippe espagnole/grippe 
 -https://www.nytimes.com/2020/03/09/health/coronavirus-is-very-different-from-the-spanish-flu-of-1918-heres-how.html
+
 -https://www.nytimes.com/2020/02/29/health/coronavirus-flu.html
+
 -EBOLA?
 
 3. Simulation de propagation
