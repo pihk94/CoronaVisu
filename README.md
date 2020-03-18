@@ -15,10 +15,11 @@ A l'inverse, dès qu'un fichier sera ajouté/modifié au repertoire il faudra r�
 Voilà , j'espère avoir été clair. 
 Contacter moi sur facebook si besoin !
 
-Main Dataset : 
+### Main Dataset : 
 
 *https://www.kaggle.com/sudalairajkumar/novel-corona-virus-2019-dataset/tasks?taskId=508&fbclid=IwAR0dbknEuKSjzmZeyhFaVEaNwP9Ung5N2FZlaD2TKV2lyJelEZkJclGlgqU
-https://docs.google.com/spreadsheets/d/e/2PACX-1vQU0SIALScXx8VXDX7yKNKWWPKE1YjFlWc6VTEVSN45CklWWf-uWmprQIyLtoPDA18tX9cFDr-aQ9S6/pubhtml
+
+*https://docs.google.com/spreadsheets/d/e/2PACX-1vQU0SIALScXx8VXDX7yKNKWWPKE1YjFlWc6VTEVSN45CklWWf-uWmprQIyLtoPDA18tX9cFDr-aQ9S6/pubhtml
 
 *https://ourworldindata.org/coronavirus-source-data
 
@@ -29,7 +30,7 @@ https://docs.google.com/spreadsheets/d/e/2PACX-1vQU0SIALScXx8VXDX7yKNKWWPKE1YjFl
 *https://www.data.gouv.fr/fr/datasets/cas-confirmes-dinfection-au-covid-19-par-region/ (données FR)
 
 
-Idées sur le Corona : 
+### Idées sur le Corona : 
 ______________________
 
 Viz sur le nombre de morts 
@@ -61,19 +62,19 @@ Puis impact sur différent
 
 4. Travail sur différentes thématiques : 
 
-  -Environnement
+  -> Environnement
  
     Données :
     
     Visualisation :
     
-  -Finance
+  -> Finance
   
     Données :
     
     Visualisation :
     
-  -Internet
+  -> Internet
   
     Données :
     
