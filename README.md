@@ -36,9 +36,13 @@ Viz sur le nombre de morts
 Puis impact sur différent
 
 1. Visualisation général sur le COVID-19
+
   *https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca
   
   *https://www.lci.fr/high-tech/coronavirus-quatre-tableaux-de-bord-et-de-l-open-data-pour-suivre-l-epidemie-en-temps-reel-covid-19-2147708.html?fbclid=IwAR0Vjwrg0zpAVHRBzGKZ3MNTnLTB3fEufjRpxMfjmw6IarirtEI84OzJY50
+  
+  *https://public.tableau.com/profile/charlemagne.losaria#!/vizhome/COVID-19World/Dashboard
+  *https://public.tableau.com/profile/ihph.geohealth.centre#!/vizhome/Corona2019-GeoHealthCentre/Story1
   
 2. Différence avec la grippe espagnole/grippe 
 -https://www.nytimes.com/2020/03/09/health/coronavirus-is-very-different-from-the-spanish-flu-of-1918-heres-how.html
