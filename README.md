@@ -46,13 +46,21 @@ https://meltingasphalt.com/interactive/outbreak/?fbclid=IwAR1X8FYRzTGM1OBFzo4D6J
 4. Travail sur différentes thématiques : 
 
   -Environnement
+ 
     Données :
+    
     Visualisation :
+    
   -Finance
+  
     Données :
+    
     Visualisation :
+    
   -Internet
+  
     Données :
+    
     Visualisation :
 
 
