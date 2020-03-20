@@ -59,6 +59,7 @@ Puis impact sur différent
 3. Simulation de propagation
 
 - https://meltingasphalt.com/interactive/outbreak/?fbclid=IwAR1X8FYRzTGM1OBFzo4D6Jbb7HsgT0nkKxQOgJgffqAyjVCAn3jlHurQxRI
+- https://www.washingtonpost.com/graphics/2020/world/corona-simulator/?fbclid=IwAR0IR2CXVZSomO87BvkXOtFJSmJfKTzH9Z3w7ACNGHHy_wVisqh2a7tmzYI
 
 4. Travail sur différentes thématiques : 
 
