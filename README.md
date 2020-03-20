@@ -14,3 +14,70 @@ A l'inverse, dès qu'un fichier sera ajouté/modifié au repertoire il faudra r�
 
 Voilà , j'espère avoir été clair. 
 Contacter moi sur facebook si besoin !
+
+### Main Dataset : 
+
+*https://www.kaggle.com/sudalairajkumar/novel-corona-virus-2019-dataset/tasks?taskId=508&fbclid=IwAR0dbknEuKSjzmZeyhFaVEaNwP9Ung5N2FZlaD2TKV2lyJelEZkJclGlgqU
+
+*https://docs.google.com/spreadsheets/d/e/2PACX-1vQU0SIALScXx8VXDX7yKNKWWPKE1YjFlWc6VTEVSN45CklWWf-uWmprQIyLtoPDA18tX9cFDr-aQ9S6/pubhtml
+
+*https://ourworldindata.org/coronavirus-source-data
+
+*https://www.tableau.com/covid-19-coronavirus-data-resources?fbclid=IwAR3PnY-UcxDANzsltrBFRMrnS1KjKc8VDVps1q0NsSIzgvB3N99-ExVLZ74
+
+*https://www.ecdc.europa.eu/en/publications-data/download-todays-data-geographic-distribution-covid-19-cases-worldwide
+
+*https://www.data.gouv.fr/fr/datasets/cas-confirmes-dinfection-au-covid-19-par-region/ (données FR)
+
+
+### Idées sur le Corona : 
+______________________
+
+Viz sur le nombre de morts 
+Puis impact sur différent
+
+1. Visualisation général sur le COVID-19
+
+- https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca
+  
+- https://www.lci.fr/high-tech/coronavirus-quatre-tableaux-de-bord-et-de-l-open-data-pour-suivre-l-epidemie-en-temps-reel-covid-19-2147708.html?fbclid=IwAR0Vjwrg0zpAVHRBzGKZ3MNTnLTB3fEufjRpxMfjmw6IarirtEI84OzJY50
+  
+  Deux data dashboards avec les informations complètes. Ils peuvent nous servir aussi pour les données. Les metadata sont indiquées en bas à droite. 
+  
+- https://public.tableau.com/profile/charlemagne.losaria#!/vizhome/COVID-19World/Dashboard
+  
+- https://public.tableau.com/profile/ihph.geohealth.centre#!/vizhome/Corona2019-GeoHealthCentre/Story1
+  
+2. Différence avec la grippe espagnole/EBOLA/SRAS 
+
+- https://www.nytimes.com/2020/03/09/health/coronavirus-is-very-different-from-the-spanish-flu-of-1918-heres-how.html
+
+- https://www.nytimes.com/2020/02/29/health/coronavirus-flu.html
+
+
+
+3. Simulation de propagation
+
+- https://meltingasphalt.com/interactive/outbreak/?fbclid=IwAR1X8FYRzTGM1OBFzo4D6Jbb7HsgT0nkKxQOgJgffqAyjVCAn3jlHurQxRI
+
+4. Travail sur différentes thématiques : 
+
+  -> Environnement
+ 
+    Données :
+    
+    Visualisation :
+    
+  -> Finance
+  
+    Données :
+    
+    Visualisation :
+    
+  -> Internet
+  
+    Données :
+    
+    Visualisation :
+
+
