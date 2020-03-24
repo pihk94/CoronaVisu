@@ -15,6 +15,9 @@ A l'inverse, dès qu'un fichier sera ajouté/modifié au repertoire il faudra r�
 Voilà , j'espère avoir été clair. 
 Contacter moi sur facebook si besoin !
 
+
+### https://github.com/soroushchehresa/awesome-coronavirus
+
 ### Main Dataset : 
 
 *https://www.kaggle.com/sudalairajkumar/novel-corona-virus-2019-dataset/tasks?taskId=508&fbclid=IwAR0dbknEuKSjzmZeyhFaVEaNwP9Ung5N2FZlaD2TKV2lyJelEZkJclGlgqU
