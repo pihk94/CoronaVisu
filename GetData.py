@@ -2,15 +2,6 @@ import numpy as np
 import pandas as pd
 import urllib.request
 import datetime
-#def get_frame_world(name):
-#    url = ('https://covid.ourworldindata.org/data/ecdc/total_'
-#           f'{name}.csv')
-#    df = pd.read_csv(url)
-#    return df
-#
-#df_cases_world = get_frame_world('cases')
-#df_deaths_wogfrld = get_frame_world('deaths')
-
 
 URL_MAPPING_COUNTRIES = 'https://raw.githubusercontent.com/pratapvardhan/notebooks/master/covid19/mapping_countries.csv'
 COL_REGION = 'Country/Region'
@@ -31,6 +22,7 @@ def get_frame(name):
     mapping = get_mappings(URL_MAPPING_COUNTRIES)
     df['Country/Region'] = df['Country/Region'].replace(mapping['replace.country'])
     return df
+
 def get_french_data():
     """
         Fonction permettant d'obtenir les dernières données disponibles ici :
@@ -42,6 +34,7 @@ def get_french_data():
     urllib.request.urlretrieve(SERIES_TEMP_DEP_NB_SERVICES,'Data/FR_TS_DEP_SERVICES.csv')
     urllib.request.urlretrieve(SERIES_TEMP_DEP_NB,'Data/FR_TS_DEP.csv')
     urllib.request.urlretrieve(SERIES_TEMP_DEP_SOS_MEDECIN,'Data/FR_TS_DEP_SOS_MEDECIN.xlsx')
+    
 def import_french(name,sep=';'):
     """
         Fonction permettant d'importer l'un des trois datasets  : SERIES_TEMP_DEP_NB_SERVICES , SERIES_TEMP_DEP_NB, SERIES_TEMP_DEP_SOS_MEDECIN
