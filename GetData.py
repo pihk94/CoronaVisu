@@ -42,7 +42,7 @@ def get_french_data():
     urllib.request.urlretrieve(SERIES_TEMP_DEP_NB_SERVICES,'Data/FR_TS_DEP_SERVICES.csv')
     urllib.request.urlretrieve(SERIES_TEMP_DEP_NB,'Data/FR_TS_DEP.csv')
     urllib.request.urlretrieve(SERIES_TEMP_DEP_SOS_MEDECIN,'Data/FR_TS_DEP_SOS_MEDECIN.xlsx')
-def import_french(name):
+def import_french(name,sep=';'):
     """
         Fonction permettant d'importer l'un des trois datasets  : SERIES_TEMP_DEP_NB_SERVICES , SERIES_TEMP_DEP_NB, SERIES_TEMP_DEP_SOS_MEDECIN
     """
@@ -51,7 +51,7 @@ def import_french(name):
         'SERIES_TEMP_DEP_NB':'Data/FR_TS_DEP.csv',
         'SERIES_TEMP_DEP_SOS_MEDECIN':'Data/FR_TS_DEP_SOS_MEDECIN.xlsx'
     }
-    return pd.read_csv(dic[name])
+    return pd.read_csv(dic[name],sep=sep)
 def get_info_data(x):
     """
         Fonction donnant les informations sur les datasets                
@@ -109,7 +109,7 @@ def get_info_data(x):
             """
 
     }
-    return dic[name]
+    return dic[x]
 
 df_cases_world = get_frame('Confirmed')
 get_french_data()
