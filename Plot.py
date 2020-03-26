@@ -5,9 +5,6 @@ from plotly.offline import plot
 COL_REGION = 'Country/Region'
 
 df_cases_world = GetData.get_frame('confirmed')
-LAST_DATE_I, dt_cols = GetData.get_dates(df_cases_world)
-
-dt_today = dt_cols[LAST_DATE_I]
 df_cases_world_group = df_cases_world.groupby(COL_REGION).sum()
 df_cases_world_group.drop(['Lat', 'Long'], axis = 1, inplace = True)
 df_cases_world_group.reset_index(inplace = True)

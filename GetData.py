@@ -3,7 +3,7 @@ import urllib.request
 
 URL_MAPPING_COUNTRIES = 'https://raw.githubusercontent.com/pratapvardhan/notebooks/master/covid19/mapping_countries.csv'
 
-def get_mappings(url):
+def __get_mappings(url):
     df = pd.read_csv(url)
     return {
         'df': df,
@@ -16,7 +16,7 @@ def get_frame(name):
         'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/'
         f'csse_covid_19_time_series/time_series_covid19_{name}_global.csv')
     df = pd.read_csv(url)
-    mapping = get_mappings(URL_MAPPING_COUNTRIES)
+    mapping = __get_mappings(URL_MAPPING_COUNTRIES)
     df['Country/Region'] = df['Country/Region'].replace(mapping['replace.country'])
     return df
 
