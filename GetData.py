@@ -40,7 +40,6 @@ def get_french_data():
     urllib.request.urlretrieve(SERIES_TEMP_DEP_NB_SERVICES,'Data/FR_TS_DEP_SERVICES.csv')
     urllib.request.urlretrieve(SERIES_TEMP_DEP_NB,'Data/FR_TS_DEP.csv')
     urllib.request.urlretrieve(SERIES_TEMP_DEP_SOS_MEDECIN,'Data/FR_TS_DEP_SOS_MEDECIN.xlsx')
-    
 def import_french(name,sep=';'):
     """
         Fonction permettant d'importer l'un des trois datasets  : SERIES_TEMP_DEP_NB_SERVICES , SERIES_TEMP_DEP_NB, SERIES_TEMP_DEP_SOS_MEDECIN
