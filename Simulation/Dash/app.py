@@ -87,12 +87,7 @@ app.layout = html.Div(children=[
     }),
     dbc.Row([
         dbc.Col([
-            dcc.Graph(id='Apercu',config={
-            'editable': True,
-            'edits': {
-                'shapePosition': True
-            }
-        })
+            dcc.Graph(id='Apercu')
         ],width=10),
         dbc.Col([
             dbc.Row([
@@ -270,29 +265,15 @@ def update_figure(R0,incub_time,infec_time,exposed):
         'data' :[
             {'x':sim.Idx.unique(),'y':sim[sim.Type == 'I'].Nb,'type':'bar',
             'width':'0.9',
-            'name':'Infectieux','marker':{'color':'rgba(237, 2, 128, 0.6)'}},
+            'name':'Infectieux',"hoverinfo": "none",'marker':{'color':'rgba(237, 2, 128, 0.6)'}},
             {'x':sim.Idx.unique(),'y':sim[sim.Type == 'E'].Nb,'type':'bar',
             'width':'0.9',
-            'name':'Exposé','marker':{'color':'rgba(253, 192, 134, 0.6)'}},
+            'name':'Exposé',"hoverinfo": "none",'marker':{'color':'rgba(253, 192, 134, 0.6)'}},
         ],
         'layout':{
             'barmode':'stack',
             'xaxis':{'type':'category'},
-            'shapes': [{
-                    'type': 'line',
-                    'layer':'above',
-                    'x0': 10,
-                    'x1': 10,
-                    'xref': 'x',
-
-                    'y0': 0,
-                    'y1': 1,
-                    'yref': 'paper',
-
-                    'line': {
-                        'width': 4,
-                        'color': 'rgb(30, 30, 30)'
-                    }}]
+            
         }
     }
 # Slider display text 
@@ -331,6 +312,7 @@ def update_infected_display(value):
         return '{} infecté'.format(value)
 
 #right text display slider value and graph value
+
 @app.callback(
     Output('NbJours','children'),
     [Input("Apercu","hoverData")]
@@ -344,6 +326,7 @@ def display_jour(hoverData):
             return str(int(x)) + ' jours'
     except:
         return '365 jours'
+# TOTAL
 @app.callback(
     Output('Total_Susceptible','children'),
     [Input("Apercu","hoverData"),
@@ -383,6 +366,46 @@ def display_Nb_Total_exposed(hoverData,R0,incub_time,infec_time,exposed):
         sim = simulator(R0,incub_time,infec_time,exposed)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'E')].set_index('Idx')
+        return ' ' + str(sim.iloc[int(m)].Nb)
+@app.callback(
+    Output('Total_Infect','children'),
+    [Input("Apercu","hoverData"),
+    Input('R0_slider','value'),
+    Input('incub_time_slide','value'),
+    Input('infect_time_slide','value'),
+    Input('N_malade_slider','value')
+    ]
+)
+def display_Nb_Total_infect(hoverData,R0,incub_time,infec_time,exposed):
+    try:
+        x = hoverData['points'][0]['x']
+        sim = simulator(R0,incub_time,infec_time,exposed)
+        sim = sim[(sim.Type == 'I')].set_index('Idx')
+        return ' ' + str(sim.iloc[int(x)].Nb)
+    except:
+        sim = simulator(R0,incub_time,infec_time,exposed)
+        m = sim.Idx.max()
+        sim = sim[(sim.Type == 'I')].set_index('Idx')
+        return ' ' + str(sim.iloc[int(m)].Nb)
+@app.callback(
+    Output('Total_Recover','children'),
+    [Input("Apercu","hoverData"),
+    Input('R0_slider','value'),
+    Input('incub_time_slide','value'),
+    Input('infect_time_slide','value'),
+    Input('N_malade_slider','value')
+    ]
+)
+def display_Nb_Total_recov(hoverData,R0,incub_time,infec_time,exposed):
+    try:
+        x = hoverData['points'][0]['x']
+        sim = simulator(R0,incub_time,infec_time,exposed)
+        sim = sim[(sim.Type == 'R')].set_index('Idx')
+        return ' ' + str(sim.iloc[int(x)].Nb)
+    except:
+        sim = simulator(R0,incub_time,infec_time,exposed)
+        m = sim.Idx.max()
+        sim = sim[(sim.Type == 'R')].set_index('Idx')
         return ' ' + str(sim.iloc[int(m)].Nb)
 ## day
 @app.callback(
@@ -446,6 +469,26 @@ def display_Nb_Day_infectieux(hoverData,R0,incub_time,infec_time,exposed):
         sim = simulator(R0,incub_time,infec_time,exposed)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'I')].set_index('Idx')
+        return ' ' + str(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb)
+@app.callback(
+    Output('Day_recover','children'),
+    [Input("Apercu","hoverData"),
+    Input('R0_slider','value'),
+    Input('incub_time_slide','value'),
+    Input('infect_time_slide','value'),
+    Input('N_malade_slider','value')
+    ]
+)
+def display_Nb_Day_recovered(hoverData,R0,incub_time,infec_time,exposed):
+    try:
+        x = hoverData['points'][0]['x']
+        sim = simulator(R0,incub_time,infec_time,exposed)
+        sim = sim[(sim.Type == 'R')].set_index('Idx')
+        return ' ' + str(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb)
+    except:
+        sim = simulator(R0,incub_time,infec_time,exposed)
+        m = sim.Idx.max()
+        sim = sim[(sim.Type == 'R')].set_index('Idx')
         return ' ' + str(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb)
 if __name__ == '__main__':
     app.run_server(debug=True)
