@@ -21,7 +21,7 @@ def get_mappings(url): # Table de mapping
         'map.continent': dict(df.set_index('Name')['Continent'])
     }
     
-def clean_df(name): # Fonction permettant de récupérer un dataframe clean, name peut être : 'confirmed', 'deaths', 'recovered'
+def get_world(name): # Fonction permettant de récupérer un dataframe clean, name peut être : 'confirmed', 'deaths', 'recovered'
     mapping = get_mappings(URL_MAPPING_COUNTRIES)
     df = get_frame(name)
     df['Country/Region'] = df['Country/Region'].replace(mapping['replace.country'])
@@ -32,19 +32,17 @@ def clean_df(name): # Fonction permettant de récupérer un dataframe clean, nam
     return df[cols]
 
 def get_subregion(name, country): # Fonction permettant de récupérer les données des sous régions d'un pays, name peut être : 'confirmed', 'deaths', 'recovered'
-    df = clean_df(name)
+    df = get_world(name)
     return df.loc[df['Country/Region'] == country]
     
 def get_subcountry(name, continent): # Fonction permettant de récupérer les données des sous pays d'un continent, name peut être : 'confirmed', 'deaths', 'recovered'
-    df = clean_df(name)
+    df = get_world(name)
     return df.loc[df['Continent'] == continent]
 
 def get_recap_by_country(date, previous = 1): # Fonction permettant de récupérer un tableau récapitulatif par pays à une date donnée, previous = nb de jours de comparaison par rapport à la date donnée
-    
-    dft_confirmed = clean_df('confirmed')
-    dft_death = clean_df('deaths')
-    dft_recovered = clean_df('recovered')
-    
+    dft_confirmed = get_world('confirmed')
+    dft_death = get_world('deaths')
+    dft_recovered = get_world('recovered')
     if date == 'today':
         date = pd.to_datetime(datetime.now())
         date_t = date - pd.to_timedelta(1, unit = 'd')
@@ -55,16 +53,13 @@ def get_recap_by_country(date, previous = 1): # Fonction permettant de récupér
         date_t = pd.to_datetime(date)
         date_t_1 = date_t - pd.to_timedelta(previous, unit = 'd')
         date_t = '/'.join(str(x) for x in (date_t.month, date_t.day, 20))
-        date_t_1 = '/'.join(str(x) for x in (date_t_1.month, date_t_1.day, 20))
-        
+        date_t_1 = '/'.join(str(x) for x in (date_t_1.month, date_t_1.day, 20)) 
     dfc_confirmed_t = dft_confirmed.groupby('Country/Region')[date_t].sum()
     dfc_death_t = dft_death.groupby('Country/Region')[date_t].sum()
     dfc_recovered_t = dft_recovered.groupby('Country/Region')[date_t].sum()
-    
     dfc_confirmed_t_1 = dft_confirmed.groupby('Country/Region')[date_t_1].sum()
     dfc_death_t_1 = dft_death.groupby('Country/Region')[date_t_1].sum()
     dfc_recovered_t_1 = dft_recovered.groupby('Country/Region')[date_t_1].sum()
-    
     df_table = (pd.DataFrame(dict(Cases=dfc_confirmed_t, ActiveCases = dfc_confirmed_t - dfc_recovered_t, Deaths=dfc_death_t, Recovered=dfc_recovered_t, PCases=dfc_confirmed_t_1, PDeaths=dfc_death_t_1, PRecovered=dfc_recovered_t_1))
              .sort_values(by=['Cases', 'Deaths', 'Recovered'], ascending=[False, False, False])
              .reset_index())
@@ -73,15 +68,12 @@ def get_recap_by_country(date, previous = 1): # Fonction permettant de récupér
         df_table[f'{c} (+)'] = (df_table[c] - df_table[f'P{c}']).clip(0)
     df_table.drop(['PCases', 'PDeaths', 'PRecovered'], axis = 1, inplace = True)
     df_table['Fatality Rate'] = (100 * df_table['Deaths'] / df_table['Cases']).round(1)
-    
     return df_table
     
 def get_recap_by_continent(date, previous = 1): # Fonction permettant de récupérer un tableau récapitulatif par continent à une date donnée, previous = nb de jours de comparaison par rapport à la date donnée
-    
-    dft_confirmed = clean_df('confirmed')
-    dft_death = clean_df('deaths')
-    dft_recovered = clean_df('recovered')
-    
+    dft_confirmed = get_world('confirmed')
+    dft_death = get_world('deaths')
+    dft_recovered = get_world('recovered')
     if date == 'today':
         date = pd.to_datetime(datetime.now())
         date_t = date - pd.to_timedelta(1, unit = 'd')
@@ -92,16 +84,13 @@ def get_recap_by_continent(date, previous = 1): # Fonction permettant de récup�
         date_t = pd.to_datetime(date)
         date_t_1 = date_t - pd.to_timedelta(previous, unit = 'd')
         date_t = '/'.join(str(x) for x in (date_t.month, date_t.day, 20))
-        date_t_1 = '/'.join(str(x) for x in (date_t_1.month, date_t_1.day, 20))
-        
+        date_t_1 = '/'.join(str(x) for x in (date_t_1.month, date_t_1.day, 20))  
     dfc_confirmed_t = dft_confirmed.groupby('Continent')[date_t].sum()
     dfc_death_t = dft_death.groupby('Continent')[date_t].sum()
     dfc_recovered_t = dft_recovered.groupby('Continent')[date_t].sum()
-    
     dfc_confirmed_t_1 = dft_confirmed.groupby('Continent')[date_t_1].sum()
     dfc_death_t_1 = dft_death.groupby('Continent')[date_t_1].sum()
     dfc_recovered_t_1 = dft_recovered.groupby('Continent')[date_t_1].sum()
-    
     df_table = (pd.DataFrame(dict(Cases=dfc_confirmed_t, ActiveCases = dfc_confirmed_t - dfc_recovered_t, Deaths=dfc_death_t, Recovered=dfc_recovered_t, PCases=dfc_confirmed_t_1, PDeaths=dfc_death_t_1, PRecovered=dfc_recovered_t_1))
              .sort_values(by=['Cases', 'Deaths', 'Recovered'], ascending=[False, False, False])
              .reset_index())
@@ -110,7 +99,6 @@ def get_recap_by_continent(date, previous = 1): # Fonction permettant de récup�
         df_table[f'{c} (+)'] = (df_table[c] - df_table[f'P{c}']).clip(0)
     df_table.drop(['PCases', 'PDeaths', 'PRecovered'], axis = 1, inplace = True)
     df_table['Fatality Rate'] = (100 * df_table['Deaths'] / df_table['Cases']).round(1)
-    
     return df_table
 
 ############# F R E N C H   D A T A #############

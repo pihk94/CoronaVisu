@@ -10,9 +10,9 @@ df_recap_by_country = get_recap_by_country(date, previous)
 df_recap_by_continent = get_recap_by_continent(date, previous)
 
 #### Graphiques tendances "Confirmed", "Deaths", "Recovered" en normal et en logarithmique
-df_confirmed_world = clean_df('confirmed')
-df_deaths_world = clean_df('deaths')
-df_recovered_world = clean_df('recovered')
+df_confirmed_world = get_world('confirmed')
+df_deaths_world = get_world('deaths')
+df_recovered_world = get_world('recovered')
 df_trend_world = pd.DataFrame()
 df_trend_world['Date'] = df_confirmed_world.iloc[:,5:].columns
 df_trend_world['Confirmed'] = df_confirmed_world.iloc[:,5:].sum().values
