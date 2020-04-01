@@ -3,7 +3,7 @@ import urllib.request
 
 URL_MAPPING_COUNTRIES = 'https://raw.githubusercontent.com/pratapvardhan/notebooks/master/covid19/mapping_countries.csv'
 
-def __get_mappings(url):
+def get_mappings(url):
     df = pd.read_csv(url)
     return {
         'df': df,
@@ -16,18 +16,9 @@ def get_frame(name):
         'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/'
         f'csse_covid_19_time_series/time_series_covid19_{name}_global.csv')
     df = pd.read_csv(url)
-    mapping = __get_mappings(URL_MAPPING_COUNTRIES)
+    mapping = get_mappings(URL_MAPPING_COUNTRIES)
     df['Country/Region'] = df['Country/Region'].replace(mapping['replace.country'])
     return df
-
-def get_dates(df):
-    dt_cols = df.columns[~df.columns.isin(['Province/State', 'Country/Region', 'Lat', 'Long'])]
-    LAST_DATE_I = -1
-    for i in range(-1, -len(dt_cols), -1):
-        if not df[dt_cols[i]].fillna(0).eq(0).all():
-            LAST_DATE_I = i
-            break
-    return LAST_DATE_I, dt_cols
 
 def get_french_data():
     """

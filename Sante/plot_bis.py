@@ -1,33 +1,25 @@
-# -*- coding: utf-8 -*-
-import GetData
-import plotly.express as px
+from GetData import * 
 import plotly.graph_objects as go
 from plotly.offline import plot
 import numpy as np
 import pandas as pd
 
-COL_REGION = 'Country/Region'
+URL_MAPPING_COUNTRIES = 'https://raw.githubusercontent.com/pratapvardhan/notebooks/master/covid19/mapping_countries.csv'
 
-df_cases_world = GetData.get_frame('confirmed')
-df_cases_world['region'] = df_cases_world['Country/Region'] + ' ' + df_cases_world['Province/State'].fillna('')
-#df_cases_world_group = df_cases_world.groupby(COL_REGION).sum()
-#df_cases_world_group.drop(['Lat', 'Long'], axis = 1, inplace = True)
-#df_cases_world_group.reset_index(inplace = True)
-df_cases_world.rename(columns={COL_REGION:'country'}, inplace = True)
-
-df_tmp = px.data.gapminder().query("year==2007")
-df_tmp.drop(['year', 'lifeExp', 'pop', 'gdpPercap', 'iso_num', 'iso_alpha'], axis = 1, inplace = True)
-
-df_final = df_cases_world.merge(df_tmp, on = 'country')
+mapping = get_mappings(URL_MAPPING_COUNTRIES)
+df_cases_world = get_frame('confirmed')
+df_cases_world.rename(columns = {'Country/Region' : 'Country'}, inplace = True)
+df_cases_world = df_cases_world.merge(mapping['df'], on = 'Country')
+df_cases_world['region'] = df_cases_world['Country/Region'] + '-' + df_cases_world['Province/State'].fillna('')
+df_cases_world.drop(['Province/State', '])
 
 lst = []
-for pays in df_final.region.unique():
-    for col in df_final.columns[4:-2]:
-        nb = df_final.set_index('region')[col][pays]
-        continent = df_final.set_index('region')['continent'][pays]
-        lat = df_final.set_index('region')['Lat'][pays]
-        lon = df_final.set_index('region')['Long'][pays]
-        #iso = df_final.set_index('country')['iso_alpha'][pays]
+for pays in df_cases_world.region.unique():
+    for col in df_cases_world.columns[4:-2]:
+        nb = df_cases_world.set_index('region')[col][pays]
+        continent = df_cases_world.set_index('region')['continent'][pays]
+        lat = df_cases_world.set_index('region')['Lat'][pays]
+        lon = df_cases_world.set_index('region')['Long'][pays]
         lst += [(pays,col,nb,continent,lat,lon)]
 df_ = pd.DataFrame(lst, columns=['region', 'date', 'nombre', 'continent', 'lat', 'lon'])
 df_.replace(-1, 0, inplace = True)
@@ -100,7 +92,6 @@ for i in continent_list:
                                )
                           ],
               sliders=sliders);
-    
     j+=1
 fig=go.Figure(data=data, layout=layout)
 plot(fig)
