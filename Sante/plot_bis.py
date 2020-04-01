@@ -4,17 +4,14 @@ from plotly.offline import plot
 import numpy as np
 import pandas as pd
 
-URL_MAPPING_COUNTRIES = 'https://raw.githubusercontent.com/pratapvardhan/notebooks/master/covid19/mapping_countries.csv'
+df_confirmed_world = clean_df('confirmed')
+df_death_world = clean_df('deaths')
+df_recovered_world = clean_df('recovered')
 
-mapping = get_mappings(URL_MAPPING_COUNTRIES)
-df_cases_world = get_frame('confirmed')
-df_cases_world.rename(columns = {'Country/Region' : 'Country'}, inplace = True)
-df_cases_world = df_cases_world.merge(mapping['df'], on = 'Country')
-df_cases_world['region'] = df_cases_world['Country/Region'] + '-' + df_cases_world['Province/State'].fillna('')
-df_cases_world.drop(['Province/State', '])
+
 
 lst = []
-for pays in df_cases_world.region.unique():
+for pays in df_confirmed_world.region.unique():
     for col in df_cases_world.columns[4:-2]:
         nb = df_cases_world.set_index('region')[col][pays]
         continent = df_cases_world.set_index('region')['continent'][pays]
