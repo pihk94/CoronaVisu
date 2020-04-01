@@ -31,11 +31,13 @@ def clean_df(name): # Fonction permettant de récupérer un dataframe clean, nam
     cols = ['Continent', 'Country/Region', 'Province/State', 'Lat', 'Long'] + [col for col in df if (col != 'Continent') & (col != 'Country/Region') & (col != 'Province/State') & (col !='Lat') & (col != 'Long')]
     return df[cols]
 
-def get_subregion(df, name): # Fonction permettant de récupérer les données des sous régions d'un pays
-    return df.loc[df['Country'] == name]
+def get_subregion(name, country): # Fonction permettant de récupérer les données des sous régions d'un pays, name peut être : 'confirmed', 'deaths', 'recovered'
+    df = clean_df(name)
+    return df.loc[df['Country/Region'] == country]
     
-def get_subcountry(df, name): # Fonction permettant de récupérer les données des sous pays d'un continent
-    return df.loc[df['Continent'] == name]
+def get_subcountry(name, continent): # Fonction permettant de récupérer les données des sous pays d'un continent, name peut être : 'confirmed', 'deaths', 'recovered'
+    df = clean_df(name)
+    return df.loc[df['Continent'] == continent]
 
 def get_recap_by_country(date, previous = 1): # Fonction permettant de récupérer un tableau récapitulatif par pays à une date donnée, previous = nb de jours de comparaison par rapport à la date donnée
     

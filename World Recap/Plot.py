@@ -33,16 +33,7 @@ for i in range(0, 4):
     fig.add_trace(go.Scatter(x=df_trend_world['Date'], y=df_trend_world.iloc[:,i+1], mode='lines',
         name=labels[i],
         line=dict(color=colors[i], width=line_size[i]),
-        connectgaps=True,
-    ))
-
-    # endpoints
-    fig.add_trace(go.Scatter(
-        x=[x_data[i][0], x_data[i][-1]],
-        y=[y_data[i][0], y_data[i][-1]],
-        mode='markers',
-        marker=dict(color=colors[i], size=mode_size[i])
-    ))
+        connectgaps=True))
 
 fig.update_layout(
     xaxis=dict(
