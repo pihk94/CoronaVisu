@@ -4,38 +4,37 @@ import plotly.graph_objects as go
 import pandas as pd
 
 #### Tableaux récapitulatifs ####
+
 date = 'today' #date = '3/25/20'
 previous = 1 #previous = 5
 df_recap_by_country = get_recap_by_country(date, previous)
 df_recap_by_continent = get_recap_by_continent(date, previous)
 
-#### Graphiques tendances "Confirmed", "Deaths", "Recovered" en normal et en logarithmique
+#### Graphiques des tendances "Confirmed", "Deaths", "Recovered" pour le monde, par continent et par pays (top 10)
+
 df_confirmed_world = get_world('confirmed')
 df_deaths_world = get_world('deaths')
 df_recovered_world = get_world('recovered')
+
+## World
 df_trend_world = pd.DataFrame()
-df_trend_world['Date'] = df_confirmed_world.iloc[:,5:].columns
+df_trend_world['Date'] = pd.to_datetime(df_confirmed_world.iloc[:,5:].columns)
 df_trend_world['Confirmed'] = df_confirmed_world.iloc[:,5:].sum().values
 df_trend_world['Recovered'] = df_recovered_world.iloc[:,5:].sum().values
 df_trend_world['Active Cases'] = df_trend_world['Confirmed'] - df_trend_world['Recovered']
 df_trend_world['Deaths'] = df_deaths_world.iloc[:,5:].sum().values
 
-title = 'Tendances'
 labels = ['Confirmed', 'Recovered', 'Active Cases', 'Deaths']
-colors = ['rgb(67,67,67)', 'rgb(115,115,115)', 'rgb(49,130,189)', 'rgb(189,189,189)']
+colors = ['rgb(44, 62, 80)', 'rgb(84, 153, 199)', 'rgb(244, 208, 63)', 'rgb(192, 57, 43)']
+line_size = [4, 4, 4, 4]
 
-mode_size = [8, 8, 12, 8]
-line_size = [2, 2, 4, 2]
-
-fig = go.Figure()
-
+fig_trend_world = go.Figure()
 for i in range(0, 4):
-    fig.add_trace(go.Scatter(x=df_trend_world['Date'], y=df_trend_world.iloc[:,i+1], mode='lines',
+    fig_trend_world.add_trace(go.Scatter(x=df_trend_world['Date'], y=df_trend_world.iloc[:,i+1], mode='lines',
         name=labels[i],
-        line=dict(color=colors[i], width=line_size[i]),
-        connectgaps=True))
-
-fig.update_layout(
+        line=dict(color=colors[i], width=line_size[i])))
+    
+fig_trend_world.update_layout(
     xaxis=dict(
         showline=True,
         showgrid=False,
@@ -43,68 +42,244 @@ fig.update_layout(
         linecolor='rgb(204, 204, 204)',
         linewidth=2,
         ticks='outside',
+        tickangle = 15,
         tickfont=dict(
             family='Arial',
-            size=12,
-            color='rgb(82, 82, 82)',
+            size=15,
+            color='rgb(37, 37, 37)',
         ),
     ),
     yaxis=dict(
-        showgrid=False,
-        zeroline=False,
+        showgrid=True,
+        gridcolor='lightgray',
         showline=False,
-        showticklabels=False,
+        showticklabels=True,
+        tickfont=dict(
+                family='Arial',
+                size=15,
+                color='rgb(37, 37, 37)')
     ),
-    autosize=False,
-    margin=dict(
-        autoexpand=False,
-        l=100,
-        r=20,
-        t=110,
-    ),
-    showlegend=False,
+    showlegend=True,
     plot_bgcolor='white'
 )
 
 annotations = []
-
-# Adding labels
-for y_trace, label, color in zip(y_data, labels, colors):
-    # labeling the left_side of the plot
-    annotations.append(dict(xref='paper', x=0.05, y=y_trace[0],
-                                  xanchor='right', yanchor='middle',
-                                  text=label + ' {}%'.format(y_trace[0]),
-                                  font=dict(family='Arial',
-                                            size=16),
-                                  showarrow=False))
-    # labeling the right_side of the plot
-    annotations.append(dict(xref='paper', x=0.95, y=y_trace[11],
-                                  xanchor='left', yanchor='middle',
-                                  text='{}%'.format(y_trace[11]),
-                                  font=dict(family='Arial',
-                                            size=16),
-                                  showarrow=False))
-# Title
 annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
                               xanchor='left', yanchor='bottom',
-                              text='Main Source for News',
+                              text='<b>WORLD CASES TRENDING</b>',
                               font=dict(family='Arial',
-                                        size=30,
-                                        color='rgb(37,37,37)'),
+                                        size=40,
+                                        color='rgb(37, 37, 37)'),
                               showarrow=False))
-# Source
-annotations.append(dict(xref='paper', yref='paper', x=0.5, y=-0.1,
-                              xanchor='center', yanchor='top',
-                              text='Source: PewResearch Center & ' +
-                                   'Storytelling with data',
+                              
+fig_trend_world.update_layout(annotations=annotations)                             
+plot(fig_trend_world, filename = 'world_cases_trend.html')
+
+## Continent                                 
+df_trend_continent_confirmed = df_confirmed_world.groupby('Continent').sum().iloc[:,2:].T
+df_trend_continent_confirmed.index = pd.to_datetime(df_trend_continent_confirmed.index)
+df_trend_continent_recovered = df_recovered_world.groupby('Continent').sum().iloc[:,2:].T
+df_trend_continent_recovered.index = pd.to_datetime(df_trend_continent_recovered.index)
+df_trend_continent_active_cases = df_trend_continent_confirmed - df_trend_continent_recovered
+df_trend_continent_deaths = df_deaths_world.groupby('Continent').sum().iloc[:,2:].T
+df_trend_continent_deaths.index = pd.to_datetime(df_trend_continent_deaths.index)
+
+labels = df_trend_continent_confirmed.columns
+colors = ['rgb(44, 62, 80)', 'rgb(84, 153, 199)', 'rgb(244, 208, 63)', 'rgb(192, 57, 43)', 'rgb(154, 14, 14)', 'rgb(100, 145, 122)']
+line_size = [4, 4, 4, 4, 4, 4]
+
+# Confirmed
+fig_trend_continent_confirmed = go.Figure()
+for i in range(0, 6):
+    fig_trend_continent_confirmed.add_trace(go.Scatter(x=df_trend_continent_confirmed.index, y=df_trend_continent_confirmed.iloc[:,i], mode='lines',
+        name=labels[i],
+        line=dict(color=colors[i], width=line_size[i])))
+    
+fig_trend_continent_confirmed.update_layout(
+    xaxis=dict(
+        showline=True,
+        showgrid=False,
+        showticklabels=True,
+        linecolor='rgb(204, 204, 204)',
+        linewidth=2,
+        ticks='outside',
+        tickangle = 15,
+        tickfont=dict(
+            family='Arial',
+            size=15,
+            color='rgb(37, 37, 37)',
+        ),
+    ),
+    yaxis=dict(
+        showgrid=True,
+        gridcolor='lightgray',
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(
+                family='Arial',
+                size=15,
+                color='rgb(37, 37, 37)')
+    ),
+    showlegend=True,
+    plot_bgcolor='white'
+)
+
+annotations = []
+annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1,
+                              xanchor='left', yanchor='bottom',
+                              text='<b>NUMBER OF CONFIRMED CASES BY CONTINENT</b>',
                               font=dict(family='Arial',
-                                        size=12,
-                                        color='rgb(150,150,150)'),
+                                        size=40,
+                                        color='rgb(37, 37, 37)'),
                               showarrow=False))
+                              
+fig_trend_continent_confirmed.update_layout(annotations=annotations)                             
+plot(fig_trend_continent_confirmed, filename = 'continent_confirmed_cases.html')
 
-fig.update_layout(annotations=annotations)
+# Active Cases
+fig_trend_continent_active_cases = go.Figure()
+for i in range(0, 6):
+    fig_trend_continent_active_cases.add_trace(go.Scatter(x=df_trend_continent_active_cases.index, y=df_trend_continent_active_cases.iloc[:,i], mode='lines',
+        name=labels[i],
+        line=dict(color=colors[i], width=line_size[i])))
+    
+fig_trend_continent_active_cases.update_layout(
+    xaxis=dict(
+        showline=True,
+        showgrid=False,
+        showticklabels=True,
+        linecolor='rgb(204, 204, 204)',
+        linewidth=2,
+        ticks='outside',
+        tickangle = 15,
+        tickfont=dict(
+            family='Arial',
+            size=15,
+            color='rgb(37, 37, 37)',
+        ),
+    ),
+    yaxis=dict(
+        showgrid=True,
+        gridcolor='lightgray',
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(
+                family='Arial',
+                size=15,
+                color='rgb(37, 37, 37)')
+    ),
+    showlegend=True,
+    plot_bgcolor='white'
+)
 
-fig.show()
+annotations = []
+annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
+                              xanchor='left', yanchor='bottom',
+                              text='<b>NUMBER OF ACTIVE CASES BY CONTINENT</b>',
+                              font=dict(family='Arial',
+                                        size=40,
+                                        color='rgb(37, 37, 37)'),
+                              showarrow=False))
+                              
+fig_trend_continent_active_cases.update_layout(annotations=annotations)                             
+plot(fig_trend_continent_active_cases, filename = 'continent_active_cases.html')
+
+# Deaths
+fig_trend_continent_deaths = go.Figure()
+for i in range(0, 6):
+    fig_trend_continent_deaths.add_trace(go.Scatter(x=df_trend_continent_deaths.index, y=df_trend_continent_deaths.iloc[:,i], mode='lines',
+        name=labels[i],
+        line=dict(color=colors[i], width=line_size[i])))
+    
+fig_trend_continent_deaths.update_layout(
+    xaxis=dict(
+        showline=True,
+        showgrid=False,
+        showticklabels=True,
+        linecolor='rgb(204, 204, 204)',
+        linewidth=2,
+        ticks='outside',
+        tickangle = 15,
+        tickfont=dict(
+            family='Arial',
+            size=15,
+            color='rgb(37, 37, 37)',
+        ),
+    ),
+    yaxis=dict(
+        showgrid=True,
+        gridcolor='lightgray',
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(
+                family='Arial',
+                size=15,
+                color='rgb(37, 37, 37)')
+    ),
+    showlegend=True,
+    plot_bgcolor='white'
+)
+
+annotations = []
+annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
+                              xanchor='left', yanchor='bottom',
+                              text='<b>NUMBER OF DEATHS CASES BY CONTINENT</b>',
+                              font=dict(family='Arial',
+                                        size=40,
+                                        color='rgb(37, 37, 37)'),
+                              showarrow=False))
+                              
+fig_trend_continent_deaths.update_layout(annotations=annotations)                             
+plot(fig_trend_continent_deaths, filename = 'continent_deaths_cases.html')           
+
+# Recovered
+fig_trend_continent_recovered = go.Figure()
+for i in range(0, 6):
+    fig_trend_continent_recovered.add_trace(go.Scatter(x=df_trend_continent_recovered.index, y=df_trend_continent_recovered.iloc[:,i], mode='lines',
+        name=labels[i],
+        line=dict(color=colors[i], width=line_size[i])))
+    
+fig_trend_continent_recovered.update_layout(
+    xaxis=dict(
+        showline=True,
+        showgrid=False,
+        showticklabels=True,
+        linecolor='rgb(204, 204, 204)',
+        linewidth=2,
+        ticks='outside',
+        tickangle = 15,
+        tickfont=dict(
+            family='Arial',
+            size=15,
+            color='rgb(37, 37, 37)',
+        ),
+    ),
+    yaxis=dict(
+        showgrid=True,
+        gridcolor='lightgray',
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(
+                family='Arial',
+                size=15,
+                color='rgb(37, 37, 37)')
+    ),
+    showlegend=True,
+    plot_bgcolor='white'
+)
+
+annotations = []
+annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
+                              xanchor='left', yanchor='bottom',
+                              text='<b>NUMBER OF RECOVERED CASES BY CONTINENT</b>',
+                              font=dict(family='Arial',
+                                        size=40,
+                                        color='rgb(37, 37, 37)'),
+                              showarrow=False))
+                              
+fig_trend_continent_recovered.update_layout(annotations=annotations)                             
+plot(fig_trend_continent_recovered, filename = 'continent_recovered_cases.html')                          
+                                 
 
 
 
