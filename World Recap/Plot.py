@@ -125,7 +125,7 @@ fig_trend_continent_confirmed.update_layout(
 )
 
 annotations = []
-annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1,
+annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
                               xanchor='left', yanchor='bottom',
                               text='<b>NUMBER OF CONFIRMED CASES BY CONTINENT</b>',
                               font=dict(family='Arial',
