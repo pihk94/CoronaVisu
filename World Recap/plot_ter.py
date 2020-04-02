@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 from plotly.offline import plot
 import numpy as np
 import pandas as pd
+from datetime import datetime
 
 URL_MAPPING_COUNTRIES = 'https://raw.githubusercontent.com/pratapvardhan/notebooks/master/covid19/mapping_countries.csv'
 
@@ -44,7 +45,13 @@ fig_dict = {
 }
 
 #fill in most of layout
-fig_dict['layout']['title'] = 'Evolution du nombre de cas de Covid-19 confirmés depuis le ' + date
+print_date = datetime.strptime(date, '%Y-%m-%d').date()
+print_date = (print_date.strftime("%a") + ' ' +  print_date.strftime("%b") + ' ' + print_date.strftime("%d") + ' ' + print_date.strftime("%Y")).upper()
+
+fig_dict['layout']['title'] = '<b> EVOLUTION OF THE NUMBER OF CONFIRMED CASES SINCE ' + print_date +'</b>'
+fig_dict['layout']['titlefont'] = dict(family='Arial', size=35, color='rgb(37, 37, 37)')
+fig_dict['layout']['legend_title'] ='<b> Continents </b>'
+
 fig_dict['layout']['sliders'] = {
     'args': [
         'transition', {
@@ -93,7 +100,7 @@ sliders_dict = {
     "xanchor": "left",
     "currentvalue": {
         "font": {"size": 20},
-        "prefix": "Date:",
+        "prefix": "Date : ",
         "visible": True,
         "xanchor": "right"
     },
@@ -163,8 +170,16 @@ for date in dates:
     sliders_dict["steps"].append(slider_step)
     
 fig_dict["layout"]["sliders"] = [sliders_dict]
-
-plot(fig_dict,False)  
+fig_dict['layout']['geo'] = dict(
+        showland = True,        
+        landcolor = "rgb(212, 212, 212)",
+        showlakes = True,
+        lakecolor = "rgb(255, 255, 255)",
+        showsubunits = True,
+        subunitcolor = "rgb(255, 255, 255)",
+        showcountries = True,
+        countrycolor = "rgb(255, 255, 255)")
+plot(fig_dict, False, filename = 'World Recap/confirmed_map.html')  
 
 # comment retourner en arrière sur une date précise
 # taille ronds légende
