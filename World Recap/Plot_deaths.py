@@ -9,7 +9,7 @@ from datetime import datetime
 URL_MAPPING_COUNTRIES = 'https://raw.githubusercontent.com/pratapvardhan/notebooks/master/covid19/mapping_countries.csv'
 
 mapping = get_mappings(URL_MAPPING_COUNTRIES)
-df_cases_world = get_frame('confirmed')
+df_cases_world = get_frame('deaths')
 df_cases_world.rename(columns = {'Country/Region' : 'Country'}, inplace = True)
 df_cases_world = df_cases_world.merge(mapping['df'], on = 'Country')
 df_cases_world['region'] = df_cases_world['Province/State'].fillna(df_cases_world['Country'])
@@ -25,7 +25,7 @@ for pays in df_cases_world.region.unique():
 df_ = pd.DataFrame(lst, columns=['region', 'date', 'nombre', 'continent', 'lat', 'lon'])
 df_.replace(-1, 0, inplace = True)
 
-df_['text'] = df_['region'] + '<br>Confirmés: ' + (df_['nombre']).astype(str)
+df_['text'] = df_['region'] + '<br>Deaths: ' + (df_['nombre']).astype(str)
 limits = [(0,2),(3,10),(11,20),(21,50),(50,3000)]
 colors = ["royalblue","crimson","lightseagreen","orange","lightgrey","lightskyblue"]
 countries = []
@@ -48,7 +48,7 @@ fig_dict = {
 print_date = datetime.strptime(date, '%Y-%m-%d').date()
 print_date = (print_date.strftime("%a") + ' ' +  print_date.strftime("%b") + ' ' + print_date.strftime("%d") + ' ' + print_date.strftime("%Y")).upper()
 
-fig_dict['layout']['title'] = '<b> EVOLUTION OF THE NUMBER OF CONFIRMED CASES SINCE ' + print_date +'</b>'
+fig_dict['layout']['title'] = '<b> EVOLUTION OF THE NUMBER OF DEATHS SINCE ' + print_date +'</b>'
 fig_dict['layout']['titlefont'] = dict(family='Arial', size=35, color='rgb(37, 37, 37)')
 fig_dict['layout']['legend_title'] ='<b> Continents </b>'
 
@@ -122,7 +122,7 @@ for continent in continents:
         lat= df_sub['lat'],
         text= df_sub['text'],
         marker= dict(
-            size = df_sub['nombre']/100,
+            size = df_sub['nombre']/10,
             color = colors[j],
             line_color = 'rgb(40,40,40)',
             line_width = 0.5,
@@ -147,7 +147,7 @@ for date in dates:
             lat= df_sub['lat'],
             text= df_sub['text'],
             marker= dict(
-                size = df_sub['nombre']/100,
+                size = df_sub['nombre']/10,
                 sizemin = 3,
                 color = colors[j],
                 line_color = 'rgb(40,40,40)',
@@ -179,7 +179,7 @@ fig_dict['layout']['geo'] = dict(
         subunitcolor = "rgb(255, 255, 255)",
         showcountries = True,
         countrycolor = "rgb(255, 255, 255)")
-plot(fig_dict, False, filename = 'World Recap/confirmed_map.html')  
+plot(fig_dict, False, filename = 'World Recap/deaths_map.html')  
 
 # comment retourner en arrière sur une date précise
 # taille ronds légende
