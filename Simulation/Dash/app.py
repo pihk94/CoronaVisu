@@ -366,16 +366,16 @@ def update_figure(R0,incub_time,infec_time,exposed,death_rate,death_time,p_sever
     return  {
         'data' :[
             {'x':sim.Idx.unique(),'y':sim[sim.Type == 'Death'].Nb,'type':'bar',
-            'width':'1',
+            'width':'0.7',
             'name':'Décès',"hoverinfo": "none",'marker':{'color':'rgba(56, 108, 176,0.6)'}},
             {'x':sim.Idx.unique(),'y':sim[sim.Type == 'Hospital'].Nb,'type':'bar',
-            'width':'1',
+            'width':'0.7',
             'name':'Hospitalisation',"hoverinfo": "none",'marker':{'color':'rgba(141, 160, 203,0.6)'}},
             {'x':sim.Idx.unique(),'y':sim[sim.Type == 'I'].Nb,'type':'bar',
-            'width':'1',
+            'width':'0.7',
             'name':'Infectieux',"hoverinfo": "none",'marker':{'color':'rgba(237, 2, 128, 0.6)'}},
             {'x':sim.Idx.unique(),'y':sim[sim.Type == 'E'].Nb,'type':'bar',
-            'width':'1',
+            'width':'0.7',
             'name':'Exposé',"hoverinfo": "none",'marker':{'color':'rgba(253, 192, 134, 0.6)'}},
             
         ],
