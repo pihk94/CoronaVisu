@@ -122,8 +122,8 @@ app.layout = html.Div(children=[
                     html.Img(src=app.get_asset_url('icon-corona/png/019-virus.png'),style={'height':'32px','width':'32px','margin-top':'9px'})
                     ,width = 2),
                 dbc.Col([
-                    dbc.Row(['Total : ',html.Span(id='Total_Susceptible',children=' xxx')]),
-                    dbc.Row(['Jour : ',html.Span(id='Day_suceptible',children=' xxx')]),
+                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/sigma.png'),style={'height':'16px','width':'16px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Total_Susceptible',children=' xxx')]),
+                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/delta.png'),style={'height':'16px','width':'16px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_suceptible',children=' xxx')]),
                 ],width =10),  
             ]),
             dbc.Row([
@@ -134,8 +134,8 @@ app.layout = html.Div(children=[
                     html.Img(src=app.get_asset_url('icon-corona/png/001-virus.png'),style={'height':'32px','width':'32px','margin-top':'9px'})
                     ,width = 2),
                 dbc.Col([
-                    dbc.Row(['Total : ',html.Span(id='Total_Expose',children=' xxx')]),
-                    dbc.Row(['Jour : ',html.Span(id='Day_expose',children=' xxx')]),
+                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/sigma.png'),style={'height':'16px','width':'16px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Total_Expose',children=' xxx')]),
+                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/delta.png'),style={'height':'16px','width':'16px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_expose',children=' xxx')]),
                 ],width =10),  
             ]),
             dbc.Row([
@@ -146,8 +146,8 @@ app.layout = html.Div(children=[
                     html.Img(src=app.get_asset_url('icon-corona/png/044-cold.png'),style={'height':'32px','width':'32px','margin-top':'9px'})
                     ,width = 2),
                 dbc.Col([
-                    dbc.Row(['Total : ',html.Span(id='Total_Infect',children=' xxx')]),
-                    dbc.Row(['Jour : ',html.Span(id='Day_infect',children=' xxx')]),
+                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/sigma.png'),style={'height':'16px','width':'16px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Total_Infect',children=' xxx')]),
+                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/delta.png'),style={'height':'16px','width':'16px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_infect',children=' xxx')]),
                 ],width =10),  
             ]),
              dbc.Row([
@@ -158,8 +158,8 @@ app.layout = html.Div(children=[
                     html.Img(src=app.get_asset_url('icon-corona/png/049-nurse.png'),style={'height':'32px','width':'32px','margin-top':'9px'})
                     ,width = 2),
                 dbc.Col([
-                    dbc.Row(['Total : ',html.Span(id='Total_Recover',children=' xxx')]),
-                    dbc.Row(['Jour : ',html.Span(id='Day_recover',children=' xxx')]),
+                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/sigma.png'),style={'height':'16px','width':'16px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Total_Recover',children=' xxx')]),
+                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/delta.png'),style={'height':'16px','width':'16px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_recover',children=' xxx')]),
                 ],width =10)]), 
             dbc.Row([
                 html.Span(children='Hospitalisation')
@@ -169,8 +169,8 @@ app.layout = html.Div(children=[
                     html.Img(src=app.get_asset_url('icon-corona/png/healthcare-and-medical.png'),style={'height':'32px','width':'32px','margin-top':'9px'})
                     ,width = 2),
                 dbc.Col([
-                    dbc.Row(['Total : ',html.Span(id='Total_Hosp',children=' xxx')]),
-                    dbc.Row(['Jour : ',html.Span(id='Day_hosp',children=' xxx')]),
+                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/sigma.png'),style={'height':'16px','width':'16px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Total_Hosp',children=' xxx')]),
+                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/delta.png'),style={'height':'16px','width':'16px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_hosp',children=' xxx')]),
                 ],width =10), 
             ]),
             dbc.Row([
@@ -181,8 +181,8 @@ app.layout = html.Div(children=[
                     html.Img(src=app.get_asset_url('icon-corona/png/grave.png'),style={'height':'32px','width':'32px','margin-top':'9px'})
                     ,width = 2),
                 dbc.Col([
-                    dbc.Row(['Total : ',html.Span(id='Total_Deces',children=' xxx')]),
-                    dbc.Row(['Jour : ',html.Span(id='Day_deces',children=' xxx')]),
+                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/sigma.png'),style={'height':'16px','width':'16px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Total_Deces',children=' xxx')]),
+                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/delta.png'),style={'height':'16px','width':'16px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_deces',children=' xxx')]),
                 ],width =10),]),
             html.Div([
                 
@@ -203,7 +203,7 @@ app.layout = html.Div(children=[
                     dbc.Row([
                         html.Label('Taux de reproduction de base R0 :',
                         style=style_title_slider),
-                        html.P("Le nombre moyen d'individus qu'une personne infectieuse pourra infecter, tant qu'elle sera contagieuse.",
+                        html.P("Le nombre moyen d'individus qu'une personne infecte, tant qu'elle sera contagieuse.",
                         style=style_slider_text),
                         ]),
                     html.P(id='Value_R0',style=style_slider_value),
@@ -463,7 +463,7 @@ def display_jour(hoverData):
         else:
             return str(int(x)) + ' jours'
     except:
-        return '365 jours'
+        return '220 jours'
 # TOTAL
 @app.callback(
     Output('Total_Susceptible','children'),
@@ -483,12 +483,12 @@ def display_Nb_Total_susceptible(hoverData,R0,incub_time,infec_time,exposed,deat
         x = hoverData['points'][0]['x']
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         sim = sim[(sim.Type == 'S')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(x)].Nb)
+        return '{:,}'.format(int(sim.iloc[int(x)].Nb))
     except:
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'S')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(m)].Nb)
+        return '{:,}'.format(int(sim.iloc[int(m)].Nb))
 @app.callback(
     Output('Total_Expose','children'),
     [Input("Apercu","hoverData"),
@@ -507,12 +507,12 @@ def display_Nb_Total_exposed(hoverData,R0,incub_time,infec_time,exposed,death_ra
         x = hoverData['points'][0]['x']
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         sim = sim[(sim.Type == 'E')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(x)].Nb)
+        return '{:,}'.format(int(sim.iloc[int(x)].Nb))
     except:
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'E')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(m)].Nb)
+        return '{:,}'.format(int(sim.iloc[int(m)].Nb))
 @app.callback(
     Output('Total_Infect','children'),
     [Input("Apercu","hoverData"),
@@ -531,12 +531,12 @@ def display_Nb_Total_infect(hoverData,R0,incub_time,infec_time,exposed,death_rat
         x = hoverData['points'][0]['x']
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         sim = sim[(sim.Type == 'I')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(x)].Nb)
+        return '{:,}'.format(int(sim.iloc[int(x)].Nb))
     except:
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'I')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(m)].Nb)
+        return '{:,}'.format(int(sim.iloc[int(m)].Nb))
 @app.callback(
     Output('Total_Recover','children'),
     [Input("Apercu","hoverData"),
@@ -555,12 +555,12 @@ def display_Nb_Total_recov(hoverData,R0,incub_time,infec_time,exposed,death_rate
         x = hoverData['points'][0]['x']
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         sim = sim[(sim.Type == 'Recovered')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(x)].Nb)
+        return '{:,}'.format(int(sim.iloc[int(x)].Nb))
     except:
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'Recovered')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(m)].Nb)
+        return '{:,}'.format(int(sim.iloc[int(m)].Nb))
 @app.callback(
     Output('Total_Hosp','children'),
     [Input("Apercu","hoverData"),
@@ -579,12 +579,12 @@ def display_Nb_Total_hosp(hoverData,R0,incub_time,infec_time,exposed,death_rate,
         x = hoverData['points'][0]['x']
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         sim = sim[(sim.Type == 'Hospital')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(x)].Nb)
+        return '{:,}'.format(int(sim.iloc[int(x)].Nb))
     except:
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'Hospital')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(m)].Nb)
+        return '{:,}'.format(int(sim.iloc[int(m)].Nb))
 @app.callback(
     Output('Total_Deces','children'),
     [Input("Apercu","hoverData"),
@@ -603,12 +603,12 @@ def display_Nb_Total_death(hoverData,R0,incub_time,infec_time,exposed,death_rate
         x = hoverData['points'][0]['x']
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         sim = sim[(sim.Type == 'Death')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(x)].Nb)
+        return '{:,}'.format(int(sim.iloc[int(x)].Nb))
     except:
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'Death')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(m)].Nb)
+        return '{:,}'.format(int(sim.iloc[int(m)].Nb))
 ## day
 @app.callback(
     Output('Day_suceptible','children'),
@@ -628,12 +628,12 @@ def display_Nb_Day_susceptible(hoverData,R0,incub_time,infec_time,exposed,death_
         x = hoverData['points'][0]['x']
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         sim = sim[(sim.Type == 'S')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb)
+        return '{:,}'.format(int(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb))
     except:
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'S')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb)
+        return '{:,}'.format(int(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb))
 
 @app.callback(
     Output('Day_expose','children'),
@@ -653,12 +653,12 @@ def display_Nb_Day_susceptible(hoverData,R0,incub_time,infec_time,exposed,death_
         x = hoverData['points'][0]['x']
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         sim = sim[(sim.Type == 'E')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb)
+        return '{:,}'.format(int(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb))
     except:
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'E')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb)
+        return '{:,}'.format(int(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb))
 
 @app.callback(
     Output('Day_infect','children'),
@@ -678,12 +678,12 @@ def display_Nb_Day_infectieux(hoverData,R0,incub_time,infec_time,exposed,death_r
         x = hoverData['points'][0]['x']
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         sim = sim[(sim.Type == 'I')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb)
+        return '{:,}'.format(int(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb))
     except:
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'I')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb)
+        return '{:,}'.format(int(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb))
 @app.callback(
     Output('Day_recover','children'),
     [Input("Apercu","hoverData"),
@@ -702,12 +702,12 @@ def display_Nb_Day_recovered(hoverData,R0,incub_time,infec_time,exposed,death_ra
         x = hoverData['points'][0]['x']
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         sim = sim[(sim.Type == 'Recovered')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb)
+        return '{:,}'.format((sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb))
     except:
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'Recovered')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb)
+        return '{:,}'.format((sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb))
 @app.callback(
     Output('Day_hosp','children'),
     [Input("Apercu","hoverData"),
@@ -726,12 +726,12 @@ def display_Nb_day_hosp(hoverData,R0,incub_time,infec_time,exposed,death_rate,de
         x = hoverData['points'][0]['x']
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         sim = sim[(sim.Type == 'Hospital')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb)
+        return '{:,}'.format(int(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb))
     except:
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'Hospital')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb)
+        return '{:,}'.format(int(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb))
 @app.callback(
     Output('Day_deces','children'),
     [Input("Apercu","hoverData"),
@@ -750,11 +750,11 @@ def display_Nb_day_death(hoverData,R0,incub_time,infec_time,exposed,death_rate,d
         x = hoverData['points'][0]['x']
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         sim = sim[(sim.Type == 'Death')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb)
+        return '{:,}'.format(int(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb))
     except:
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'Death')].set_index('Idx')
-        return ' ' + str(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb)
+        return '{:,}'.format(int(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb))
 if __name__ == '__main__':
     app.run_server(debug=True)
