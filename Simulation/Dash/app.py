@@ -17,48 +17,6 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 
 # FUNCTION FOR SIMULATION
-# def SEIR_mano(val_init,coeff,t,N=6000):
-#     """
-#         Input : 
-#             val_init : Liste de 4 valeurs initials que va prendre le modèle 
-#             coeff : Liste de valeurs pour Alpha,Gamma, Beta et Rho
-#             t :
-#         Output:
-            
-#     """
-#     S0,E0,I0,R0= val_init
-#     F = [0]
-#     S,E,I,R = [S0],[E0],[I0],[R0]
-#     a,b,g,r,dr,D_death=coeff
-#     dt = t[1]-t[0]
-#     for _ in t[1:]:
-#         nS = S[-1] - (r*b*S[-1]*I[-1]/N)*dt
-#         nE = E[-1] + (r*b*S[-1]*I[-1]/N-a*E[-1])*dt
-#         nI = I[-1] + (a*E[-1]-g*I[-1])*dt
-#         nR = R[-1] + (g*I[-1])*dt
-#         S.append(nS)
-#         E.append(nE)
-#         I.append(nI)
-#         R.append(nR)
-#     return np.stack([S,E,I,R]).T
-# def simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,N=60,rho =1,t = range(1,365)):
-#     alpha = 1/incub_time
-#     gamma = 1/infec_time
-#     beta = R0 * gamma
-#     rho = 1
-#     Time_to_death = death_time
-#     D_death = Time_to_death - infec_time
-#     coeff = alpha, beta,gamma,rho,death_rate,D_death
-#     init_vals = N-exposed,exposed,0,0
-#     df = pd.DataFrame(SEIR_mano(init_vals,coeff,t),columns=['S','E','I','R'])
-#     lst=[]
-#     for index,row in df.iterrows():
-#         lst+=[(round(row.S),'S',index)]
-#         lst+=[(round(row.E),'E',index)]
-#         lst+=[(round(row.I),'I',index)]
-#         lst+=[(round(row.R),'R',index)]
-#     return pd.DataFrame(lst,columns=['Nb','Type','Idx'])
-
 
 def SEIR_mano_augmented(val_init,coeff,t):
     """
@@ -95,7 +53,7 @@ def SEIR_mano_augmented(val_init,coeff,t):
         R_Severe.append(nR_Severe)
         R_Fatal.append(nR_Fatal)
     return np.stack([S,E,I,Mild,Severe,Severe_hosp,Fatal,R_mild,R_Severe,R_Fatal]).T
-def simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,N=60000,rho=1,t= range(1,366)):
+def simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,N=69000000,rho=1,t= range(1,221)):
     alpha = 1/incub_time
     gamma = 1/infec_time
     beta = R0 * gamma
@@ -407,12 +365,19 @@ def update_figure(R0,incub_time,infec_time,exposed,death_rate,death_time,p_sever
     sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
     return  {
         'data' :[
+            {'x':sim.Idx.unique(),'y':sim[sim.Type == 'Death'].Nb,'type':'bar',
+            'width':'1',
+            'name':'Décès',"hoverinfo": "none",'marker':{'color':'rgba(56, 108, 176,0.6)'}},
+            {'x':sim.Idx.unique(),'y':sim[sim.Type == 'Hospital'].Nb,'type':'bar',
+            'width':'1',
+            'name':'Hospitalisation',"hoverinfo": "none",'marker':{'color':'rgba(141, 160, 203,0.6)'}},
             {'x':sim.Idx.unique(),'y':sim[sim.Type == 'I'].Nb,'type':'bar',
-            'width':'0.9',
+            'width':'1',
             'name':'Infectieux',"hoverinfo": "none",'marker':{'color':'rgba(237, 2, 128, 0.6)'}},
             {'x':sim.Idx.unique(),'y':sim[sim.Type == 'E'].Nb,'type':'bar',
-            'width':'0.9',
+            'width':'1',
             'name':'Exposé',"hoverinfo": "none",'marker':{'color':'rgba(253, 192, 134, 0.6)'}},
+            
         ],
         'layout':{
             'barmode':'stack',
@@ -596,6 +561,54 @@ def display_Nb_Total_recov(hoverData,R0,incub_time,infec_time,exposed,death_rate
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'Recovered')].set_index('Idx')
         return ' ' + str(sim.iloc[int(m)].Nb)
+@app.callback(
+    Output('Total_Hosp','children'),
+    [Input("Apercu","hoverData"),
+    Input('R0_slider','value'),
+    Input('incub_time_slide','value'),
+    Input('infect_time_slide','value'),
+    Input('N_malade_slider','value'),
+    Input('death_rate_slide','value'),
+    Input('Death_time_slide','value'),
+    Input('Severe_slide','value'),
+    Input('Duree_hosp_slide','value')
+    ]
+)
+def display_Nb_Total_hosp(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp):
+    try:
+        x = hoverData['points'][0]['x']
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = sim[(sim.Type == 'Hospital')].set_index('Idx')
+        return ' ' + str(sim.iloc[int(x)].Nb)
+    except:
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        m = sim.Idx.max()
+        sim = sim[(sim.Type == 'Hospital')].set_index('Idx')
+        return ' ' + str(sim.iloc[int(m)].Nb)
+@app.callback(
+    Output('Total_Deces','children'),
+    [Input("Apercu","hoverData"),
+    Input('R0_slider','value'),
+    Input('incub_time_slide','value'),
+    Input('infect_time_slide','value'),
+    Input('N_malade_slider','value'),
+    Input('death_rate_slide','value'),
+    Input('Death_time_slide','value'),
+    Input('Severe_slide','value'),
+    Input('Duree_hosp_slide','value')
+    ]
+)
+def display_Nb_Total_death(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp):
+    try:
+        x = hoverData['points'][0]['x']
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = sim[(sim.Type == 'Death')].set_index('Idx')
+        return ' ' + str(sim.iloc[int(x)].Nb)
+    except:
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        m = sim.Idx.max()
+        sim = sim[(sim.Type == 'Death')].set_index('Idx')
+        return ' ' + str(sim.iloc[int(m)].Nb)
 ## day
 @app.callback(
     Output('Day_suceptible','children'),
@@ -694,6 +707,54 @@ def display_Nb_Day_recovered(hoverData,R0,incub_time,infec_time,exposed,death_ra
         sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'Recovered')].set_index('Idx')
+        return ' ' + str(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb)
+@app.callback(
+    Output('Day_hosp','children'),
+    [Input("Apercu","hoverData"),
+    Input('R0_slider','value'),
+    Input('incub_time_slide','value'),
+    Input('infect_time_slide','value'),
+    Input('N_malade_slider','value'),
+    Input('death_rate_slide','value'),
+    Input('Death_time_slide','value'),
+    Input('Severe_slide','value'),
+    Input('Duree_hosp_slide','value')
+    ]
+)
+def display_Nb_day_hosp(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp):
+    try:
+        x = hoverData['points'][0]['x']
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = sim[(sim.Type == 'Hospital')].set_index('Idx')
+        return ' ' + str(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb)
+    except:
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        m = sim.Idx.max()
+        sim = sim[(sim.Type == 'Hospital')].set_index('Idx')
+        return ' ' + str(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb)
+@app.callback(
+    Output('Day_deces','children'),
+    [Input("Apercu","hoverData"),
+    Input('R0_slider','value'),
+    Input('incub_time_slide','value'),
+    Input('infect_time_slide','value'),
+    Input('N_malade_slider','value'),
+    Input('death_rate_slide','value'),
+    Input('Death_time_slide','value'),
+    Input('Severe_slide','value'),
+    Input('Duree_hosp_slide','value')
+    ]
+)
+def display_Nb_day_death(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp):
+    try:
+        x = hoverData['points'][0]['x']
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = sim[(sim.Type == 'Death')].set_index('Idx')
+        return ' ' + str(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb)
+    except:
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        m = sim.Idx.max()
+        sim = sim[(sim.Type == 'Death')].set_index('Idx')
         return ' ' + str(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb)
 if __name__ == '__main__':
     app.run_server(debug=True)
