@@ -75,11 +75,10 @@ def SEIR_mano_augmented(val_init,coeff,jour_inter,t):
             R_Fatal.append(nR_Fatal)
     return np.stack([S,E,I,Mild,Severe,Severe_hosp,Fatal,R_mild,R_Severe,R_Fatal]).T
 
-def simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,jour_inter,N=69000000,t=range(1,221),):
+def simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,jour_inter,N=69000000,t=range(1,366),):
     alpha = 1/incub_time
     gamma = 1/infec_time
     beta = R0 * gamma
-    rho = 1
     recov_mild =  (14 - infec_time)
     recover_severe = (31.5 - infec_time)
     Time_to_death = death_time
@@ -225,7 +224,7 @@ app.layout = html.Div(children=[
                     dbc.Row([
                         html.Label('Taux de reproduction de base R0 :',
                         style=style_title_slider),
-                        html.P("Le nombre moyen d'individus qu'une personne infecte, tant qu'elle sera contagieuse.",
+                        html.P("Le nombre moyen d'individus qu'une personne infecte.",
                         style=style_slider_text),
                         ]),
                     html.P(id='Value_R0',style=style_slider_value),
@@ -249,7 +248,7 @@ app.layout = html.Div(children=[
                         id='N_malade_slider',
                         min=1,
                         max = 6000,
-                        value=1,
+                        value=90,
                         step=1
                         )
                         ],width=6),
@@ -288,7 +287,7 @@ app.layout = html.Div(children=[
                     ],
                     width=6),
             ])
-        ],width = 6),
+        ],width = 4),
             dbc.Col([html.H6('Variables cliniques :',
                 style={'text-align':'left',
                 'margin-bottom':'2em',
@@ -365,54 +364,51 @@ app.layout = html.Div(children=[
                             step=1
                             ),
                     ],width = 6)]),
-            ],width = 6)],style ={
+            ],width = 4),
+            dbc.Col([
+                html.H6('Distanciation sociale :',
+                    style={'text-align':'left',
+                    'margin-bottom':'2em',
+                    'padding':'4px',
+                    'margin-left':'2em',
+                    'margin-right':'4em',
+                    'border-bottom': '2px solid #999'}),
+                dbc.Row([
+                                html.Label('Coefficient de distanciation sociale :',
+                                style=style_title_slider),
+                            ]),
+                            dbc.Row(
+                                html.P("Taux de distanciation sociale où 100% est une distance sociale nulle et 0% une quarantaine totale.",
+                                style=style_slider_text),
+                            ),
+                            html.P(id='Value_dist',style=style_slider_value),
+                            dcc.Slider(
+                                id='Dist_slide',
+                                min=0.01,
+                                max = 1,
+                                value=0.4,
+                                step=0.01
+                                ),
+                dbc.Row([
+                                html.Label('Mise en place de la distanciation :',
+                                style=style_title_slider),
+                            ]),
+                            dbc.Row(
+                                html.P("Jour où la distanciation sociale est mise en place.",
+                                style=style_slider_text),
+                            ),
+                            html.P(id='Value_jour_dist',style=style_slider_value),
+                            dcc.Slider(
+                                id='Dist_jour_slide',
+                                min=1,
+                                max = 365,
+                                value=100,
+                                step=1
+                                ),
+            ],width=4),
+            ],style ={
                 'margin-right':'2em'
             }),
-    dbc.Row([
-        dbc.Col(width=2),
-        dbc.Col([
-            html.H6('Distanciation sociale :',
-                style={'text-align':'left',
-                'margin-bottom':'2em',
-                'padding':'4px',
-                'margin-left':'2em',
-                'margin-right':'4em',
-                'border-bottom': '2px solid #999'}),
-            dbc.Row([
-                            html.Label('Coefficient de distanciation sociale :',
-                            style=style_title_slider),
-                        ]),
-                        dbc.Row(
-                            html.P("Taux de distanciation sociale où 100% est une distance sociale nulle et 0% une quarantaine totale.",
-                            style=style_slider_text),
-                        ),
-                        html.P(id='Value_dist',style=style_slider_value),
-                        dcc.Slider(
-                            id='Dist_slide',
-                            min=0.01,
-                            max = 1,
-                            value=0.8,
-                            step=0.01
-                            ),
-            dbc.Row([
-                            html.Label('Mise en place de la distanciation :',
-                            style=style_title_slider),
-                        ]),
-                        dbc.Row(
-                            html.P("Jour où la distanciation sociale est mise en place.",
-                            style=style_slider_text),
-                        ),
-                        html.P(id='Value_jour_dist',style=style_slider_value),
-                        dcc.Slider(
-                            id='Dist_jour_slide',
-                            min=1,
-                            max = 220,
-                            value=100,
-                            step=1
-                            ),
-        ],width=8),
-        dbc.Col(width=2),
-    ])
     ])
 
 # Figure callback
@@ -452,6 +448,20 @@ def update_figure(R0,incub_time,infec_time,exposed,death_rate,death_time,p_sever
             'barmode':'stack',
             'xaxis':{'type':'category',
             'dtick':'20'},
+        'shapes':[{
+            'type':'line',
+            'x0':dist_jour,
+            'x1':dist_jour,
+            'xref':'x',
+            'yref':'y',
+            'y0':'0',
+            'y1':sim[sim.Type == 'I'].Nb.max()+sim[sim.Type == 'Hospital'].Nb.max()+sim[sim.Type == 'E'].Nb.max()+sim[sim.Type == 'Death'].Nb.max(),
+            'line':{
+                'color':'Dark',
+                'width':'1',
+                'dash':'dot'
+            }
+        }]
             
         }
     }
@@ -548,7 +558,7 @@ def display_jour(hoverData):
         else:
             return str(int(x)) + ' jours'
     except:
-        return '220 jours'
+        return '365 jours'
 # TOTAL
 @app.callback(
     Output('Total_Susceptible','children'),
