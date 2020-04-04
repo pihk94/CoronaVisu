@@ -381,7 +381,8 @@ def update_figure(R0,incub_time,infec_time,exposed,death_rate,death_time,p_sever
         ],
         'layout':{
             'barmode':'stack',
-            'xaxis':{'type':'category'},
+            'xaxis':{'type':'category',
+            'dtick':'20'},
             
         }
     }
