@@ -448,20 +448,25 @@ def update_figure(R0,incub_time,infec_time,exposed,death_rate,death_time,p_sever
             'barmode':'stack',
             'xaxis':{'type':'category',
             'dtick':'20'},
-        'shapes':[{
-            'type':'line',
-            'x0':dist_jour,
-            'x1':dist_jour,
-            'xref':'x',
-            'yref':'y',
-            'y0':'0',
-            'y1':sim[sim.Type == 'I'].Nb.max()+sim[sim.Type == 'Hospital'].Nb.max()+sim[sim.Type == 'E'].Nb.max()+sim[sim.Type == 'Death'].Nb.max(),
-            'line':{
-                'color':'Dark',
-                'width':'1',
-                'dash':'dot'
-            }
-        }]
+            'annotations':[{
+                'x':dist_jour,
+                'y':sim[sim.Type == 'I'].Nb.max()+sim[sim.Type == 'Hospital'].Nb.max()+sim[sim.Type == 'E'].Nb.max()+sim[sim.Type == 'Death'].Nb.max(),
+                'text':'Mise en place du confinement'
+            }],
+            'shapes':[{
+                'type':'line',
+                'x0':dist_jour,
+                'x1':dist_jour,
+                'xref':'x',
+                'yref':'y',
+                'y0':'0',
+                'y1':sim[sim.Type == 'I'].Nb.max()+sim[sim.Type == 'Hospital'].Nb.max()+sim[sim.Type == 'E'].Nb.max()+sim[sim.Type == 'Death'].Nb.max(),
+                'line':{
+                    'color':'Dark',
+                    'width':'1',
+                    'dash':'dot'
+                    }
+                }]
             
         }
     }
