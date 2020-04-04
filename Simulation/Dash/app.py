@@ -451,8 +451,13 @@ def update_figure(R0,incub_time,infec_time,exposed,death_rate,death_time,p_sever
             'annotations':[{
                 'x':dist_jour,
                 'y':sim[sim.Type == 'I'].Nb.max()+sim[sim.Type == 'Hospital'].Nb.max()+sim[sim.Type == 'E'].Nb.max()+sim[sim.Type == 'Death'].Nb.max(),
-                'text':'Mise en place du confinement'
-            }],
+                'text':'Mise en place du confinement : R0 = {}'.format(round(R0*rho,2))
+            },
+                {
+                'x':sim.loc[sim[sim.Type == 'Death'].ne(0).idxmax()[0]].Idx,
+                'y':sim[sim.Type == 'I'].Nb.max(),
+                'text':'Premier décès'
+                }],
             'shapes':[{
                 'type':'line',
                 'x0':dist_jour,
@@ -462,6 +467,20 @@ def update_figure(R0,incub_time,infec_time,exposed,death_rate,death_time,p_sever
                 'y0':'0',
                 'y1':sim[sim.Type == 'I'].Nb.max()+sim[sim.Type == 'Hospital'].Nb.max()+sim[sim.Type == 'E'].Nb.max()+sim[sim.Type == 'Death'].Nb.max(),
                 'line':{
+                    'color':'Dark',
+                    'width':'1',
+                    'dash':'dot'
+                    }
+                },
+                {
+                    'type':'line',
+                    'x0':sim.loc[sim[sim.Type == 'Death'].ne(0).idxmax()[0]].Idx,
+                    'x1':sim.loc[sim[sim.Type == 'Death'].ne(0).idxmax()[0]].Idx,
+                    'xref':'x',
+                    'yref':'y',
+                    'y0':'0',
+                    'y1':sim[sim.Type == 'I'].Nb.max(),
+                    'line':{
                     'color':'Dark',
                     'width':'1',
                     'dash':'dot'
