@@ -17,8 +17,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 
 # FUNCTION FOR SIMULATION
-
-def SEIR_mano_augmented(val_init,coeff,t):
+def SEIR_mano_augmented(val_init,coeff,jour_inter,t):
     """
         Input : 
             val_init : Liste de 4 valeurs initials que va prendre le modèle 
@@ -32,28 +31,51 @@ def SEIR_mano_augmented(val_init,coeff,t):
     a,b,g,r,death_rate,D_death,p_severe,recov_mild,duree_hosp,recover_severe=coeff
     p_mild = 1 - death_rate - p_severe
     for _ in t[1:]:
-        nS = S[-1] - (r*b*S[-1]*I[-1])
-        nE = E[-1] + (r*b*S[-1]*I[-1]-a*E[-1])
-        nI = I[-1] + (a*E[-1]-g*I[-1])
-        nMild = Mild[-1] + (p_mild * g * I[-1] - (1/recov_mild) * Mild[-1]) 
-        nSevere = Severe[-1] + (p_severe * g * I[-1]  - (1/duree_hosp ) * Severe[-1])
-        nSevere_hosp = Severe_hosp[-1]+ ((1/duree_hosp)*Severe[-1] - (1/recover_severe) * Severe_hosp[-1])
-        nFatal = Fatal[-1] + (death_rate*g*I[-1] - (1/D_death) *Fatal[-1])
-        nR_mild = R_mild[-1] + ((1/recov_mild) * Mild[-1])
-        nR_Severe = R_Severe[-1] + ((1/recover_severe)*Severe_hosp[-1])
-        nR_Fatal = R_Fatal[-1] + ((1/D_death) * Fatal[-1])
-        S.append(nS)
-        E.append(nE)
-        I.append(nI)
-        Mild.append(nMild)
-        Severe.append(nSevere)
-        Severe_hosp.append(nSevere_hosp)
-        Fatal.append(nFatal)
-        R_mild.append(nR_mild)
-        R_Severe.append(nR_Severe)
-        R_Fatal.append(nR_Fatal)
+        if _ < jour_inter:
+            nS = S[-1] - (b*S[-1]*I[-1])
+            nE = E[-1] + (b*S[-1]*I[-1]-a*E[-1])
+            nI = I[-1] + (a*E[-1]-g*I[-1])
+            nMild = Mild[-1] + (p_mild * g * I[-1] - (1/recov_mild) * Mild[-1]) 
+            nSevere = Severe[-1] + (p_severe * g * I[-1]  - (1/duree_hosp ) * Severe[-1])
+            nSevere_hosp = Severe_hosp[-1]+ ((1/duree_hosp)*Severe[-1] - (1/recover_severe) * Severe_hosp[-1])
+            nFatal = Fatal[-1] + (death_rate*g*I[-1] - (1/D_death) *Fatal[-1])
+            nR_mild = R_mild[-1] + ((1/recov_mild) * Mild[-1])
+            nR_Severe = R_Severe[-1] + ((1/recover_severe)*Severe_hosp[-1])
+            nR_Fatal = R_Fatal[-1] + ((1/D_death) * Fatal[-1])
+            S.append(nS)
+            E.append(nE)
+            I.append(nI)
+            Mild.append(nMild)
+            Severe.append(nSevere)
+            Severe_hosp.append(nSevere_hosp)
+            Fatal.append(nFatal)
+            R_mild.append(nR_mild)
+            R_Severe.append(nR_Severe)
+            R_Fatal.append(nR_Fatal)
+        else:
+            nS = S[-1] - (r*b*S[-1]*I[-1])
+            nE = E[-1] + (r*b*S[-1]*I[-1]-a*E[-1])
+            nI = I[-1] + (a*E[-1]-g*I[-1])
+            nMild = Mild[-1] + (p_mild * g * I[-1] - (1/recov_mild) * Mild[-1]) 
+            nSevere = Severe[-1] + (p_severe * g * I[-1]  - (1/duree_hosp ) * Severe[-1])
+            nSevere_hosp = Severe_hosp[-1]+ ((1/duree_hosp)*Severe[-1] - (1/recover_severe) * Severe_hosp[-1])
+            nFatal = Fatal[-1] + (death_rate*g*I[-1] - (1/D_death) *Fatal[-1])
+            nR_mild = R_mild[-1] + ((1/recov_mild) * Mild[-1])
+            nR_Severe = R_Severe[-1] + ((1/recover_severe)*Severe_hosp[-1])
+            nR_Fatal = R_Fatal[-1] + ((1/D_death) * Fatal[-1])
+            S.append(nS)
+            E.append(nE)
+            I.append(nI)
+            Mild.append(nMild)
+            Severe.append(nSevere)
+            Severe_hosp.append(nSevere_hosp)
+            Fatal.append(nFatal)
+            R_mild.append(nR_mild)
+            R_Severe.append(nR_Severe)
+            R_Fatal.append(nR_Fatal)
     return np.stack([S,E,I,Mild,Severe,Severe_hosp,Fatal,R_mild,R_Severe,R_Fatal]).T
-def simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,N=69000000,rho=1,t= range(1,221)):
+
+def simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,jour_inter,N=69000000,t=range(1,221),):
     alpha = 1/incub_time
     gamma = 1/infec_time
     beta = R0 * gamma
@@ -64,7 +86,7 @@ def simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,du
     D_death = Time_to_death - infec_time
     coeff = alpha, beta,gamma,rho,death_rate,D_death,p_severe,recov_mild,duree_hosp,recover_severe
     init_vals = 1-exposed/N,exposed/N,0
-    df = pd.DataFrame(SEIR_mano_augmented(init_vals,coeff,t),columns=['S','E','I','Mild','Severe','Severe_hosp','Fatal','R_Mild','R_Severe','R_Fatal'])
+    df = pd.DataFrame(SEIR_mano_augmented(init_vals,coeff,jour_inter,t),columns=['S','E','I','Mild','Severe','Severe_hosp','Fatal','R_Mild','R_Severe','R_Fatal'])
     lst=[]
     for index,row in df.iterrows():
         lst+=[(round(row.S*N),'S',index)]
@@ -345,7 +367,52 @@ app.layout = html.Div(children=[
                     ],width = 6)]),
             ],width = 6)],style ={
                 'margin-right':'2em'
-            })
+            }),
+    dbc.Row([
+        dbc.Col(width=2),
+        dbc.Col([
+            html.H6('Distanciation sociale :',
+                style={'text-align':'left',
+                'margin-bottom':'2em',
+                'padding':'4px',
+                'margin-left':'2em',
+                'margin-right':'4em',
+                'border-bottom': '2px solid #999'}),
+            dbc.Row([
+                            html.Label('Coefficient de distanciation sociale :',
+                            style=style_title_slider),
+                        ]),
+                        dbc.Row(
+                            html.P("Taux de distanciation sociale où 100% est une distance sociale nulle et 0% une quarantaine totale.",
+                            style=style_slider_text),
+                        ),
+                        html.P(id='Value_dist',style=style_slider_value),
+                        dcc.Slider(
+                            id='Dist_slide',
+                            min=0.01,
+                            max = 1,
+                            value=0.8,
+                            step=0.01
+                            ),
+            dbc.Row([
+                            html.Label('Mise en place de la distanciation :',
+                            style=style_title_slider),
+                        ]),
+                        dbc.Row(
+                            html.P("Jour où la distanciation sociale est mise en place.",
+                            style=style_slider_text),
+                        ),
+                        html.P(id='Value_jour_dist',style=style_slider_value),
+                        dcc.Slider(
+                            id='Dist_jour_slide',
+                            min=1,
+                            max = 220,
+                            value=100,
+                            step=1
+                            ),
+        ],width=8),
+        dbc.Col(width=2),
+    ])
     ])
 
 # Figure callback
@@ -358,11 +425,13 @@ app.layout = html.Div(children=[
     Input('death_rate_slide','value'),
     Input('Death_time_slide','value'),
     Input('Severe_slide','value'),
-    Input('Duree_hosp_slide','value')]
+    Input('Duree_hosp_slide','value'),
+    Input('Dist_slide','value'),
+    Input('Dist_jour_slide','value')]
 )
-#R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp
-def update_figure(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp):
-    sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+#R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,N=69000000,rho,t=range(1,221),jour_inter
+def update_figure(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour):
+    sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
     return  {
         'data' :[
             {'x':sim.Idx.unique(),'y':sim[sim.Type == 'Death'].Nb,'type':'bar',
@@ -387,6 +456,21 @@ def update_figure(R0,incub_time,infec_time,exposed,death_rate,death_time,p_sever
         }
     }
 # Slider display text 
+@app.callback(
+    Output('Value_dist','children'),
+    [Input('Dist_slide','value')]
+)
+def update_dist_display(value):
+    return '{}%'.format(round(value*100,2))
+@app.callback(
+    Output('Value_jour_dist','children'),
+    [Input('Dist_jour_slide','value')]
+)
+def update_dist_jour_display(value):
+    if value >1:
+        return '{} jours'.format(value)
+    else:
+        return '{} jour'.format(value)
 @app.callback(
     Output('Value_R0','children'),
     [Input('R0_slider','value')]
@@ -476,17 +560,19 @@ def display_jour(hoverData):
     Input('death_rate_slide','value'),
     Input('Death_time_slide','value'),
     Input('Severe_slide','value'),
-    Input('Duree_hosp_slide','value')
+    Input('Duree_hosp_slide','value'),
+    Input('Dist_slide','value'),
+    Input('Dist_jour_slide','value')
     ]
 )
-def display_Nb_Total_susceptible(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp):
+def display_Nb_Total_susceptible(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour):
     try:
         x = hoverData['points'][0]['x']
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         sim = sim[(sim.Type == 'S')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(x)].Nb))
     except:
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'S')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(m)].Nb))
@@ -500,17 +586,19 @@ def display_Nb_Total_susceptible(hoverData,R0,incub_time,infec_time,exposed,deat
     Input('death_rate_slide','value'),
     Input('Death_time_slide','value'),
     Input('Severe_slide','value'),
-    Input('Duree_hosp_slide','value')
+    Input('Duree_hosp_slide','value'),
+    Input('Dist_slide','value'),
+    Input('Dist_jour_slide','value')
     ]
 )
-def display_Nb_Total_exposed(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp):
+def display_Nb_Total_exposed(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour):
     try:
         x = hoverData['points'][0]['x']
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         sim = sim[(sim.Type == 'E')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(x)].Nb))
     except:
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'E')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(m)].Nb))
@@ -524,17 +612,19 @@ def display_Nb_Total_exposed(hoverData,R0,incub_time,infec_time,exposed,death_ra
     Input('death_rate_slide','value'),
     Input('Death_time_slide','value'),
     Input('Severe_slide','value'),
-    Input('Duree_hosp_slide','value')
+    Input('Duree_hosp_slide','value'),
+    Input('Dist_slide','value'),
+    Input('Dist_jour_slide','value')
     ]
 )
-def display_Nb_Total_infect(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp):
+def display_Nb_Total_infect(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour):
     try:
         x = hoverData['points'][0]['x']
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         sim = sim[(sim.Type == 'I')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(x)].Nb))
     except:
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'I')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(m)].Nb))
@@ -548,17 +638,19 @@ def display_Nb_Total_infect(hoverData,R0,incub_time,infec_time,exposed,death_rat
     Input('death_rate_slide','value'),
     Input('Death_time_slide','value'),
     Input('Severe_slide','value'),
-    Input('Duree_hosp_slide','value')
+    Input('Duree_hosp_slide','value'),
+    Input('Dist_slide','value'),
+    Input('Dist_jour_slide','value')
     ]
 )
-def display_Nb_Total_recov(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp):
+def display_Nb_Total_recov(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour):
     try:
         x = hoverData['points'][0]['x']
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         sim = sim[(sim.Type == 'Recovered')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(x)].Nb))
     except:
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'Recovered')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(m)].Nb))
@@ -572,17 +664,19 @@ def display_Nb_Total_recov(hoverData,R0,incub_time,infec_time,exposed,death_rate
     Input('death_rate_slide','value'),
     Input('Death_time_slide','value'),
     Input('Severe_slide','value'),
-    Input('Duree_hosp_slide','value')
+    Input('Duree_hosp_slide','value'),
+    Input('Dist_slide','value'),
+    Input('Dist_jour_slide','value')
     ]
 )
-def display_Nb_Total_hosp(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp):
+def display_Nb_Total_hosp(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour):
     try:
         x = hoverData['points'][0]['x']
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         sim = sim[(sim.Type == 'Hospital')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(x)].Nb))
     except:
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'Hospital')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(m)].Nb))
@@ -596,17 +690,19 @@ def display_Nb_Total_hosp(hoverData,R0,incub_time,infec_time,exposed,death_rate,
     Input('death_rate_slide','value'),
     Input('Death_time_slide','value'),
     Input('Severe_slide','value'),
-    Input('Duree_hosp_slide','value')
+    Input('Duree_hosp_slide','value'),
+    Input('Dist_slide','value'),
+    Input('Dist_jour_slide','value')
     ]
 )
-def display_Nb_Total_death(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp):
+def display_Nb_Total_death(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour):
     try:
         x = hoverData['points'][0]['x']
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         sim = sim[(sim.Type == 'Death')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(x)].Nb))
     except:
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'Death')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(m)].Nb))
@@ -621,17 +717,19 @@ def display_Nb_Total_death(hoverData,R0,incub_time,infec_time,exposed,death_rate
     Input('death_rate_slide','value'),
     Input('Death_time_slide','value'),
     Input('Severe_slide','value'),
-    Input('Duree_hosp_slide','value')
+    Input('Duree_hosp_slide','value'),
+    Input('Dist_slide','value'),
+    Input('Dist_jour_slide','value')
     ]
 )
-def display_Nb_Day_susceptible(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp):
+def display_Nb_Day_susceptible(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour):
     try:
         x = hoverData['points'][0]['x']
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         sim = sim[(sim.Type == 'S')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb))
     except:
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'S')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb))
@@ -646,17 +744,19 @@ def display_Nb_Day_susceptible(hoverData,R0,incub_time,infec_time,exposed,death_
     Input('death_rate_slide','value'),
     Input('Death_time_slide','value'),
     Input('Severe_slide','value'),
-    Input('Duree_hosp_slide','value')
+    Input('Duree_hosp_slide','value'),
+    Input('Dist_slide','value'),
+    Input('Dist_jour_slide','value')
     ]
 )
-def display_Nb_Day_susceptible(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp):
+def display_Nb_Day_susceptible(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour):
     try:
         x = hoverData['points'][0]['x']
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         sim = sim[(sim.Type == 'E')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb))
     except:
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'E')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb))
@@ -671,17 +771,19 @@ def display_Nb_Day_susceptible(hoverData,R0,incub_time,infec_time,exposed,death_
     Input('death_rate_slide','value'),
     Input('Death_time_slide','value'),
     Input('Severe_slide','value'),
-    Input('Duree_hosp_slide','value')
+    Input('Duree_hosp_slide','value'),
+    Input('Dist_slide','value'),
+    Input('Dist_jour_slide','value')
     ]
 )
-def display_Nb_Day_infectieux(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp):
+def display_Nb_Day_infectieux(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour):
     try:
         x = hoverData['points'][0]['x']
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         sim = sim[(sim.Type == 'I')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb))
     except:
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'I')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb))
@@ -695,17 +797,19 @@ def display_Nb_Day_infectieux(hoverData,R0,incub_time,infec_time,exposed,death_r
     Input('death_rate_slide','value'),
     Input('Death_time_slide','value'),
     Input('Severe_slide','value'),
-    Input('Duree_hosp_slide','value')
+    Input('Duree_hosp_slide','value'),
+    Input('Dist_slide','value'),
+    Input('Dist_jour_slide','value')
     ]
 )
-def display_Nb_Day_recovered(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp):
+def display_Nb_Day_recovered(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour):
     try:
         x = hoverData['points'][0]['x']
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         sim = sim[(sim.Type == 'Recovered')].set_index('Idx')
         return '{:,}'.format((sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb))
     except:
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'Recovered')].set_index('Idx')
         return '{:,}'.format((sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb))
@@ -719,17 +823,19 @@ def display_Nb_Day_recovered(hoverData,R0,incub_time,infec_time,exposed,death_ra
     Input('death_rate_slide','value'),
     Input('Death_time_slide','value'),
     Input('Severe_slide','value'),
-    Input('Duree_hosp_slide','value')
+    Input('Duree_hosp_slide','value'),
+    Input('Dist_slide','value'),
+    Input('Dist_jour_slide','value')
     ]
 )
-def display_Nb_day_hosp(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp):
+def display_Nb_day_hosp(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour):
     try:
         x = hoverData['points'][0]['x']
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         sim = sim[(sim.Type == 'Hospital')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb))
     except:
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'Hospital')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb))
@@ -743,17 +849,19 @@ def display_Nb_day_hosp(hoverData,R0,incub_time,infec_time,exposed,death_rate,de
     Input('death_rate_slide','value'),
     Input('Death_time_slide','value'),
     Input('Severe_slide','value'),
-    Input('Duree_hosp_slide','value')
+    Input('Duree_hosp_slide','value'),
+    Input('Dist_slide','value'),
+    Input('Dist_jour_slide','value')
     ]
 )
-def display_Nb_day_death(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp):
+def display_Nb_day_death(hoverData,R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour):
     try:
         x = hoverData['points'][0]['x']
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         sim = sim[(sim.Type == 'Death')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(x)].Nb - sim.iloc[int(x)-1].Nb))
     except:
-        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp)
+        sim = simulator(R0,incub_time,infec_time,exposed,death_rate,death_time,p_severe,duree_hosp,rho,dist_jour)
         m = sim.Idx.max()
         sim = sim[(sim.Type == 'Death')].set_index('Idx')
         return '{:,}'.format(int(sim.iloc[int(m)].Nb - sim.iloc[int(m)-1].Nb))
