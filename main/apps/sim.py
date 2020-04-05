@@ -9,9 +9,32 @@ import os
 import pandas as pd
 import numpy as np
 
-#APP SETTINGS
-external_stylesheets = [dbc.themes.BOOTSTRAP,"https://use.fontawesome.com/releases/v5.8.1/css/all.css",'https://kit.fontawesome.com/3ee914798e.js']
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+from app import app
+
+navbar = dbc.Navbar(
+        [
+        html.A(
+            dbc.Row(
+            [
+                dbc.Col(html.Img(src= app.get_asset_url('png/008-virus.png'),height='32px',width ='32px')),
+                dbc.Col(dbc.NavbarBrand('CoronaRecap',className="ml-2"))
+            ],
+                align="center",
+                no_gutters=True,
+                ),
+                href="/"),
+            dbc.NavbarToggler(id="navbar-toggler2"),
+            dbc.Nav(
+                [
+                    dbc.NavItem(dbc.NavLink("Récapitulatif",href="/")),
+                    dbc.NavItem(dbc.NavLink("Simulateur",href="/simulation")),
+                ],className="ml-auto",navbar=True
+            )
+            
+        ],
+    color="dark",
+    dark=True,
+)
 
 
 # FUNCTION FOR SIMULATION
@@ -117,7 +140,8 @@ style_slider_value = {
     'margin-bottom':'0px'
 }
 
-app.layout = html.Div(children=[
+layout = html.Div(children=[
+    navbar,
     html.H1(children= "Simulateur COVID-19",
     style = {
         'textAlign':'center',
@@ -131,18 +155,18 @@ app.layout = html.Div(children=[
             dbc.Row([
                 html.Span(id='NbJours',children='365 jours')
             ],className = 'justify-content-center'),
-            html.Img(src=app.get_asset_url('icon-corona/png/014-quarantine.png'),
+            html.Img(src=app.get_asset_url('png/014-quarantine.png'),
             style={'height':'32px','width':'32px','margin-left':'7em'}),
             dbc.Row([
                 html.Span(children='Susceptible',style={'font-weight':'600'})
                     ]),
                     dbc.Row([
                         dbc.Col(
-                            html.Img(src=app.get_asset_url('icon-corona/png/019-virus.png'),style={'height':'32px','width':'32px','margin-top':'9px'})
+                            html.Img(src=app.get_asset_url('png/019-virus.png'),style={'height':'32px','width':'32px','margin-top':'9px'})
                             ,width = 2),
                         dbc.Col([
-                            dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/sigma.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Total_Susceptible',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})],style = {'margin-top':'9px'}),
-                            dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/delta.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_suceptible',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})]),
+                            dbc.Row([html.Img(src=app.get_asset_url('png/sigma.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Total_Susceptible',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})],style = {'margin-top':'9px'}),
+                            dbc.Row([html.Img(src=app.get_asset_url('png/delta.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_suceptible',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})]),
                         ],width =10),  
                     ]),
             dbc.Row([
@@ -150,11 +174,11 @@ app.layout = html.Div(children=[
                 ]),
                 dbc.Row([
                     dbc.Col(
-                        html.Img(src=app.get_asset_url('icon-corona/png/001-virus.png'),style={'height':'32px','width':'32px','margin-top':'9px'})
+                        html.Img(src=app.get_asset_url('png/001-virus.png'),style={'height':'32px','width':'32px','margin-top':'9px'})
                         ,width = 2),
                     dbc.Col([
-                        dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/sigma.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Total_Expose',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})],style = {'margin-top':'9px'}),
-                        dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/delta.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_expose',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})]),
+                        dbc.Row([html.Img(src=app.get_asset_url('png/sigma.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Total_Expose',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})],style = {'margin-top':'9px'}),
+                        dbc.Row([html.Img(src=app.get_asset_url('png/delta.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_expose',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})]),
                     ],width =10),  
                 ]),
             dbc.Row([
@@ -162,11 +186,11 @@ app.layout = html.Div(children=[
             ]),
             dbc.Row([
                 dbc.Col(
-                    html.Img(src=app.get_asset_url('icon-corona/png/044-cold.png'),style={'height':'32px','width':'32px','margin-top':'9px'})
+                    html.Img(src=app.get_asset_url('png/044-cold.png'),style={'height':'32px','width':'32px','margin-top':'9px'})
                     ,width = 2),
                 dbc.Col([
-                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/sigma.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Total_Infect',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})],style = {'margin-top':'9px'}),
-                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/delta.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_infect',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})]),
+                    dbc.Row([html.Img(src=app.get_asset_url('png/sigma.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Total_Infect',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})],style = {'margin-top':'9px'}),
+                    dbc.Row([html.Img(src=app.get_asset_url('png/delta.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_infect',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})]),
                 ],width =10),  
             ]),
              dbc.Row([
@@ -174,22 +198,22 @@ app.layout = html.Div(children=[
             ]),
             dbc.Row([
                 dbc.Col(
-                    html.Img(src=app.get_asset_url('icon-corona/png/049-nurse.png'),style={'height':'32px','width':'32px','margin-top':'9px'})
+                    html.Img(src=app.get_asset_url('png/049-nurse.png'),style={'height':'32px','width':'32px','margin-top':'9px'})
                     ,width = 2),
                 dbc.Col([
-                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/sigma.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Total_Recover',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})],style = {'margin-top':'9px'}),
-                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/delta.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_recover',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})]),
+                    dbc.Row([html.Img(src=app.get_asset_url('png/sigma.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Total_Recover',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})],style = {'margin-top':'9px'}),
+                    dbc.Row([html.Img(src=app.get_asset_url('png/delta.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_recover',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})]),
                 ],width =10)]), 
             dbc.Row([
                 html.Span(children='Hospitalisation',style={'font-weight':'600'})
             ]),
             dbc.Row([
                 dbc.Col(
-                    html.Img(src=app.get_asset_url('icon-corona/png/healthcare-and-medical.png'),style={'height':'32px','width':'32px','margin-top':'9px'})
+                    html.Img(src=app.get_asset_url('png/healthcare-and-medical.png'),style={'height':'32px','width':'32px','margin-top':'9px'})
                     ,width = 2),
                 dbc.Col([
-                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/sigma.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Total_Hosp',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})],style = {'margin-top':'9px'}),
-                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/delta.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_hosp',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})]),
+                    dbc.Row([html.Img(src=app.get_asset_url('png/sigma.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Total_Hosp',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})],style = {'margin-top':'9px'}),
+                    dbc.Row([html.Img(src=app.get_asset_url('png/delta.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_hosp',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})]),
                 ],width =10), 
             ]),
             dbc.Row([
@@ -197,11 +221,11 @@ app.layout = html.Div(children=[
             ]),
             dbc.Row([
                 dbc.Col(
-                    html.Img(src=app.get_asset_url('icon-corona/png/grave.png'),style={'height':'32px','width':'32px','margin-top':'9px'})
+                    html.Img(src=app.get_asset_url('png/grave.png'),style={'height':'32px','width':'32px','margin-top':'9px'})
                     ,width = 2),
                 dbc.Col([
-                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/sigma.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Total_Deces',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})],style = {'margin-top':'9px'}),
-                    dbc.Row([html.Img(src=app.get_asset_url('icon-corona/png/delta.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_deces',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})]),
+                    dbc.Row([html.Img(src=app.get_asset_url('png/sigma.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Total_Deces',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})],style = {'margin-top':'9px'}),
+                    dbc.Row([html.Img(src=app.get_asset_url('png/delta.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_deces',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})]),
                 ],width =10),]),
             html.Div([
                 
@@ -300,7 +324,7 @@ app.layout = html.Div(children=[
                             style=style_title_slider),
                         ]),
                         dbc.Row(
-                            html.P("Propotion moyenne d'individus pouvant décèder du COVID-19.",
+                            html.P("Propotion d'individus pouvant décèder du COVID-19.",
                             style=style_slider_text),
                         ),
                         html.P(id='Value_death_rate',style=style_slider_value),
@@ -668,6 +692,3 @@ def display_Nb_Day_susceptible(hoverData,R0,incub_time,infec_time,exposed,death_
         hosp = sim[(sim.Type == 'Hospital')].set_index('Idx')
         death = sim[(sim.Type == 'Death')].set_index('Idx')
         return '{:,}'.format(int(surv.iloc[int(m)].Nb - surv.iloc[int(m)-1].Nb)),'{:,}'.format(int(exp.iloc[int(m)].Nb - exp.iloc[int(m)-1].Nb)),'{:,}'.format(int(infec.iloc[int(m)].Nb - infec.iloc[int(m)-1].Nb)),'{:,}'.format(int(recov.iloc[int(m)].Nb - recov.iloc[int(m)-1].Nb)),'{:,}'.format(int(hosp.iloc[int(m)].Nb - hosp.iloc[int(m)-1].Nb)),'{:,}'.format(int(death.iloc[int(m)].Nb - death.iloc[int(m)-1].Nb))
-
-if __name__ == '__main__':
-    app.run_server(debug=True)
