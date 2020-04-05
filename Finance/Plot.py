@@ -30,12 +30,6 @@ df_price = data.iloc[:, index_to_keep_price]
 df_price.columns = title
 df_price = df_price.apply(lambda x : x / x[0] * 100)
 
-#index_to_keep_volume = [i for i in range(5, data.shape[1], 6)]
-#df_volume = data.iloc[:, index_to_keep_volume]
-#df_volume.columns = title
-#df_volume = df_volume.apply(lambda x : x / x[0] * 100)
-#df_volume.fillna(100, inplace = True)
-
 dict_asset_classes = {'CAC40' : 'Index', 'SP500' : 'Index', 'Dow Jones': 'Index', 'Dax': 'Index', 'Nasdaq': 'Index', 'Nikkei': 'Index', 'Hangseng': 'Index', 'Ibex': 'Index', 
                       'BTC/USD': 'Currency', 'ETH/USD': 'Currency', 'EUR/USD': 'Currency', 'EUR/GBP': 'Currency', 'EUR/JPY': 'Currency', 'EUR/CNY': 'Currency', 'EUR/CHF': 'Currency', 
                       'Copper' : 'Commodity', 'Ethanol': 'Commodity', 'Gold': 'Commodity', 'Natural Gas': 'Commodity', 'Oil': 'Commodity', 'Platinum': 'Commodity', 'Silver': 'Commodity'}
