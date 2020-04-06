@@ -51,7 +51,7 @@ def get_recap_by_country(date, previous = 1): # Fonction permettant de récupér
         date_t = '/'.join(str(x) for x in (date_t.month, date_t.day, 20))
         date_t_1 = '/'.join(str(x) for x in (date_t_1.month, date_t_1.day, 20))
     else:
-        date_t = pd.to_datetime(date)
+        date_t = pd.to_datetime(date,dayfirst=True)
         date_t_1 = date_t - pd.to_timedelta(previous, unit = 'd')
         date_t = '/'.join(str(x) for x in (date_t.month, date_t.day, 20))
         date_t_1 = '/'.join(str(x) for x in (date_t_1.month, date_t_1.day, 20)) 

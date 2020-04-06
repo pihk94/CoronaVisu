@@ -3,7 +3,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 from app import app
-from apps import recap,sim
+from apps import recap,sim,recapv2
 
 
 app.layout = html.Div([
@@ -19,6 +19,8 @@ def display_page(pathname):
         return recap.layout
     elif pathname == '/simulation':
         return sim.layout
+    elif pathname == '/recap':
+        return recapv2.layout
     else:
         return '404'
 
