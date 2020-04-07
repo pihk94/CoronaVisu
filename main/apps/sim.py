@@ -10,7 +10,17 @@ import pandas as pd
 import numpy as np
 
 from app import app
-
+dropdown = dbc.DropdownMenu(
+    [
+        dbc.DropdownMenuItem('Autres maladies',href='AutresMaladies'),
+        dbc.DropdownMenuItem('Finance',href='/Finance'),
+        dbc.DropdownMenuItem('Google Trend',href='/GoogleTrend')
+    ],
+    nav=True,
+    in_navbar=True,
+    label = 'Comparatif',
+    style = {'margin-right':'3em'}
+)
 navbar = dbc.Navbar(
         [
         html.A(
@@ -28,8 +38,10 @@ navbar = dbc.Navbar(
                 [
                     dbc.NavItem(dbc.NavLink("Récapitulatif",href="/")),
                     dbc.NavItem(dbc.NavLink("Simulateur",href="/simulation")),
+                    dropdown
                 ],className="ml-auto",navbar=True
-            )
+            ),
+            
             
         ],
     color="dark",
@@ -205,7 +217,7 @@ layout = html.Div(children=[
                     dbc.Row([html.Img(src=app.get_asset_url('png/delta.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_recover',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})]),
                 ],width =10)]), 
             dbc.Row([
-                html.Span(children='Hospitalisation',style={'font-weight':'600'})
+                html.Span(children='Hospitalisé',style={'font-weight':'600'})
             ]),
             dbc.Row([
                 dbc.Col(

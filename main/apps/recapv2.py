@@ -74,6 +74,17 @@ CSS =  {
     }
 }
 
+dropdown = dbc.DropdownMenu(
+    [
+        dbc.DropdownMenuItem('Autres maladies',href='AutresMaladies'),
+        dbc.DropdownMenuItem('Finance',href='/Finance'),
+        dbc.DropdownMenuItem('Google Trend',href='/GoogleTrend')
+    ],
+    nav=True,
+    in_navbar=True,
+    label = 'Comparatif',
+    style = {'margin-right':'3em'}
+)
 
 navbar = dbc.Navbar(
         [
@@ -92,8 +103,9 @@ navbar = dbc.Navbar(
                 [
                     dbc.NavItem(dbc.NavLink("Récapitulatif",href="/")),
                     dbc.NavItem(dbc.NavLink("Simulateur",href="/simulation")),
+                    dropdown
                 ],className="ml-auto",navbar=True
-            )
+            ),
             
         ],
     color="dark",
