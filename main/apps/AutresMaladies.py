@@ -75,6 +75,7 @@ fig_death_time = px.bar(df_new, x="Disease", y="Average Death log", animation_fr
 fig_death_what = px.scatter(df_new, x="Years", y="Average Death log", animation_frame="Beginning time", # animation_group="Disease",
            size="Duration x", hover_name="Disease", color="Disease", color_discrete_sequence = colorway, 
            range_x=[0,100], range_y=[0,max(df_new['Death toll log'])])
+df = px.data.gapminder()
 fig_quatre = px.scatter(df, x="gdpPercap", y="lifeExp", animation_frame="year", animation_group="country",
            size="pop", color="continent", hover_name="country", facet_col="continent",
            log_x=True, size_max=45, range_x=[100,100000], range_y=[25,90])
@@ -144,7 +145,7 @@ layout = html.Div(children=[
         dcc.Graph(figure = fig_death_what)
     ),
     dbc.Row(
-        dcc.Graph(figure = fig_death_quatre)
+        dcc.Graph(figure = fig_quatre)
     )
     ]
 )
