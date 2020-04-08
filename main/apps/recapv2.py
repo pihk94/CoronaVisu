@@ -114,154 +114,156 @@ navbar = dbc.Navbar(
 
 layout = html.Div(children=[
     navbar,
-    dbc.Row(html.H1('Vitesse de propagation du Covid-19'),className='justify-content-center'),
-    dcc.Input(
-        id='inputdate',
-        value=(datetime.now() - timedelta(1)).strftime('%d/%m/%Y'),
-        type='text'
-        ),
-    dcc.Input(
-    id='inputprevious',    
-    value=5,
-    type='number'
-    ),
+    dbc.Row(html.H1('Propagation du Covid-19'),className='justify-content-center'),
     dbc.Container(
         [
-        dbc.Row(html.Span(id='Maj_date',style={'text-transform':'uppercase','font-size':'9px'}),className='justify-content-center'),
-        dbc.Row([
-            dbc.Col([
-                dbc.Row(
-                    html.Span('Cas confirmé')
-                ),
-                dbc.Row(
-                    html.Span(id='Total_confirm_case',children ='',style=CSS['important'])
-                ),
-                dbc.Row(
-                    html.Span(id = 'Var_confirm',children = '',style=CSS['danger'])
-                )
-            ],width = 4),
-            dbc.Col([
-                dbc.Row(
-                    html.Span('Décès')
-                ),
-                dbc.Row(
-                    html.Span(id='Total_death',children = '',style=CSS['important'])
-                ),
-                dbc.Row(
-                    html.Span(id='Var_death',children='',style=CSS['danger'])
-                )
-            ],width = 4),
-            dbc.Col([
-                dbc.Row(
-                    html.Span('Rétabli')
-                ),
-                dbc.Row(
-                    html.Span(id='Total_recov',children = '',style=CSS['important'])
-                ),
-                dbc.Row(
-                    html.Span(id='Var_recov',children='',style=CSS['danger'])
-                )
-            ],width = 4),
-        ],
-        style={
-            'background':'#f8f9fa',
-            'padding-left': '10em'
-            }),
-        dbc.Row(
-            [
-                html.P([
-                    'Dans les ',
-                    html.Span(id='NbreJours',children ='',style={'font-weight':'bold'}),
-                    ' derniers jours, ',
-                    html.Span(id='NbreCasNew',children ='',style={'font-weight':'bold'}),
-                    '  nouveaux cas de Coronavirus ont été reporté à travers le monde. Parmis ceux-là ',
-                    html.Span(id='NbreCasNewFr',children ='',style={'font-weight':'bold'}),
-                    ' viennent de France.',
-                ])
-                
-            ],className='justify-content-center'
+        dcc.DatePickerRange(
+        id='my-date-picker-range',
+        minimum_nights=2,
+        with_portal=True,
+        min_date_allowed=datetime(2020, 1, 22),
+        max_date_allowed=datetime.now() - timedelta(1),
+        initial_visible_month=datetime(2020, 4, 1),
+        start_date=datetime.now() - timedelta(6),
+        end_date=datetime.now() - timedelta(1),
+        display_format='D-M-Y',
+        style={"display":"None"}
         ),
-        dbc.Row(html.H4(children = 'CAS',style={'font-weight':'bold'}),className='justify-content-center'),
-        dbc.Row(
-            [
+        dcc.Loading([  
+            dbc.Row(html.Span(id='Maj_date',style={'text-transform':'uppercase','font-size':'9px'}),className='justify-content-center'),
+            dbc.Row([
                 dbc.Col([
                     dbc.Row(
-                        html.Span('Chine')
+                        html.Span('Cas confirmé')
                     ),
                     dbc.Row(
-                        html.Span(id='chine_cas',style=CSS['important'])
+                        html.Span(id='Total_confirm_case',children ='',style=CSS['important'])
                     ),
                     dbc.Row(
-                        html.Span(id='chine_delta',style=CSS['danger'])
+                        html.Span(id = 'Var_confirm',children = '',style=CSS['danger'])
                     )
-                ]),
+                ],width = 4),
                 dbc.Col([
                     dbc.Row(
-                        html.Span('Italie')
+                        html.Span('Décès')
                     ),
                     dbc.Row(
-                        html.Span(id='italy_cas',style=CSS['important'])
+                        html.Span(id='Total_death',children = '',style=CSS['important'])
                     ),
                     dbc.Row(
-                        html.Span(id='italy_delta',style=CSS['danger'])
+                        html.Span(id='Var_death',children='',style=CSS['danger'])
                     )
-                ]),
+                ],width = 4),
                 dbc.Col([
                     dbc.Row(
-                        html.Span('Allemagne')
+                        html.Span('Rétabli')
                     ),
                     dbc.Row(
-                        html.Span(id='allemagne_cas',style=CSS['important'])
+                        html.Span(id='Total_recov',children = '',style=CSS['important'])
                     ),
                     dbc.Row(
-                        html.Span(id='allemagne_delta',style=CSS['danger'])
+                        html.Span(id='Var_recov',children='',style=CSS['danger'])
                     )
-                ]),
-                dbc.Col([
-                    dbc.Row(
-                        html.Span('Espagne')
-                    ),
-                    dbc.Row(
-                        html.Span(id='spain_cas',style=CSS['important'])
-                    ),
-                    dbc.Row(
-                        html.Span(id='spain_delta',style=CSS['danger'])
-                    )
-                ]),
-                dbc.Col([
-                    dbc.Row(
-                        html.Span('Etats-Unis')
-                    ),
-                    dbc.Row(
-                        html.Span(id='us_cas',style=CSS['important'])
-                    ),
-                    dbc.Row(
-                        html.Span(id='us_delta',style=CSS['danger'])
-                    )
-                ]),
-                dbc.Col([
-                    dbc.Row(
-                        html.Span('France')
-                    ),
-                    dbc.Row(
-                        html.Span(id='fr_cas',style=CSS['important'])
-                    ),
-                    dbc.Row(
-                        html.Span(id='fr_delta',style=CSS['danger'])
-                    )
-                ]),
+                ],width = 4),
             ],
-        style={
-            'background':'#f8f9fa',
-            'padding-left': '6em'
-            }
-        ),
-    html.Table(id='recap',style = {
-        'margin-top':'2em',
-        'margin-left':'5em'
-    }
-       
-    )
+            style={
+                'background':'#f8f9fa',
+                'padding-left': '10em'
+                }),
+            dbc.Row(
+                [
+                    html.P([
+                        'Dans les ',
+                        html.Span(id='NbreJours',children ='',style={'font-weight':'bold'}),
+                        ' derniers jours, ',
+                        html.Span(id='NbreCasNew',children ='',style={'font-weight':'bold'}),
+                        '  nouveaux cas de Coronavirus ont été reporté à travers le monde. Parmis ceux-là ',
+                        html.Span(id='NbreCasNewFr',children ='',style={'font-weight':'bold'}),
+                        ' viennent de France.',
+                    ])
+                    
+                ],className='justify-content-center'
+            ),
+            dbc.Row(html.H4(children = 'CAS',style={'font-weight':'bold'}),className='justify-content-center'),
+            dbc.Row(
+                [
+                    dbc.Col([
+                        dbc.Row(
+                            html.Span('Chine')
+                        ),
+                        dbc.Row(
+                            html.Span(id='chine_cas',style=CSS['important'])
+                        ),
+                        dbc.Row(
+                            html.Span(id='chine_delta',style=CSS['danger'])
+                        )
+                    ]),
+                    dbc.Col([
+                        dbc.Row(
+                            html.Span('Italie')
+                        ),
+                        dbc.Row(
+                            html.Span(id='italy_cas',style=CSS['important'])
+                        ),
+                        dbc.Row(
+                            html.Span(id='italy_delta',style=CSS['danger'])
+                        )
+                    ]),
+                    dbc.Col([
+                        dbc.Row(
+                            html.Span('Allemagne')
+                        ),
+                        dbc.Row(
+                            html.Span(id='allemagne_cas',style=CSS['important'])
+                        ),
+                        dbc.Row(
+                            html.Span(id='allemagne_delta',style=CSS['danger'])
+                        )
+                    ]),
+                    dbc.Col([
+                        dbc.Row(
+                            html.Span('Espagne')
+                        ),
+                        dbc.Row(
+                            html.Span(id='spain_cas',style=CSS['important'])
+                        ),
+                        dbc.Row(
+                            html.Span(id='spain_delta',style=CSS['danger'])
+                        )
+                    ]),
+                    dbc.Col([
+                        dbc.Row(
+                            html.Span('Etats-Unis')
+                        ),
+                        dbc.Row(
+                            html.Span(id='us_cas',style=CSS['important'])
+                        ),
+                        dbc.Row(
+                            html.Span(id='us_delta',style=CSS['danger'])
+                        )
+                    ]),
+                    dbc.Col([
+                        dbc.Row(
+                            html.Span('France')
+                        ),
+                        dbc.Row(
+                            html.Span(id='fr_cas',style=CSS['important'])
+                        ),
+                        dbc.Row(
+                            html.Span(id='fr_delta',style=CSS['danger'])
+                        )
+                    ]),
+                ],
+            style={
+                'background':'#f8f9fa',
+                'padding-left': '6em'
+                }
+            ),
+        html.Table(id='recap',style = {
+            'margin-top':'2em',
+            'margin-left':'5em'
+        })
+        ],type='default'),
     ])
     
 ])
@@ -288,10 +290,11 @@ layout = html.Div(children=[
     Output('us_delta','children'),
     Output('fr_cas','children'),
     Output('fr_delta','children')],
-    [Input('inputdate','value'),
-    Input('inputprevious','value')]
+    [Input('my-date-picker-range','end_date'),
+    Input('my-date-picker-range','start_date')]
 )
 def recap_world(dt,previous):
+    previous = (pd.to_datetime(dt,dayfirst=True)-pd.to_datetime(previous,dayfirst=True)).days
     if dt == time.strftime('%d/%m/%Y'):
         dt = (datetime.now() - timedelta(1)).strftime('%d/%m/%Y')
     df_recap=GetData.get_recap_by_country(dt,previous=int(previous))
@@ -318,15 +321,16 @@ def recap_world(dt,previous):
     spain_cases=f'{int(df_recap["Cases"][df_recap["Country/Region"]=="Spain"]):,}'
     spain_casesp=f'{int(df_recap["Cases (+)"][df_recap["Country/Region"]=="Spain"]):,}'
     return '{:,}'.format(confirmed),'(+ {:,})'.format(confirmedp),'{:,}'.format(deaths),'(+ {:,})'.format(deathsp),'{:,}'.format(recovered),'(+ {:,})'.format(recoveredp),\
-        'Mise à jour le {} (+ Variations sur les {} derniers jours)'.format(dt,previous),'{:,}'.format(previous),'{:,}'.format(recoveredp),'{}'.format(france_casesp2),\
+        'Mise à jour le {} (+ Variations sur les {} derniers jours)'.format(pd.to_datetime(dt).strftime('%d/%m/%Y'),previous),'{:,}'.format(previous),'{:,}'.format(recoveredp),'{}'.format(france_casesp2),\
             '{}'.format(china_cases),'(+ {})'.format(china_casesp),'{}'.format(italy_cases),'(+ {})'.format(italy_casesp),'{}'.format(germany_cases),'(+ {})'.format(germany_casesp),\
                 '{}'.format(spain_cases),'(+ {})'.format(spain_casesp),'{}'.format(us_cases),'(+ {})'.format(us_casesp),'{}'.format(france_cases),'(+ {})'.format(france_casesp2)
 @app.callback(
     Output('recap','children'),
-    [Input('inputdate','value'),
-    Input('inputprevious','value')]
+    [Input('my-date-picker-range','end_date'),
+    Input('my-date-picker-range','start_date')]
 )
 def recap_table(dt,previous):
+    previous = (pd.to_datetime(dt,dayfirst=True)-pd.to_datetime(previous,dayfirst=True)).days
     df_recap=GetData.get_recap_by_country(dt,previous=previous)
     columns = ['Pays','Nouveaux Cas','Total des cas','Total décès','Nouveau décès','Mortalité','Rétabli']
     df_H5=pd.DataFrame(columns=columns)
@@ -442,7 +446,7 @@ def recap_table(dt,previous):
                     'Pays',style={'text-align':'right','width':'180px'}
                     ),
                     html.Th(
-                    'Evolution des cas',style={'text-align':'right','width':'170px'}
+                    'Evolution des cas',style={'text-align':'center','width':'170px'}
                     ),
                     html.Th(
                         'Total des cas',style ={
@@ -465,7 +469,7 @@ def recap_table(dt,previous):
                     html.Th(
                         'Nouveaux décès',style={
                             'text-align':'center',
-                            'width':'250px'
+                            'width':'300px'
                         }
                     ),
                     html.Th(
