@@ -14,7 +14,6 @@ from app import app
 from dash.dependencies import Input, Output
 from datetime import datetime, timedelta
 from pytrends.request import TrendReq
-
 ###  FIGURE DECLARATION
 pytrend = TrendReq()
 # Interest by region: dans quelles régions le mot 'Coronavirus' a le plus de recherches

@@ -16,7 +16,6 @@ from datetime import datetime, timedelta
 import yfinance as yf
 ### PLOT
 
-
 df_confirmed_world = GetData.get_world('confirmed')
 df = pd.DataFrame()
 df['Date'] = pd.to_datetime(df_confirmed_world.iloc[:,5:].columns)

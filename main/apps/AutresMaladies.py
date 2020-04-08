@@ -14,7 +14,6 @@ from app import app
 from dash.dependencies import Input, Output
 from datetime import datetime, timedelta
 import os
-
 ### GRAPH 
 #fig
 df = pd.read_csv('data/World Infectious Diseases.csv')

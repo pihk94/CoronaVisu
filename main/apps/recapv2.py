@@ -12,7 +12,7 @@ import time
 from app import app
 from dash.dependencies import Input, Output
 from datetime import datetime, timedelta
-
+app.title = 'CoronaRecap'
 df  = df=GetData.get_world('confirmed')
 def make_bars(country,df = df):
     
@@ -253,6 +253,7 @@ layout = html.Div(children=[
             ],
         style={
             'background':'#f8f9fa',
+            'padding-left': '6em'
             }
         ),
     html.Table(id='recap',style = {
@@ -350,7 +351,91 @@ def recap_table(dt,previous):
             'border-bottom':'1px solid #e8e8e8'
         }))
     return [
-        html.Thead(
+        html.Thead([
+            html.Tr(
+                [
+                    html.Th(children=''
+                        ,style ={
+                            'width':'150px'
+                        }
+                    ),
+                    html.Th(
+                        [
+                            html.Div(children='10',
+                            style={
+                                "width":"27px",
+                                "height":"15px",
+                                "font-size":"8px"
+                            }),
+                            html.Div(children='100',
+                            style={
+                                "width":"27px",
+                                "height":"15px",
+                                "font-size":"8px"
+                            }),
+                            html.Div(children='1000',
+                            style={
+                                "width":"27px",
+                                "height":"15px",
+                                "font-size":"8px"
+                            }),
+                        ]
+                        ,style ={
+                            'width':'170px',
+                            "height":"15px",
+                            'vertical-align':'middle',
+                            "display":"flex",
+                            "margin-left":"85px"
+                        }
+                    ),
+                    html.Th()
+                ]
+            ),
+            html.Tr(
+                [
+                    html.Th(children=''
+                        ,style ={
+                            'width':'150px'
+                        }
+                    ),
+                    html.Th(
+                        [
+                            html.Div(children='',
+                            style={
+                                "background": "rgba(255, 152, 0,0.1)",
+                                "width":"27px",
+                                "height":"15px"
+                            }),
+                            html.Div(children='',
+                            style={
+                                "background": "rgba(255, 152, 0,0.4)",
+                                "width":"27px",
+                                "height":"15px"
+                            }),
+                            html.Div(children='',
+                            style={
+                                "background": "rgba(255, 152, 0,0.7)",
+                                "width":"27px",
+                                "height":"15px"
+                            }),
+                            html.Div(children='',
+                            style={
+                                "background": "rgba(255, 152, 1)",
+                                "width":"27px",
+                                "height":"15px"
+                            }),
+                        ]
+                        ,style ={
+                            'width':'170px',
+                            "height":"15px",
+                            'vertical-align':'middle',
+                            "display":"flex",
+                            "margin-left":"50px"
+                        }
+                    ),
+                    html.Th()
+                ]
+            ),
             html.Tr(
                 [
                     html.Th(
@@ -361,45 +446,48 @@ def recap_table(dt,previous):
                     ),
                     html.Th(
                         'Total des cas',style ={
-                            'text-align':'left',
-                            'width':'180px'
+                            'text-align':'center',
+                            'width':'250px'
                         }
                     ),
                     html.Th(
                         'Nouveaux cas',style={
-                            'text-align':'left',
-                            'width':'160px'
+                            'text-align':'center',
+                            'width':'250px'
                         }
                     ),
                     html.Th(
                         'Total décès',style={
-                            'text-align':'left',
-                            'width':'160px'
+                            'text-align':'center',
+                            'width':'250px'
                         }
                     ),
                     html.Th(
                         'Nouveaux décès',style={
-                            'text-align':'left',
-                            'width':'200px'
+                            'text-align':'center',
+                            'width':'250px'
                         }
                     ),
                     html.Th(
                         'Mortalité',style={
-                            'text-align':'left'
+                            'text-align':'center',
+                            'width':'200px'
                         }
                     ),
                     html.Th(
                         'Rétablis',style={
-                            'text-align':'left'
+                            'text-align':'center',
+                            'width':'200px'
                         }
                     )
                 ],
                 style = {
                     'border-bottom': '2px solid',
-                    'text-transform':'uppercase'
+                    'text-transform':'uppercase',
+                    "font-size":"14px"
                 }
             )
-        ),
+        ]),
         html.Tbody(
             [html.Tr([html.Td(),html.Td([html.Div('22 Janvier'),html.Div("Aujourd'hui")],style = {'display':'flex','justify-content':'space-between','font-size':'9px'}),html.Td(),html.Td('( + NOUVEAU ) depuis le {}'.format((pd.to_datetime(dt,dayfirst=True) - timedelta(previous)).strftime('%d/%m/%Y')),style={"font-size": "9px",'color':'#999','text-align':'left'}),html.Td(),html.Td()])]+
             rows
