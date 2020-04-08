@@ -61,7 +61,8 @@ def google_trend_graph(w):
                             showarrow=False))
                               
     fig_trend_w.update_layout(annotations=annotations)                             
-    plot(fig_trend_w, filename = 'google_trend_{}.html'.format(w))
     return fig_trend_w
 
-fig = google_trend_graph('nintendo switch')
+word = 'nintendo switch'
+fig = google_trend_graph(word)
+plot(fig, filename = 'google_trend_{}.html'.format(word))
