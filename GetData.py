@@ -26,8 +26,9 @@ def get_world(name): # Fonction permettant de récupérer un dataframe clean, na
     df = get_frame(name)
     df['Country/Region'] = df['Country/Region'].replace(mapping['replace.country'])
     df['Continent'] = df['Country/Region'].map(mapping['map.continent'])
-    df['Province/State'].fillna('', inplace = True)
     df = df[df['Continent'].notnull()]
+    df.reset_index(inplace = True)
+    df.drop('index', axis = 1, inplace = True)
     cols = ['Continent', 'Country/Region', 'Province/State', 'Lat', 'Long'] + [col for col in df if (col != 'Continent') & (col != 'Country/Region') & (col != 'Province/State') & (col !='Lat') & (col != 'Long')]
     return df[cols]
 
@@ -60,7 +61,7 @@ def get_recap_by_country(date, previous = 1): # Fonction permettant de récupér
     dfc_confirmed_t_1 = dft_confirmed.groupby('Country/Region')[date_t_1].sum()
     dfc_death_t_1 = dft_death.groupby('Country/Region')[date_t_1].sum()
     dfc_recovered_t_1 = dft_recovered.groupby('Country/Region')[date_t_1].sum()
-    df_table = (pd.DataFrame(dict(Cases=dfc_confirmed_t, ActiveCases = dfc_confirmed_t - dfc_recovered_t, Deaths=dfc_death_t, Recovered=dfc_recovered_t, PCases=dfc_confirmed_t_1, PDeaths=dfc_death_t_1, PRecovered=dfc_recovered_t_1))
+    df_table = (pd.DataFrame(dict(Cases = dfc_confirmed_t, ActiveCases = dfc_confirmed_t - dfc_recovered_t - dfc_death_t, Deaths = dfc_death_t, Recovered = dfc_recovered_t, PCases = dfc_confirmed_t_1, PDeaths = dfc_death_t_1, PRecovered = dfc_recovered_t_1))
              .sort_values(by=['Cases', 'Deaths', 'Recovered'], ascending=[False, False, False])
              .reset_index())
     df_table.rename(columns={'index': 'Country/Region'}, inplace=True)
@@ -91,7 +92,7 @@ def get_recap_by_continent(date, previous = 1): # Fonction permettant de récup�
     dfc_confirmed_t_1 = dft_confirmed.groupby('Continent')[date_t_1].sum()
     dfc_death_t_1 = dft_death.groupby('Continent')[date_t_1].sum()
     dfc_recovered_t_1 = dft_recovered.groupby('Continent')[date_t_1].sum()
-    df_table = (pd.DataFrame(dict(Cases=dfc_confirmed_t, ActiveCases = dfc_confirmed_t - dfc_recovered_t, Deaths=dfc_death_t, Recovered=dfc_recovered_t, PCases=dfc_confirmed_t_1, PDeaths=dfc_death_t_1, PRecovered=dfc_recovered_t_1))
+    df_table = (pd.DataFrame(dict(Cases = dfc_confirmed_t, ActiveCases = dfc_confirmed_t - dfc_recovered_t - dfc_death_t, Deaths = dfc_death_t, Recovered = dfc_recovered_t, PCases = dfc_confirmed_t_1, PDeaths = dfc_death_t_1, PRecovered = dfc_recovered_t_1))
              .sort_values(by=['Cases', 'Deaths', 'Recovered'], ascending=[False, False, False])
              .reset_index())
     df_table.rename(columns={'index': 'Continent'}, inplace=True)
