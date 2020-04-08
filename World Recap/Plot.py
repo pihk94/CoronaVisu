@@ -515,10 +515,8 @@ df_confirmed_world_duplicate = pd.DataFrame(lst, columns=['Continent', 'Country/
 df_confirmed_world_duplicate['text'] = df_confirmed_world_duplicate['Province/State'].fillna(df_confirmed_world_duplicate['Country/Region']) + '<br>Confirmés: ' + (df_confirmed_world_duplicate['Number']).astype(str)
 
 limits = [(0,2),(3,10),(11,20),(21,50),(50,3000)]
-colors = ["royalblue","crimson","lightseagreen","orange","lightgrey","lightskyblue"]
 countries = []
 
-continents = df_confirmed_world_duplicate['Continent'].unique()
 df_confirmed_world_duplicate['Date'] = pd.to_datetime(df_confirmed_world_duplicate['Date']).astype('str')
 
 dates = list(df_confirmed_world_duplicate['Date'].unique())
@@ -533,10 +531,6 @@ fig_dict = {
 print_date = datetime.strptime(date, '%Y-%m-%d').date()
 print_date = (print_date.strftime("%a") + ' ' +  print_date.strftime("%b") + ' ' + print_date.strftime("%d") + ' ' + print_date.strftime("%Y")).upper()
 
-fig_dict['layout']['title'] = '<b> EVOLUTION OF THE NUMBER OF CONFIRMED CASES SINCE ' + print_date +'</b>'
-fig_dict['layout']['titlefont'] = dict(family='Arial', size=35, color='rgb(37, 37, 37)')
-fig_dict['layout']['legend_title'] ='<b> Continents </b>'
-
 fig_dict['layout']['sliders'] = {
     'args': [
         'transition', {
@@ -557,14 +551,14 @@ fig_dict["layout"]["updatemenus"] = [
                 "args": [None, {"frame": {"duration": 500, "redraw": False},
                                 "fromcurrent": True, "transition": {"duration": 300,
                                                                     "easing": "quadratic-in-out"}}],
-                "label": "Play",
+                "label": "⯈",
                 "method": "animate"
             },
             {
                 "args": [[None], {"frame": {"duration": 0, "redraw": False},
                                   "mode": "immediate",
                                   "transition": {"duration": 0}}],
-                "label": "Pause",
+                "label": "⯀",
                 "method": "animate"
             }
         ],
@@ -597,50 +591,44 @@ sliders_dict = {
     "steps": []
 }
 
-j = 0
-for continent in continents:
-    df_sub = df_confirmed_world_duplicate[(df_confirmed_world_duplicate['Date'] == date) & (df_confirmed_world_duplicate['Continent'] == continent)]
+df_sub = df_confirmed_world_duplicate[df_confirmed_world_duplicate['Date'] == date]
 
-    data_dict = dict(
-        type = 'scattergeo',
-        lon = df_sub['Long'],
-        lat = df_sub['Lat'],
-        text = df_sub['text'],
-        marker = dict(
-            size = df_sub['Number']/100,
-            color = colors[j],
-            line_color = 'rgb(40,40,40)',
-            line_width = 0.5,
-            sizemode = 'area'),
-         name = continent)
+data_dict = dict(
+    type = 'scattergeo',
+    lon = df_sub['Long'],
+    lat = df_sub['Lat'],
+    text = df_sub['text'],
+    marker = dict(
+        size = df_sub['Number']/100,
+        color = 'crimson',
+        line_color = 'rgb(40,40,40)',
+        line_width = 0.5,
+        sizemode = 'area'))
     
-    fig_dict["data"].append(data_dict)
-    j += 1
+fig_dict["data"].append(data_dict)
+
 
 fig_dict["layout"]["sliders"] = [sliders_dict]
 
 for date in dates:
     frame = {"data": [], "name": str(date)}
-    j = 0
-    for continent in continents:
-        df_sub = df_confirmed_world_duplicate[(df_confirmed_world_duplicate['Date'] == date) & (df_confirmed_world_duplicate['Continent'] == continent)]
+
+    df_sub = df_confirmed_world_duplicate[df_confirmed_world_duplicate['Date'] == date]
         
-        data_dict = dict(
-            type ='scattergeo',
-            lon = df_sub['Long'],
-            lat = df_sub['Lat'],
-            text = df_sub['text'],
-            marker = dict(
-                size = df_sub['Number']/100,
-                sizemin = 3,
-                color = colors[j],
-                line_color = 'rgb(40,40,40)',
-                line_width = 0.5,
-                sizemode = 'area'),
-            name = continent)
+    data_dict = dict(
+        type ='scattergeo',
+        lon = df_sub['Long'],
+        lat = df_sub['Lat'],
+        text = df_sub['text'],
+        marker = dict(
+            size = df_sub['Number']/100,
+            sizemin = 3,
+            color = 'crimson',
+            line_color = 'rgb(40,40,40)',
+            line_width = 0.5,
+            sizemode = 'area'))
         
-        frame['data'].append(data_dict)
-        j += 1
+    frame['data'].append(data_dict)
         
     fig_dict["frames"].append(frame)
     slider_step = {"args": [
@@ -656,13 +644,16 @@ for date in dates:
 fig_dict["layout"]["sliders"] = [sliders_dict]
 fig_dict['layout']['geo'] = dict(
         showland = True,        
-        landcolor = "rgb(212, 212, 212)",
+        landcolor = "rgb(25, 25, 25)",
         showlakes = True,
-        lakecolor = "rgb(255, 255, 255)",
+        lakecolor = "rgb(25, 25, 25)",
         showsubunits = True,
-        subunitcolor = "rgb(255, 255, 255)",
+        subunitcolor = "rgb(60, 60, 60)",
         showcountries = True,
-        countrycolor = "rgb(255, 255, 255)")
+        countrycolor = "rgb(100, 100, 100)",
+        showocean = True,
+        oceancolor = "rgb(60, 60, 60)")
+
 plot(fig_dict, False, filename = 'World Recap/confirmed_map.html')
 
 # Recovered
@@ -675,10 +666,8 @@ df_recovered_world_duplicate = pd.DataFrame(lst, columns=['Continent', 'Country/
 df_recovered_world_duplicate['text'] = df_recovered_world_duplicate['Province/State'].fillna(df_recovered_world_duplicate['Country/Region']) + '<br>Confirmés: ' + (df_recovered_world_duplicate['Number']).astype(str)
 
 limits = [(0,2),(3,10),(11,20),(21,50),(50,3000)]
-colors = ["royalblue","crimson","lightseagreen","orange","lightgrey","lightskyblue"]
 countries = []
 
-continents = df_recovered_world_duplicate['Continent'].unique()
 df_recovered_world_duplicate['Date'] = pd.to_datetime(df_recovered_world_duplicate['Date']).astype('str')
 
 dates = list(df_recovered_world_duplicate['Date'].unique())
@@ -693,9 +682,6 @@ fig_dict = {
 print_date = datetime.strptime(date, '%Y-%m-%d').date()
 print_date = (print_date.strftime("%a") + ' ' +  print_date.strftime("%b") + ' ' + print_date.strftime("%d") + ' ' + print_date.strftime("%Y")).upper()
 
-fig_dict['layout']['title'] = '<b> EVOLUTION OF THE NUMBER OF RECOVERED SINCE ' + print_date +'</b>'
-fig_dict['layout']['titlefont'] = dict(family='Arial', size=35, color='rgb(37, 37, 37)')
-fig_dict['layout']['legend_title'] ='<b> Continents </b>'
 
 fig_dict['layout']['sliders'] = {
     'args': [
@@ -717,14 +703,14 @@ fig_dict["layout"]["updatemenus"] = [
                 "args": [None, {"frame": {"duration": 500, "redraw": False},
                                 "fromcurrent": True, "transition": {"duration": 300,
                                                                     "easing": "quadratic-in-out"}}],
-                "label": "Play",
+                "label": "⯈",
                 "method": "animate"
             },
             {
                 "args": [[None], {"frame": {"duration": 0, "redraw": False},
                                   "mode": "immediate",
                                   "transition": {"duration": 0}}],
-                "label": "Pause",
+                "label": "⯀",
                 "method": "animate"
             }
         ],
@@ -757,51 +743,43 @@ sliders_dict = {
     "steps": []
 }
 
-j = 0
-for continent in continents:
-    df_sub = df_recovered_world_duplicate[(df_recovered_world_duplicate['Date'] == date) & (df_recovered_world_duplicate['Continent'] == continent)]
+df_sub = df_recovered_world_duplicate[df_recovered_world_duplicate['Date'] == date]
 
-    data_dict = dict(
-        type = 'scattergeo',
-        lon = df_sub['Long'],
-        lat = df_sub['Lat'],
-        text = df_sub['text'],
-        marker = dict(
-            size = df_sub['Number']/100,
-            color = colors[j],
-            line_color = 'rgb(40,40,40)',
-            line_width = 0.5,
-            sizemode = 'area'),
-         name = continent)
-    
-    fig_dict["data"].append(data_dict)
-    j += 1
+data_dict = dict(
+    type = 'scattergeo',
+    lon = df_sub['Long'],
+    lat = df_sub['Lat'],
+    text = df_sub['text'],
+    marker = dict(
+        size = df_sub['Number']/100,
+        color = 'lightgreen',
+        line_color = 'rgb(40,40,40)',
+        line_width = 0.5,
+        sizemode = 'area')) 
+fig_dict["data"].append(data_dict)
 
 fig_dict["layout"]["sliders"] = [sliders_dict]
 
 for date in dates:
     frame = {"data": [], "name": str(date)}
-    j = 0
-    for continent in continents:
-        df_sub = df_recovered_world_duplicate[(df_recovered_world_duplicate['Date'] == date) & (df_recovered_world_duplicate['Continent'] == continent)]
+    
+    df_sub = df_recovered_world_duplicate[df_recovered_world_duplicate['Date'] == date]
         
-        data_dict = dict(
-            type ='scattergeo',
-            lon = df_sub['Long'],
-            lat = df_sub['Lat'],
-            text = df_sub['text'],
-            marker = dict(
-                size = df_sub['Number']/100,
-                sizemin = 3,
-                color = colors[j],
-                line_color = 'rgb(40,40,40)',
-                line_width = 0.5,
-                sizemode = 'area'),
-            name = continent)
+    data_dict = dict(
+        type ='scattergeo',
+        lon = df_sub['Long'],
+        lat = df_sub['Lat'],
+        text = df_sub['text'],
+        marker = dict(
+            size = df_sub['Number']/100,
+            sizemin = 3,
+            color = 'lightgreen',
+            line_color = 'rgb(40,40,40)',
+            line_width = 0.5,
+            sizemode = 'area'))
         
-        frame['data'].append(data_dict)
-        j += 1
-        
+    frame['data'].append(data_dict)
+  
     fig_dict["frames"].append(frame)
     slider_step = {"args": [
         [date],
@@ -816,13 +794,15 @@ for date in dates:
 fig_dict["layout"]["sliders"] = [sliders_dict]
 fig_dict['layout']['geo'] = dict(
         showland = True,        
-        landcolor = "rgb(212, 212, 212)",
+        landcolor = "rgb(25, 25, 25)",
         showlakes = True,
-        lakecolor = "rgb(255, 255, 255)",
+        lakecolor = "rgb(25, 25, 25)",
         showsubunits = True,
-        subunitcolor = "rgb(255, 255, 255)",
+        subunitcolor = "rgb(60, 60, 60)",
         showcountries = True,
-        countrycolor = "rgb(255, 255, 255)")
+        countrycolor = "rgb(100, 100, 100)",
+        showocean = True,
+        oceancolor = "rgb(60, 60, 60)")
 plot(fig_dict, False, filename = 'World Recap/recovered_map.html')
 
 # Deaths
@@ -835,10 +815,8 @@ df_deaths_world_duplicate = pd.DataFrame(lst, columns=['Continent', 'Country/Reg
 df_deaths_world_duplicate['text'] = df_deaths_world_duplicate['Province/State'].fillna(df_deaths_world_duplicate['Country/Region']) + '<br>Confirmés: ' + (df_deaths_world_duplicate['Number']).astype(str)
 
 limits = [(0,2),(3,10),(11,20),(21,50),(50,3000)]
-colors = ["royalblue","crimson","lightseagreen","orange","lightgrey","lightskyblue"]
 countries = []
 
-continents = df_deaths_world_duplicate['Continent'].unique()
 df_deaths_world_duplicate['Date'] = pd.to_datetime(df_deaths_world_duplicate['Date']).astype('str')
 
 dates = list(df_deaths_world_duplicate['Date'].unique())
@@ -853,10 +831,6 @@ fig_dict = {
 print_date = datetime.strptime(date, '%Y-%m-%d').date()
 print_date = (print_date.strftime("%a") + ' ' +  print_date.strftime("%b") + ' ' + print_date.strftime("%d") + ' ' + print_date.strftime("%Y")).upper()
 
-fig_dict['layout']['title'] = '<b> EVOLUTION OF THE NUMBER OF DEATHS SINCE ' + print_date +'</b>'
-fig_dict['layout']['titlefont'] = dict(family='Arial', size=35, color='rgb(37, 37, 37)')
-fig_dict['layout']['legend_title'] ='<b> Continents </b>'
-
 fig_dict['layout']['sliders'] = {
     'args': [
         'transition', {
@@ -877,14 +851,14 @@ fig_dict["layout"]["updatemenus"] = [
                 "args": [None, {"frame": {"duration": 500, "redraw": False},
                                 "fromcurrent": True, "transition": {"duration": 300,
                                                                     "easing": "quadratic-in-out"}}],
-                "label": "Play",
+                "label": "⯈",
                 "method": "animate"
             },
             {
                 "args": [[None], {"frame": {"duration": 0, "redraw": False},
                                   "mode": "immediate",
                                   "transition": {"duration": 0}}],
-                "label": "Pause",
+                "label": "⯀",
                 "method": "animate"
             }
         ],
@@ -917,50 +891,43 @@ sliders_dict = {
     "steps": []
 }
 
-j = 0
-for continent in continents:
-    df_sub = df_deaths_world_duplicate[(df_deaths_world_duplicate['Date'] == date) & (df_deaths_world_duplicate['Continent'] == continent)]
+df_sub = df_deaths_world_duplicate[df_deaths_world_duplicate['Date'] == date]
 
-    data_dict = dict(
-        type = 'scattergeo',
-        lon = df_sub['Long'],
-        lat = df_sub['Lat'],
-        text = df_sub['text'],
-        marker = dict(
-            size = df_sub['Number']/100,
-            color = colors[j],
-            line_color = 'rgb(40,40,40)',
-            line_width = 0.5,
-            sizemode = 'area'),
-         name = continent)
+data_dict = dict(
+    type = 'scattergeo',
+    lon = df_sub['Long'],
+    lat = df_sub['Lat'],
+    text = df_sub['text'],
+    marker = dict(
+        size = df_sub['Number']/100,
+        color = 'lightskyblue',
+        line_color = 'rgb(40,40,40)',
+        line_width = 0.5,
+        sizemode = 'area'))
     
-    fig_dict["data"].append(data_dict)
-    j += 1
+fig_dict["data"].append(data_dict)
 
 fig_dict["layout"]["sliders"] = [sliders_dict]
 
 for date in dates:
     frame = {"data": [], "name": str(date)}
-    j = 0
-    for continent in continents:
-        df_sub = df_deaths_world_duplicate[(df_deaths_world_duplicate['Date'] == date) & (df_deaths_world_duplicate['Continent'] == continent)]
+    
+    df_sub = df_deaths_world_duplicate[df_deaths_world_duplicate['Date'] == date]
         
-        data_dict = dict(
-            type ='scattergeo',
-            lon = df_sub['Long'],
-            lat = df_sub['Lat'],
-            text = df_sub['text'],
-            marker = dict(
-                size = df_sub['Number']/100,
-                sizemin = 3,
-                color = colors[j],
-                line_color = 'rgb(40,40,40)',
-                line_width = 0.5,
-                sizemode = 'area'),
-            name = continent)
+    data_dict = dict(
+        type ='scattergeo',
+        lon = df_sub['Long'],
+        lat = df_sub['Lat'],
+        text = df_sub['text'],
+        marker = dict(
+            size = df_sub['Number']/100,
+            sizemin = 3,
+            color = 'lightskyblue',
+            line_color = 'rgb(40,40,40)',
+            line_width = 0.5,
+            sizemode = 'area'))
         
-        frame['data'].append(data_dict)
-        j += 1
+    frame['data'].append(data_dict)
         
     fig_dict["frames"].append(frame)
     slider_step = {"args": [
@@ -976,13 +943,15 @@ for date in dates:
 fig_dict["layout"]["sliders"] = [sliders_dict]
 fig_dict['layout']['geo'] = dict(
         showland = True,        
-        landcolor = "rgb(212, 212, 212)",
+        landcolor = "rgb(25, 25, 25)",
         showlakes = True,
-        lakecolor = "rgb(255, 255, 255)",
+        lakecolor = "rgb(25, 25, 25)",
         showsubunits = True,
-        subunitcolor = "rgb(255, 255, 255)",
+        subunitcolor = "rgb(60, 60, 60)",
         showcountries = True,
-        countrycolor = "rgb(255, 255, 255)")
+        countrycolor = "rgb(100, 100, 100)",
+        showocean = True,
+        oceancolor = "rgb(60, 60, 60)")
 plot(fig_dict, False, filename = 'World Recap/deaths_map.html')
 
 
