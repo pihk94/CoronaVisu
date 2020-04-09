@@ -9,9 +9,11 @@ body {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: #404040;
     overflow-x: hidden;
     transition: 0.5s;
+    text-transform: uppercase;
+    font-weight: bolder;
   }
   
   .sidebar a {
@@ -21,6 +23,7 @@ body {
     color:white;
     display: block;
     transition: 0.3s;
+    border-bottom: 1px solid white;
   }
   
   .sidebar a:hover {

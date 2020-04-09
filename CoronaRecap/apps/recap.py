@@ -246,7 +246,7 @@ layout = html.Div([
         dbc.Row(
             [
                 html.Button(id='btnOpen',className='openbtn',children='☰',n_clicks=1),
-                html.Div(style={'width':'50em'}),
+                html.Div(style={'width':'56em'}),
                 html.H4('COVID-19 OVERVIEW',id='titleMaladie',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px'})
             ],style={'box-shadow':'0 5px 10px 0 rgba(50,50,50,.33)'}
         ),
