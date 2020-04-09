@@ -3,7 +3,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 from app import app
-from apps import maladies
+from apps import maladies,historical,evolution
 
 
 app.layout = html.Div([
@@ -17,6 +17,10 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/maladies':
         return maladies.layout
+    elif pathname == '/maladies/historical':
+        return historical.layout
+    elif pathname == '/maladies/evolution':
+        return evolution.layout
     else:
         return '404'
 

@@ -54,6 +54,15 @@ body {
     padding: 16px;
   }
   .sousOnglet{
+    background-color: #404040;
+    color:white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid white;
+    height: 8em;
+    width: 100%;
+  }
+  .sousOngletActived{
     background-color: #676767;
     color:white;
     text-transform: uppercase;
@@ -66,13 +75,21 @@ body {
     color:white;
     text-decoration: none;
   }
+  .sousOngletActived:hover{
+    color:white;
+    text-decoration: none;
+  }
   .sousOnglet div{
     margin-top: 3em;
     margin-left: 1em;
   }
+  .sousOngletActived div{
+    margin-top: 3em;
+    margin-left: 1em;
+  }
   .sideBarOnglet{
-    height: 100%;
-    background-color:#676767 ;
+    height:1400px;
+    background-color:#404040 ;
   }
 
   .encoche{
@@ -82,6 +99,17 @@ body {
     width: 22px;
     height: 45px;
     background-size:22px 45px;
+  }
+
+  .btnChoixActive{
+    background-color:#676767 ;
+    color:white;
+    border: 1px solid #676767;
+  }
+  .btnChoixNonActive{
+    background-color:white ;
+    color:#676767;
+    border: 1px solid #676767;
   }
   /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
   @media screen and (max-height: 450px) {
