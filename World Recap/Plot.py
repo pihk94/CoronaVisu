@@ -63,17 +63,7 @@ fig_trend_world.update_layout(
     showlegend=True,
     plot_bgcolor='white'
 )
-
-annotations = []
-annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
-                              xanchor='left', yanchor='bottom',
-                              text='<b>WORLD CASES TRENDING</b>',
-                              font=dict(family='Arial',
-                                        size=40,
-                                        color='rgb(37, 37, 37)'),
-                              showarrow=False))
-                              
-fig_trend_world.update_layout(annotations=annotations)                             
+                            
 plot(fig_trend_world, filename = 'World Recap/world_cases_trend.html')
 
 ## Continent                                 
@@ -124,17 +114,7 @@ fig_trend_continent_confirmed.update_layout(
     showlegend=True,
     plot_bgcolor='white'
 )
-
-annotations = []
-annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
-                              xanchor='left', yanchor='bottom',
-                              text='<b>NUMBER OF CONFIRMED CASES BY CONTINENT</b>',
-                              font=dict(family='Arial',
-                                        size=40,
-                                        color='rgb(37, 37, 37)'),
-                              showarrow=False))
-                              
-fig_trend_continent_confirmed.update_layout(annotations=annotations)                             
+                         
 plot(fig_trend_continent_confirmed, filename = 'World Recap/continent_confirmed_cases.html')
 
 # Active Cases
@@ -172,17 +152,7 @@ fig_trend_continent_active_cases.update_layout(
     showlegend=True,
     plot_bgcolor='white'
 )
-
-annotations = []
-annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
-                              xanchor='left', yanchor='bottom',
-                              text='<b>NUMBER OF ACTIVE CASES BY CONTINENT</b>',
-                              font=dict(family='Arial',
-                                        size=40,
-                                        color='rgb(37, 37, 37)'),
-                              showarrow=False))
-                              
-fig_trend_continent_active_cases.update_layout(annotations=annotations)                             
+                      
 plot(fig_trend_continent_active_cases, filename = 'World Recap/continent_active_cases.html')
 
 # Deaths
@@ -220,17 +190,7 @@ fig_trend_continent_deaths.update_layout(
     showlegend=True,
     plot_bgcolor='white'
 )
-
-annotations = []
-annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
-                              xanchor='left', yanchor='bottom',
-                              text='<b>NUMBER OF DEATHS BY CONTINENT</b>',
-                              font=dict(family='Arial',
-                                        size=40,
-                                        color='rgb(37, 37, 37)'),
-                              showarrow=False))
-                              
-fig_trend_continent_deaths.update_layout(annotations=annotations)                             
+                           
 plot(fig_trend_continent_deaths, filename = 'World Recap/continent_deaths.html')           
 
 # Recovered
@@ -268,31 +228,21 @@ fig_trend_continent_recovered.update_layout(
     showlegend=True,
     plot_bgcolor='white'
 )
-
-annotations = []
-annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
-                              xanchor='left', yanchor='bottom',
-                              text='<b>NUMBER OF RECOVERED CASES BY CONTINENT</b>',
-                              font=dict(family='Arial',
-                                        size=40,
-                                        color='rgb(37, 37, 37)'),
-                              showarrow=False))
-                              
-fig_trend_continent_recovered.update_layout(annotations=annotations)                             
+                        
 plot(fig_trend_continent_recovered, filename = 'World Recap/continent_recovered_cases.html')   
 
 ## Pays
 df_trend_country_confirmed = df_confirmed_world.groupby('Country/Region').sum().iloc[:,2:].T
-df_trend_country_confirmed = df_trend_country_confirmed[df_trend_country_confirmed.iloc[-1].sort_values(ascending = False).index[0:9].values]
+df_trend_country_confirmed = df_trend_country_confirmed[df_trend_country_confirmed.iloc[-1].sort_values(ascending = False).index[0:10].values]
 df_trend_country_confirmed.index = pd.to_datetime(df_trend_continent_confirmed.index)
 df_trend_country_recovered = df_recovered_world.groupby('Country/Region').sum().iloc[:,2:].T
-df_trend_country_recovered = df_trend_country_recovered[df_trend_country_recovered.iloc[-1].sort_values(ascending = False).index[0:9].values]
+df_trend_country_recovered = df_trend_country_recovered[df_trend_country_recovered.iloc[-1].sort_values(ascending = False).index[0:10].values]
 df_trend_country_recovered.index = pd.to_datetime(df_trend_country_recovered.index)
 df_trend_country_deaths = df_deaths_world.groupby('Country/Region').sum().iloc[:,2:].T
-df_trend_country_deaths = df_trend_country_deaths[df_trend_country_deaths.iloc[-1].sort_values(ascending = False).index[0:9].values]
+df_trend_country_deaths = df_trend_country_deaths[df_trend_country_deaths.iloc[-1].sort_values(ascending = False).index[0:10].values]
 df_trend_country_deaths.index = pd.to_datetime(df_trend_country_deaths.index)
 df_trend_country_active_cases = df_confirmed_world.groupby('Country/Region').sum().iloc[:,2:].T - df_recovered_world.groupby('Country/Region').sum().iloc[:,2:].T - df_deaths_world.groupby('Country/Region').sum().iloc[:,2:].T
-df_trend_country_active_cases = df_trend_country_active_cases[df_trend_country_active_cases.iloc[-1].sort_values(ascending = False).index[0:9].values]
+df_trend_country_active_cases = df_trend_country_active_cases[df_trend_country_active_cases.iloc[-1].sort_values(ascending = False).index[0:10].values]
 df_trend_country_active_cases.index = pd.to_datetime(df_trend_country_active_cases.index)
 
 # Confirmed
@@ -301,7 +251,7 @@ colors = ['rgb(44, 62, 80)', 'rgb(84, 153, 199)', 'rgb(244, 208, 63)', 'rgb(192,
 line_size = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
 
 fig_trend_country_confirmed = go.Figure()
-for i in range(9):
+for i in range(10):
     fig_trend_country_confirmed.add_trace(go.Scatter(x=df_trend_country_confirmed.index, y=df_trend_country_confirmed.iloc[:,i], mode='lines',
         name=labels[i],
         line=dict(color=colors[i], width=line_size[i])))
@@ -334,17 +284,7 @@ fig_trend_country_confirmed.update_layout(
     showlegend=True,
     plot_bgcolor='white'
 )
-
-annotations = []
-annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
-                              xanchor='left', yanchor='bottom',
-                              text='<b>NUMBER OF CONFIRMED CASES BY COUNTRY (TOP 10)</b>',
-                              font=dict(family='Arial',
-                                        size=40,
-                                        color='rgb(37, 37, 37)'),
-                              showarrow=False))
-                              
-fig_trend_country_confirmed.update_layout(annotations=annotations)                             
+                      
 plot(fig_trend_country_confirmed, filename = 'World Recap/country_confirmed_cases.html')
 
 # Active Cases
@@ -353,7 +293,7 @@ colors = ['rgb(44, 62, 80)', 'rgb(84, 153, 199)', 'rgb(244, 208, 63)', 'rgb(192,
 line_size = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
 
 fig_trend_country_active_cases = go.Figure()
-for i in range(9):
+for i in range(10):
     fig_trend_country_active_cases.add_trace(go.Scatter(x=df_trend_country_active_cases.index, y=df_trend_country_active_cases.iloc[:,i], mode='lines',
         name=labels[i],
         line=dict(color=colors[i], width=line_size[i])))
@@ -386,17 +326,7 @@ fig_trend_country_active_cases.update_layout(
     showlegend=True,
     plot_bgcolor='white'
 )
-
-annotations = []
-annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
-                              xanchor='left', yanchor='bottom',
-                              text='<b>NUMBER OF ACTIVE CASES BY COUNTRY (TOP 10)</b>',
-                              font=dict(family='Arial',
-                                        size=40,
-                                        color='rgb(37, 37, 37)'),
-                              showarrow=False))
-                              
-fig_trend_country_active_cases.update_layout(annotations=annotations)                             
+                         
 plot(fig_trend_country_active_cases, filename = 'World Recap/country_active_cases.html')
 
 # Deaths
@@ -405,7 +335,7 @@ colors = ['rgb(44, 62, 80)', 'rgb(84, 153, 199)', 'rgb(244, 208, 63)', 'rgb(192,
 line_size = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
 
 fig_trend_country_deaths = go.Figure()
-for i in range(9):
+for i in range(10):
     fig_trend_country_deaths.add_trace(go.Scatter(x=df_trend_country_deaths.index, y=df_trend_country_deaths.iloc[:,i], mode='lines',
         name=labels[i],
         line=dict(color=colors[i], width=line_size[i])))
@@ -438,17 +368,7 @@ fig_trend_country_deaths.update_layout(
     showlegend=True,
     plot_bgcolor='white'
 )
-
-annotations = []
-annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
-                              xanchor='left', yanchor='bottom',
-                              text='<b>NUMBER OF DEATHS BY COUNTRY (TOP 10)</b>',
-                              font=dict(family='Arial',
-                                        size=40,
-                                        color='rgb(37, 37, 37)'),
-                              showarrow=False))
-                              
-fig_trend_country_deaths.update_layout(annotations=annotations)                             
+                         
 plot(fig_trend_country_deaths, filename = 'World Recap/country_deaths_cases.html')           
 
 # Recovered
@@ -457,7 +377,7 @@ colors = ['rgb(44, 62, 80)', 'rgb(84, 153, 199)', 'rgb(244, 208, 63)', 'rgb(192,
 line_size = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
 
 fig_trend_country_recovered = go.Figure()
-for i in range(9):
+for i in range(10):
     fig_trend_country_recovered.add_trace(go.Scatter(x=df_trend_country_recovered.index, y=df_trend_country_recovered.iloc[:,i], mode='lines',
         name=labels[i],
         line=dict(color=colors[i], width=line_size[i])))
@@ -490,17 +410,7 @@ fig_trend_country_recovered.update_layout(
     showlegend=True,
     plot_bgcolor='white'
 )
-
-annotations = []
-annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
-                              xanchor='left', yanchor='bottom',
-                              text='<b>NUMBER OF RECOVERED CASES BY COUNTRY (TOP 10)</b>',
-                              font=dict(family='Arial',
-                                        size=40,
-                                        color='rgb(37, 37, 37)'),
-                              showarrow=False))
-                              
-fig_trend_country_recovered.update_layout(annotations=annotations)                             
+                          
 plot(fig_trend_country_recovered, filename = 'World Recap/country_recovered_cases.html')       
 
 #### Cartes Map : Evolution du nombre de cas confirmés, de morts et de recovered avec animation

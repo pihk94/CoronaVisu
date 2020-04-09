@@ -6,12 +6,14 @@ from datetime import datetime
 import yfinance as yf
 import numpy as np
 
-### Impact des cas confirmés sur différents indices financiers
+### Impact des cas confirmés et morts sur différents indices financiers
 
 df_confirmed_world = get_world('confirmed')
+df_deaths_world = get_world('deaths')
 df = pd.DataFrame()
 df['Date'] = pd.to_datetime(df_confirmed_world.iloc[:,5:].columns)
-df['Confirmed_World'] = df_confirmed_world.iloc[:,5:].sum().values
+df['Confirmed'] = df_confirmed_world.iloc[:,5:].sum().values
+df['Deaths'] = df_deaths_world.iloc[:,5:].sum().values
 df.set_index('Date', inplace = True)
 
 list_tickers = ['^FCHI', '^GSPC', '^DJI', '^GDAXI', '^IXIC', '^N225', '^HSI', '^IBEX', 'BTC-USD', 'ETHUSD=X', 'EURUSD=X', 'EURGBP=X', 'EURJPY=X', 'EURCNY=X', 'EURCHF=X',
@@ -37,11 +39,163 @@ dict_asset_classes = {'CAC40' : 'Index', 'SP500' : 'Index', 'Dow Jones': 'Index'
 lst = []
 for asset in title:
     for i in range(df.shape[0]):
-        lst += [(dict_asset_classes[asset], asset, df.index[i].strftime('%d/%m/%y'), df.iloc[i,0], df_price[asset][i], 100)]     
-df = pd.DataFrame(lst, columns=['Asset class', 'Name', 'Date', 'Confirmed', 'Price', 'Size'])
+        lst += [(dict_asset_classes[asset], asset, df.index[i].strftime('%d/%m/%y'), df.iloc[i,0], df.iloc[i,1], df_price[asset][i], 100)]     
+df = pd.DataFrame(lst, columns=['Asset class', 'Name', 'Date', 'Confirmed', 'Deaths', 'Price', 'Size'])
 
-fig_confirmed = px.scatter(df, x = 'Confirmed', y = 'Price', animation_frame = 'Date', animation_group = 'Name', color = 'Name', hover_name = 'Name', size = 'Size', size_max = 25, facet_col = 'Asset class', range_x = [0, df['Confirmed'].max() + 10000], range_y = [df['Price'].min(), df['Price'].max()])
-plot(fig_confirmed, filename = 'Finance/impact_confirmed.html')
+# Impact des confirmés
+fig_impact_confirmed_finance = px.scatter(df, x = 'Confirmed', y = 'Price', animation_frame = 'Date', animation_group = 'Name', color = 'Name', hover_name = 'Name', size = 'Size', size_max = 25, facet_col = 'Asset class', range_x = [0, df['Confirmed'].max() + 10000], range_y = [df['Price'].min(), df['Price'].max()])
+fig_impact_confirmed_finance['layout'].update(
+    xaxis=dict(
+        showline=True,
+        showgrid=False,
+        showticklabels=True,
+        linecolor='rgb(204, 204, 204)',
+        linewidth=2,
+        ticks='outside',
+        tickfont=dict(
+            family='Arial',
+            size=15,
+            color='rgb(37, 37, 37)',
+        ),
+    ),
+    xaxis2=dict(
+        showline=True,
+        showgrid=False,
+        showticklabels=True,
+        linecolor='rgb(204, 204, 204)',
+        linewidth=2,
+        ticks='outside',
+        tickfont=dict(
+            family='Arial',
+            size=15,
+            color='rgb(37, 37, 37)',
+        ),
+    ),
+    xaxis3=dict(
+        showline=True,
+        showgrid=False,
+        showticklabels=True,
+        linecolor='rgb(204, 204, 204)',
+        linewidth=2,
+        ticks='outside',
+        tickfont=dict(
+            family='Arial',
+            size=15,
+            color='rgb(37, 37, 37)',
+        ),
+    ),
+    yaxis=dict(
+        showgrid=True,
+        gridcolor='lightgray',
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(
+                family='Arial',
+                size=15,
+                color='rgb(37, 37, 37)')
+    ),
+    yaxis2=dict(
+        showgrid=True,
+        gridcolor='lightgray',
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(
+                family='Arial',
+                size=15,
+                color='rgb(37, 37, 37)')
+    ),
+    yaxis3=dict(
+        showgrid=True,
+        gridcolor='lightgray',
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(
+                family='Arial',
+                size=15,
+                color='rgb(37, 37, 37)')
+    ),
+    showlegend=True,
+    plot_bgcolor='white'
+)
+plot(fig_impact_confirmed_finance, filename = 'Finance/impact_confirmed.html')
+
+# Impact des morts 
+fig_impact_deaths_finance = px.scatter(df, x = 'Deaths', y = 'Price', animation_frame = 'Date', animation_group = 'Name', color = 'Name', hover_name = 'Name', size = 'Size', size_max = 25, facet_col = 'Asset class', range_x = [0, df['Deaths'].max() + 10000], range_y = [df['Price'].min(), df['Price'].max()])
+fig_impact_deaths_finance['layout'].update(
+    xaxis=dict(
+        showline=True,
+        showgrid=False,
+        showticklabels=True,
+        linecolor='rgb(204, 204, 204)',
+        linewidth=2,
+        ticks='outside',
+        tickfont=dict(
+            family='Arial',
+            size=15,
+            color='rgb(37, 37, 37)',
+        ),
+    ),
+    xaxis2=dict(
+        showline=True,
+        showgrid=False,
+        showticklabels=True,
+        linecolor='rgb(204, 204, 204)',
+        linewidth=2,
+        ticks='outside',
+        tickfont=dict(
+            family='Arial',
+            size=15,
+            color='rgb(37, 37, 37)',
+        ),
+    ),
+    xaxis3=dict(
+        showline=True,
+        showgrid=False,
+        showticklabels=True,
+        linecolor='rgb(204, 204, 204)',
+        linewidth=2,
+        ticks='outside',
+        tickfont=dict(
+            family='Arial',
+            size=15,
+            color='rgb(37, 37, 37)',
+        ),
+    ),
+    yaxis=dict(
+        showgrid=True,
+        gridcolor='lightgray',
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(
+                family='Arial',
+                size=15,
+                color='rgb(37, 37, 37)')
+    ),
+    yaxis2=dict(
+        showgrid=True,
+        gridcolor='lightgray',
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(
+                family='Arial',
+                size=15,
+                color='rgb(37, 37, 37)')
+    ),
+    yaxis3=dict(
+        showgrid=True,
+        gridcolor='lightgray',
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(
+                family='Arial',
+                size=15,
+                color='rgb(37, 37, 37)')
+    ),
+    showlegend=True,
+    plot_bgcolor='white'
+)
+plot(fig_impact_deaths_finance, filename = 'Finance/impact_deaths.html')
+
 
 
 
