@@ -4,7 +4,7 @@ from dash.dependencies import Input, Output
 
 from app import app
 from apps import (maladies,historical,evolution,GoogleTrend,simulateur,recap,
-world,continent,country)
+world,continent,country,home)
 
 
 app.layout = html.Div([
@@ -18,6 +18,8 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/maladies':
         return maladies.layout
+    elif pathname == '/':
+        return home.layout
     elif pathname == '/maladies/historical':
         return historical.layout
     elif pathname == '/simulation':
