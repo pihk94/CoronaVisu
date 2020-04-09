@@ -1,19 +1,21 @@
 import dash
+from datetime import datetime, timedelta
+import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
+from dash.dependencies import Input, Output, State
+import numpy as np
 import pandas as pd
+import plotly.express as px
+from app import app
 from apps import GetData
 from apps import graph 
-import dash_bootstrap_components as dbc
-import numpy as np
-import pandas as pd 
 import plotly.graph_objects as go
 import time
-from app import app
-from dash.dependencies import Input, Output
-from datetime import datetime, timedelta
-app.title = 'CoronaRecap'
+#dataLoad
 df  =GetData.get_world('confirmed')
+
+#FCT 
 def make_bars(country,df = df):
     
     t =df[(df['Country/Region'] == country)].groupby('Country/Region').sum()
@@ -59,9 +61,6 @@ def make_bars(country,df = df):
         elif val >=1000:
             render.append(html.Div(style=color['+1000']))
     return html.Div(render,className='d-flex',style={'height':'15px'})
-
-#CSS
-
 CSS =  {
     'danger':{
         'font-size':'15px',
@@ -74,47 +73,8 @@ CSS =  {
     }
 }
 
-dropdown = dbc.DropdownMenu(
-    [
-        dbc.DropdownMenuItem('Autres maladies',href='AutresMaladies'),
-        dbc.DropdownMenuItem('Finance',href='/Finance'),
-        dbc.DropdownMenuItem('Google Trend',href='/GoogleTrend')
-    ],
-    nav=True,
-    in_navbar=True,
-    label = 'Comparatif',
-    style = {'margin-right':'3em'}
-)
-
-navbar = dbc.Navbar(
-        [
-        html.A(
-            dbc.Row(
-            [
-                dbc.Col(html.Img(src= app.get_asset_url('png/008-virus.png'),height='32px',width ='32px')),
-                dbc.Col(dbc.NavbarBrand('CoronaRecap',className="ml-2"))
-            ],
-                align="center",
-                no_gutters=True,
-                ),
-                href="/"),
-            dbc.NavbarToggler(id="navbar-toggler2"),
-            dbc.Nav(
-                [
-                    dbc.NavItem(dbc.NavLink("Récapitulatif",href="/")),
-                    dbc.NavItem(dbc.NavLink("Simulateur",href="/simulation")),
-                    dropdown
-                ],className="ml-auto",navbar=True
-            ),
-            
-        ],
-    color="dark",
-    dark=True,
-)
-
-layout = html.Div(children=[
-    navbar,
-    dbc.Row(html.H1('Propagation du Covid-19'),className='justify-content-center'),
+#recap
+recap = [
     dbc.Container(
         [
         dcc.DatePickerRange(
@@ -265,8 +225,68 @@ layout = html.Div(children=[
         })
         ],type='default'),
     ])
+]
     
+
+
+sidebar = html.Div(id='mySidebar',className ="sidebar",children=[
+            html.A(href='/',children = [html.Img(src='assets/png/home.png',style={'width':'32px','height':'32px','margin-left':'3.6em'}),html.Div('Home',style={
+                'font-size':'14px',
+                'text-align':'center'
+            })],style={'background-color':'#036'}),
+            html.A(href='#',children='Récapitulatif',style={'text-align':'left'}),
+            html.A(href='#',children='Autres épidémies',style={'text-align':'left'}),
+            html.A(href='#',children='Finance',style={'text-align':'left'}),
+            html.A(href='#',children='GoogleTrend',style={'text-align':'left'}),
+        ])
+
+layout = html.Div([
+    sidebar,
+    html.Div(id='main',children = [
+        dbc.Row(
+            [
+                html.Button(id='btnOpen',className='openbtn',children='☰',n_clicks=1),
+                html.Div(style={'width':'50em'}),
+                html.H4('COVID-19 OVERVIEW',id='titleMaladie',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px'})
+            ],style={'box-shadow':'0 5px 10px 0 rgba(50,50,50,.33)'}
+        ),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        dbc.Row(
+                            [
+                                html.A([html.Div('Overview'),html.Div(className='encoche',style={'top':'36px','margin-top':'0px'})],href ='/recap',className = "sousOngletActived")
+                            ]
+                        ),
+                        dbc.Row(
+                            [
+                                html.A([html.Div('World Trend')],href ='/recap/world',className = "sousOnglet")
+                            ]
+                        ),
+                        dbc.Row(
+                            [
+                                html.A([html.Div('Continental Trend')],href ='/recap/continent',className = "sousOnglet")
+                            ]
+                        ),
+                        dbc.Row(
+                            [
+                                html.A([html.Div('Country Trend')],href ='/recap/country',className = "sousOnglet")
+                            ]
+                        ),
+                    ],className ='sideBarOnglet',width = 2),
+                dbc.Col([
+                    dbc.Row("dada",style={'color':'white','margin-left':'2em','margin-top':'1em'}),
+                    html.Div(
+                        recap
+                    )
+                ],style={'padding':'0px'},width = 10),
+            ]
+        )
+        
+    ],style={'padding-top':'0px'})
 ])
+
 @app.callback(
     [Output('Total_confirm_case','children'),
     Output('Var_confirm','children'),
@@ -498,3 +518,36 @@ def recap_table(dt,previous):
         )
     ]
 
+
+
+
+
+
+
+
+
+#CALLBACKS
+# @app.callback(
+#     [Output('doubleGraph','figure'),
+#     Output('titleMaladie','children')],
+#     [Input('BtnFigureDoubleGraph1','className')]
+# )
+# def show_graph(className,fig1=fig1,fig2=fig2):
+#     if className == 'btnChoixActive':
+#         return fig1,'Comparison of Differents Infectious Diseases (Annual total cases)'
+#     else:
+#         return fig2,'Comparison of Differents Infectious Diseases (Annual total fatalities)'
+
+
+# @app.callback(
+#     [Output('BtnFigureDoubleGraph1','className'),
+#     Output('BtnFigureDoubleGraph2','className')],
+#     [Input('BtnFigureDoubleGraph1','n_clicks'),
+#     Input('BtnFigureDoubleGraph2','n_clicks')
+#     ]
+# )
+# def change_color(n_clicks1,n_clicks2):
+#     if n_clicks1 > n_clicks2:
+#         return 'btnChoixActive','btnChoixNonActive'
+#     else:
+#         return 'btnChoixNonActive','btnChoixActive'
