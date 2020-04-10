@@ -596,7 +596,7 @@ def recap_table(dt=dt,previous=5):
     df_H5["Total décès"]=[f'{i:,}'for i in df_H5["Total décès"]]
     rows =[]
     for index,row in df_H5.head(20).iterrows():
-        rows.append(html.Tr([html.Td(row.Pays,style={'font-weight':'bold','text-align':'right'}),html.Td(make_bars(row.Pays),style={'vertical-align':'middle'}),
+        rows.append(html.Tr([html.Td(row.Pays,style={'font-weight':'bold','text-align':'left'}),
         html.Td(row['Total des cas'],style={'font-weight':'bolder'}),html.Td(row['Total décès']),html.Td(row['Mortalité'])],style={
             'border-bottom':'1px solid #e8e8e8'
         }))
@@ -604,112 +604,22 @@ def recap_table(dt=dt,previous=5):
         html.Thead([
             html.Tr(
                 [
-                    html.Th(children=''
-                        ,style ={
-                            'width':'150px'
-                        }
-                    ),
-                    html.Th(
-                        [
-                            html.Div(children='10',
-                            style={
-                                "width":"27px",
-                                "height":"15px",
-                                "font-size":"8px"
-                            }),
-                            html.Div(children='100',
-                            style={
-                                "width":"27px",
-                                "height":"15px",
-                                "font-size":"8px"
-                            }),
-                            html.Div(children='1000',
-                            style={
-                                "width":"27px",
-                                "height":"15px",
-                                "font-size":"8px"
-                            }),
-                        ]
-                        ,style ={
-                            'width':'170px',
-                            "height":"15px",
-                            'vertical-align':'middle',
-                            "display":"flex",
-                            "margin-left":"85px"
-                        }
-                    ),
-                    html.Th()
-                ]
-            ),
-            html.Tr(
-                [
-                    html.Th(children=''
-                        ,style ={
-                            'width':'150px'
-                        }
-                    ),
-                    html.Th(
-                        [
-                            html.Div(children='',
-                            style={
-                                "background": "rgba(255, 152, 0,0.1)",
-                                "width":"27px",
-                                "height":"15px"
-                            }),
-                            html.Div(children='',
-                            style={
-                                "background": "rgba(255, 152, 0,0.4)",
-                                "width":"27px",
-                                "height":"15px"
-                            }),
-                            html.Div(children='',
-                            style={
-                                "background": "rgba(255, 152, 0,0.7)",
-                                "width":"27px",
-                                "height":"15px"
-                            }),
-                            html.Div(children='',
-                            style={
-                                "background": "rgba(255, 152, 1)",
-                                "width":"27px",
-                                "height":"15px"
-                            }),
-                        ]
-                        ,style ={
-                            'width':'170px',
-                            "height":"15px",
-                            'vertical-align':'middle',
-                            "display":"flex",
-                            "margin-left":"50px"
-                        }
-                    ),
-                    html.Th()
-                ]
-            ),
-            html.Tr(
-                [
                     html.Th(
                     'COuntry',style={'text-align':'right','width':'180px'}
                     ),
                     html.Th(
-                    'NEW CASES',style={'text-align':'center','width':'170px'}
-                    ),
-                    html.Th(
                         'CASES',style ={
                             'text-align':'center',
-                            'width':'250px'
                         }
                     ),
                     html.Th(
                         'DEATHS',style={
                             'text-align':'center',
-                            'width':'250px'
                         }
                     ),
                     html.Th(
                         'MORTALITY',style={
                             'text-align':'center',
-                            'width':'200px'
                         }
                     ),
                 ],
@@ -721,7 +631,6 @@ def recap_table(dt=dt,previous=5):
             )
         ]),
         html.Tbody(
-            [html.Tr([html.Td(),html.Td([html.Div('22 January'),html.Div("Today")],style = {'display':'flex','justify-content':'space-between','font-size':'9px'}),html.Td(),html.Td(),html.Td()])]+
             rows
         )
     ]
@@ -934,8 +843,9 @@ layout = html.Div([
                         html.H4('TOP 20 OVERVIEW'),className='justify-content-center'
                     ),
                     dcc.Loading(
-                        html.Div(
-                            recap_table()
+                        dbc.Table(
+                            recap_table(),
+                            responsive =True
                         )
                     )
                 ],width = 4,style={
