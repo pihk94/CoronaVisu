@@ -1,0 +1,28 @@
+﻿InfectiousDiseases,Epidemic,ann_total_fatalities,ann_total_cases,daily_avg_death,CFR,R0
+Tuberculosis,neither epidemic nor pandemic ,1100000,7857142.86,3013.7,0.14,2.3
+HepatitisB,neither epidemic nor pandemic ,887000,887000000,2430.14,0.001,5
+Pneumonia,neither epidemic nor pandemic ,808694,16173880,2215.6,0.05,1.1
+HIV/AIDS,pandemic,770000,36666666.67,2109.59,0.021,6
+Malaria,neither epidemic nor pandemic ,730550,365275000,2001.51,0.002,17
+Shigellosis,neither epidemic nor pandemic ,600000,60000000,1643.84,0.01,1.5
+Rotavirus,neither epidemic nor pandemic ,450000,64285714.29,1232.88,0.007,0.9
+SeasonalFlu,neither epidemic nor pandemic ,375000,375000000,1027,0.001,1
+SwineFluH1N12009,pandemic,362000,724000000,743.33,0.0005,1.75
+Norovirus,neither epidemic nor pandemic ,200000,250000000,547.95,0.0008,7.8
+WhoopingCough,neither epidemic nor pandemic ,160700,26783333.33,440.27,0.006,9
+Typhoid,neither epidemic nor pandemic ,144500,14450000,395.89,0.01,1.2
+Cholera,neither epidemic nor pandemic ,143000,4468750,391.78,0.032,9.5
+Meningitis,neither epidemic nor pandemic ,120000,1043478.26,328.77,0.115,1.3
+Measles,neither epidemic nor pandemic ,90000,12857142.86,246.58,0.007,9
+Rabies,neither epidemic nor pandemic ,59000,5900000,161.64,0.01,1
+COVID-19,pandemic,27222,899900,113.91,0.01,2
+YellowFever,neither epidemic nor pandemic ,30000,545454.55,82.19,0.055,4.3
+Leishmaniasis,neither epidemic nor pandemic ,20000,1052631.58,54.79,0.019,0.7
+Echinococcosis,neither epidemic nor pandemic ,19300,30880,52.88,0.625,0.8
+DengueFever,neither epidemic nor pandemic ,18400,46000000,50.41,0.0004,11
+HepatitisA,neither epidemic nor pandemic ,7134,71340000,19.55,0.0001,2
+ChickenPox,neither epidemic nor pandemic ,4200,35000000,11.51,0.00012,8.5
+SleepingSickness,neither epidemic nor pandemic ,3500,58333.33,9.59,0.06,1.4
+Ebola,epidemic,13023,26046,5.3,0.5,1.9
+SARS,epidemic,774,8062.5,3.2,0.096,2.8
+MERS,epidemic,851,2390.45,2.33,0.356,0.5

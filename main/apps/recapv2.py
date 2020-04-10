@@ -13,7 +13,7 @@ from app import app
 from dash.dependencies import Input, Output
 from datetime import datetime, timedelta
 app.title = 'CoronaRecap'
-df  = df=GetData.get_world('confirmed')
+df  =GetData.get_world('confirmed')
 def make_bars(country,df = df):
     
     t =df[(df['Country/Region'] == country)].groupby('Country/Region').sum()
@@ -299,13 +299,13 @@ def recap_world(dt,previous):
         dt = (datetime.now() - timedelta(1)).strftime('%d/%m/%Y')
     df_recap=GetData.get_recap_by_country(dt,previous=int(previous))
     df_confirmed=GetData.get_world('confirmed')
-    confirmed=df_confirmed.iloc[:,5:].sum(axis=1).sum(axis=0)
+    confirmed=df_confirmed.iloc[:,-1].sum()
     confirmedp=df_recap['Cases (+)'].sum(axis=0)
     df_deaths=GetData.get_world('deaths')
-    deaths=df_deaths.iloc[:,5:].sum(axis=1).sum(axis=0)
+    deaths=df_deaths.iloc[:,-1].sum()
     deathsp=df_recap['Deaths (+)'].sum(axis=0)
     df_recovered=GetData.get_world('recovered')
-    recovered=df_recovered.iloc[:,5:].sum(axis=1).sum(axis=0)
+    recovered=df_recovered.iloc[:,-1].sum()
     recoveredp=df_recap['Recovered (+)'].sum(axis=0)
     france_casesp=f'{int(df_recap["Cases (+)"][df_recap["Country/Region"]=="France"]):,}'
     france_casesp2="{0}".format(france_casesp)
