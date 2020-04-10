@@ -310,7 +310,7 @@ sim = [dbc.Row([
                             style=style_title_slider),
                         ]),
                         dbc.Row(
-                            html.P("Number of day to the end of incubation to death.",
+                            html.P("Number of day from incubation to death.",
                             style=style_slider_text),
                         ),
                         html.P(id='Value_death_time',style=style_slider_value),
@@ -344,7 +344,7 @@ sim = [dbc.Row([
                             style=style_title_slider),
                         ]),
                         dbc.Row(
-                            html.P("Mean time of hospitalisation for severe cases.",
+                            html.P("Hospitalisation time for severe cases.",
                             style=style_slider_text),
                         ),
                         html.P(id='Value_duree_hosp',style=style_slider_value),
@@ -422,8 +422,8 @@ layout = html.Div([
         dbc.Row(
             [
                 html.Button(id='btnOpen',className='openbtn',children='☰',n_clicks=1),
-                html.Div(style={'width':'50em'}),
-                html.H4('CORONAVIRUS SIMULATOR (FRENCH POPULATION)',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px'})
+                html.Div(style={'width':'25em'}),
+                html.H4('CORONAVIRUS SIMULATOR (FRENCH POPULATION)',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px','color':'rgb(87, 88, 90)','font-weight':'bolder'})
             ],style={'box-shadow':'0 5px 10px 0 rgba(50,50,50,.33)'}
         ),
         dbc.Row(
@@ -432,7 +432,7 @@ layout = html.Div([
                     [
                         dbc.Row(
                             [
-                                html.A([html.Div('Simulator'),html.Div(className='encoche',style={'top':'36px','margin-top':'0px'})],href ='/simulation',className = "sousOngletActived")
+                                html.A([html.Div('Simulator'),html.Div(className='encoche',style={'top':'52px','margin-top':'0px'})],href ='/simulation',className = "sousOngletActived")
                             ]
                         ),
                         dbc.Row(
@@ -457,7 +457,8 @@ layout = html.Div([
                                 )
                             ],style={
                                 'margin-top':'4em',
-                                'margin-left':'1em'
+                                'margin-left':'1em',
+                                'font-size': '15px'
                             }
                         ),
                     ],className ='sideBarOnglet',width = 2),

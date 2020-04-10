@@ -60,7 +60,7 @@ layout = html.Div([
             [
                 html.Button(id='btnOpen',className='openbtn',children='☰',n_clicks=1),
                 html.Div(style={'width':'25em'}),
-                html.H4('maladies',id='titleMaladie',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px'})
+                html.H4('DISEASES',id='titleMaladie',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px','color':'rgb(87, 88, 90)','font-weight':'bolder'})
             ],style={'box-shadow':'0 5px 10px 0 rgba(50,50,50,.33)'}
         ),
         dbc.Row(
@@ -69,7 +69,7 @@ layout = html.Div([
                     [
                         dbc.Row(
                             [
-                                html.A([html.Div('Comparison diseases'),html.Div(className='encoche',style={'top':'36px','margin-top':'0px'})],href ='/maladies',className = "sousOngletActived")
+                                html.A([html.Div('Comparison diseases'),html.Div(className='encoche',style={'top':'53px','margin-top':'0px'})],href ='/maladies',className = "sousOngletActived")
                             ]
                         ),
                         dbc.Row(

@@ -44,29 +44,24 @@ for i in range(10):
         line=dict(color=colors[i], width=line_size[i])))
     
 fig_trend_country_confirmed.update_layout(
+    font=dict(
+            family='Montserrat',
+            size=15,
+            color='rgb(87, 88, 90)'
+            ),
     xaxis=dict(
         showline=True,
         showgrid=False,
         showticklabels=True,
         linecolor='rgb(204, 204, 204)',
-        linewidth=2,
-        ticks='outside',
-        tickangle = 15,
-        tickfont=dict(
-            family='Arial',
-            size=15,
-            color='rgb(37, 37, 37)',
-        ),
+        linewidth=3,
+        ticks='outside'
     ),
     yaxis=dict(
         showgrid=True,
         gridcolor='lightgray',
         showline=False,
         showticklabels=True,
-        tickfont=dict(
-                family='Arial',
-                size=15,
-                color='rgb(37, 37, 37)')
     ),
     showlegend=True,
     plot_bgcolor='white'
@@ -83,29 +78,24 @@ for i in range(10):
         line=dict(color=colors[i], width=line_size[i])))
     
 fig_trend_country_active_cases.update_layout(
+    font=dict(
+            family='Montserrat',
+            size=15,
+            color='rgb(87, 88, 90)'
+            ),
     xaxis=dict(
         showline=True,
         showgrid=False,
         showticklabels=True,
         linecolor='rgb(204, 204, 204)',
-        linewidth=2,
-        ticks='outside',
-        tickangle = 15,
-        tickfont=dict(
-            family='Arial',
-            size=15,
-            color='rgb(37, 37, 37)',
-        ),
+        linewidth=3,
+        ticks='outside'
     ),
     yaxis=dict(
         showgrid=True,
         gridcolor='lightgray',
         showline=False,
         showticklabels=True,
-        tickfont=dict(
-                family='Arial',
-                size=15,
-                color='rgb(37, 37, 37)')
     ),
     showlegend=True,
     plot_bgcolor='white'
@@ -123,29 +113,24 @@ for i in range(10):
         line=dict(color=colors[i], width=line_size[i])))
     
 fig_trend_country_deaths.update_layout(
+    font=dict(
+            family='Montserrat',
+            size=15,
+            color='rgb(87, 88, 90)'
+            ),
     xaxis=dict(
         showline=True,
         showgrid=False,
         showticklabels=True,
         linecolor='rgb(204, 204, 204)',
-        linewidth=2,
-        ticks='outside',
-        tickangle = 15,
-        tickfont=dict(
-            family='Arial',
-            size=15,
-            color='rgb(37, 37, 37)',
-        ),
+        linewidth=3,
+        ticks='outside'
     ),
     yaxis=dict(
         showgrid=True,
         gridcolor='lightgray',
         showline=False,
         showticklabels=True,
-        tickfont=dict(
-                family='Arial',
-                size=15,
-                color='rgb(37, 37, 37)')
     ),
     showlegend=True,
     plot_bgcolor='white'
@@ -163,29 +148,24 @@ for i in range(10):
         line=dict(color=colors[i], width=line_size[i])))
     
 fig_trend_country_recovered.update_layout(
+    font=dict(
+            family='Montserrat',
+            size=15,
+            color='rgb(87, 88, 90)'
+            ),
     xaxis=dict(
         showline=True,
         showgrid=False,
         showticklabels=True,
         linecolor='rgb(204, 204, 204)',
-        linewidth=2,
-        ticks='outside',
-        tickangle = 15,
-        tickfont=dict(
-            family='Arial',
-            size=15,
-            color='rgb(37, 37, 37)',
-        ),
+        linewidth=3,
+        ticks='outside'
     ),
     yaxis=dict(
         showgrid=True,
         gridcolor='lightgray',
         showline=False,
         showticklabels=True,
-        tickfont=dict(
-                family='Arial',
-                size=15,
-                color='rgb(37, 37, 37)')
     ),
     showlegend=True,
     plot_bgcolor='white'
@@ -213,8 +193,8 @@ layout = html.Div([
         dbc.Row(
             [
                 html.Button(id='btnOpen',className='openbtn',children='☰',n_clicks=1),
-                html.Div(style={'width':'40em'}),
-                html.H4('COVID-19 TOP 10 COUNTRY TREND',id='titleCountry',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px'})
+                html.Div(style={'width':'32em'}),
+                html.H4('COVID-19 TOP 10 COUNTRY TREND',id='titleCountry',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px','color':'rgb(87, 88, 90)','font-weight':'bolder'})
             ],style={'box-shadow':'0 5px 10px 0 rgba(50,50,50,.33)'}
         ),
         dbc.Row(
@@ -238,7 +218,7 @@ layout = html.Div([
                         ),
                         dbc.Row(
                             [
-                                html.A([html.Div('Country Trend'),html.Div(className='encoche',style={'top':'420px','margin-top':'0px'})],href ='/recap/country',className = "sousOngletActived")
+                                html.A([html.Div('Country Trend'),html.Div(className='encoche',style={'top':'537px','margin-top':'0px'})],href ='/recap/country',className = "sousOngletActived")
                             ]
                         ),
                     ],className ='sideBarOnglet',width = 2),
@@ -256,7 +236,8 @@ layout = html.Div([
                                     inline=True
                                         ),className='justify-content-end',style={
                             'margin-right':'8em',
-                            'margin-top':'2em'
+                            'margin-top':'2em',
+                            'color':'rgb(87, 88, 90)'
                         }
                          ),
                     dcc.Loading(
