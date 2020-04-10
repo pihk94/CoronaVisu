@@ -152,7 +152,7 @@ sliders_dict = {
     "yanchor": "top",
     "xanchor": "left",
     "currentvalue": {
-        "font": {"size": 20},
+        "font": {"size": 15,'family':'Montserrat'},
         "prefix": "Date : ",
         "visible": True,
         "xanchor": "right"
@@ -301,7 +301,7 @@ sliders_dict = {
     "yanchor": "top",
     "xanchor": "left",
     "currentvalue": {
-        "font": {"size": 20},
+        "font": {"size": 15,'family':'Montserrat'},
         "prefix": "Date : ",
         "visible": True,
         "xanchor": "right"
@@ -448,7 +448,7 @@ sliders_dict = {
     "yanchor": "top",
     "xanchor": "left",
     "currentvalue": {
-        "font": {"size": 20},
+        "font": {"size": 15,'family':'Montserrat'},
         "prefix": "Date : ",
         "visible": True,
         "xanchor": "right"
