@@ -140,7 +140,7 @@ sim = [dbc.Row([
                         ],width =10),  
                     ]),
             dbc.Row([
-                    html.Span(children='Exposé',style={'font-weight':'600'})
+                    html.Span(children='Exposed',style={'font-weight':'600'})
                 ]),
                 dbc.Row([
                     dbc.Col(
@@ -152,7 +152,7 @@ sim = [dbc.Row([
                     ],width =10),  
                 ]),
             dbc.Row([
-                html.Span(children='Infecté',style={'font-weight':'600'})
+                html.Span(children='Infected',style={'font-weight':'600'})
             ]),
             dbc.Row([
                 dbc.Col(
@@ -164,7 +164,7 @@ sim = [dbc.Row([
                 ],width =10),  
             ]),
              dbc.Row([
-                html.Span(children='Rétabli',style={'font-weight':'600'})
+                html.Span(children='Recovered',style={'font-weight':'600'})
             ]),
             dbc.Row([
                 dbc.Col(
@@ -175,7 +175,7 @@ sim = [dbc.Row([
                     dbc.Row([html.Img(src=app.get_asset_url('png/delta.png'),style={'height':'8px','width':'8px','margin-right':'4px','margin-top':'4px','margin-left':'4px'}),html.Span(id='Day_recover',children=' xxx',style={'font-size':'12px','color':'rgb(136, 136, 136)'})]),
                 ],width =10)]), 
             dbc.Row([
-                html.Span(children='Hospitalisé',style={'font-weight':'600'})
+                html.Span(children='Hospitalised',style={'font-weight':'600'})
             ]),
             dbc.Row([
                 dbc.Col(
@@ -187,7 +187,7 @@ sim = [dbc.Row([
                 ],width =10), 
             ]),
             dbc.Row([
-                html.Span(children='Décès',style={'font-weight':'600'})
+                html.Span(children='Deaths',style={'font-weight':'600'})
             ]),
             dbc.Row([
                 dbc.Col(
@@ -205,7 +205,7 @@ sim = [dbc.Row([
     ]),
     dbc.Row([
         dbc.Col([
-            html.H6('Variables de transmission :',
+            html.H6('Transmission variables :',
             style={'text-align':'left',
             'margin-bottom':'2em',
             'padding':'4px',
@@ -214,9 +214,9 @@ sim = [dbc.Row([
             dbc.Row([
                 dbc.Col([
                     dbc.Row([
-                        html.Label('Taux de reproduction de base R0 :',
+                        html.Label('Reproductible R0 :',
                         style=style_title_slider),
-                        html.P("Le nombre moyen d'individus qu'une personne infecte.",
+                        html.P("Mean number of individuals infected by one.",
                         style=style_slider_text),
                         ]),
                     html.P(id='Value_R0',style=style_slider_value),
@@ -228,11 +228,11 @@ sim = [dbc.Row([
                         step=0.1
                         ),
                     dbc.Row([
-                        html.Label('Nombre de personnes infectées :'
+                        html.Label('Person initialy infected:'
                         ,style=style_title_slider)
                     ]),
                     dbc.Row(
-                        html.P("Personnes initialement malades dans la population.",
+                        html.P("Person initialy infected.",
                             style=style_slider_text)
                     ),
                     html.P(id='Value_infected',style=style_slider_value),
@@ -246,11 +246,11 @@ sim = [dbc.Row([
                         ],width=6),
                 dbc.Col([
                     dbc.Row([
-                        html.Label("Durée d'incubation : ",
+                        html.Label("Incubation time : ",
                         style=style_title_slider),
                         ]),
                     dbc.Row(
-                            html.P("La durée moyenne d'incubation du virus.",
+                            html.P("Mean incubation time.",
                                 style=style_slider_text)
                     ),
                     html.P(id='Value_incub',style=style_slider_value),
@@ -262,11 +262,11 @@ sim = [dbc.Row([
                         step=0.2
                         ),
                     dbc.Row([
-                        html.Label("Durée d'infectuosité : ",
+                        html.Label("Infectivity time: ",
                         style = style_title_slider),
                     ]),
                     dbc.Row(    
-                        html.P("La durée moyenne d'infection du COVID-19.",
+                        html.P("Mean infectivity time of COVID-19.",
                         style=style_slider_text)
                     ),
                     html.P(id='Value_infect',style=style_slider_value),
@@ -280,7 +280,7 @@ sim = [dbc.Row([
                     width=6),
             ])
         ],width = 4),
-            dbc.Col([html.H6('Variables cliniques :',
+            dbc.Col([html.H6('Clinical variables :',
                 style={'text-align':'left',
                 'margin-bottom':'2em',
                 'padding':'4px',
@@ -290,11 +290,11 @@ sim = [dbc.Row([
                 dbc.Row([
                     dbc.Col([
                         dbc.Row([
-                            html.Label('Taux de décès :',
+                            html.Label('Death rate :',
                             style=style_title_slider),
                         ]),
                         dbc.Row(
-                            html.P("Propotion d'individus pouvant décèder du COVID-19.",
+                            html.P("Fatility rate of COVID-19.",
                             style=style_slider_text),
                         ),
                         html.P(id='Value_death_rate',style=style_slider_value),
@@ -306,11 +306,11 @@ sim = [dbc.Row([
                             step=0.01
                             ),
                         dbc.Row([
-                            html.Label('Durée de fatalité :',
+                            html.Label('Fatality time :',
                             style=style_title_slider),
                         ]),
                         dbc.Row(
-                            html.P("Nombre de jour de la fin d'incubation au décès.",
+                            html.P("Number of day to the end of incubation to death.",
                             style=style_slider_text),
                         ),
                         html.P(id='Value_death_time',style=style_slider_value),
@@ -324,11 +324,11 @@ sim = [dbc.Row([
                         ],width = 6),
                     dbc.Col([
                         dbc.Row([
-                            html.Label('Taux de cas sévère :',
+                            html.Label('Severe case rate:',
                             style=style_title_slider),
                         ]),
                         dbc.Row(
-                            html.P("Taux d'hospitalisation sévère.",
+                            html.P("Hospitalisation rate.",
                             style=style_slider_text),
                         ),
                         html.P(id='Value_severe',style=style_slider_value),
@@ -340,11 +340,11 @@ sim = [dbc.Row([
                             step=0.01
                             ),
                         dbc.Row([
-                            html.Label("Durée d'hospitalisation :",
+                            html.Label("Hospitalisation time:",
                             style=style_title_slider),
                         ]),
                         dbc.Row(
-                            html.P("Durée moyenne d'hospitalisation pour les cas sévères.",
+                            html.P("Mean time of hospitalisation for severe cases.",
                             style=style_slider_text),
                         ),
                         html.P(id='Value_duree_hosp',style=style_slider_value),
@@ -358,7 +358,7 @@ sim = [dbc.Row([
                     ],width = 6)]),
             ],width = 4),
             dbc.Col([
-                html.H6('Distanciation sociale :',
+                html.H6('Social distancing :',
                     style={'text-align':'left',
                     'margin-bottom':'2em',
                     'padding':'4px',
@@ -366,11 +366,11 @@ sim = [dbc.Row([
                     'margin-right':'4em',
                     'border-bottom': '2px solid #999'}),
                 dbc.Row([
-                                html.Label('Coefficient de distanciation sociale :',
+                                html.Label('Coefficient of social distancing :',
                                 style=style_title_slider),
                             ]),
                             dbc.Row(
-                                html.P("Taux de distanciation sociale où 100% est une distance sociale nulle et 0% une quarantaine totale.",
+                                html.P("Rate where 100% is no social distancing and 0% is a total quarantine.",
                                 style=style_slider_text),
                             ),
                             html.P(id='Value_dist',style=style_slider_value),
@@ -382,11 +382,11 @@ sim = [dbc.Row([
                                 step=0.01
                                 ),
                 dbc.Row([
-                                html.Label('Mise en place de la distanciation :',
+                                html.Label('Social distancing set up :',
                                 style=style_title_slider),
                             ]),
                             dbc.Row(
-                                html.P("Jour où la distanciation sociale est mise en place.",
+                                html.P("First day of the social distancing.",
                                 style=style_slider_text),
                             ),
                             html.P(id='Value_jour_dist',style=style_slider_value),
@@ -445,7 +445,7 @@ layout = html.Div([
                     ],className ='sideBarOnglet',width = 2),
                 dbc.Col([
                     dbc.Row("dada",style={'color':'white','margin-left':'2em','margin-top':'1em'}),
-                    html.Div(sim)
+                    html.Div(sim,style={'height':'850px'})
                 ],style={'padding':'0px'},width = 10),
             ]
         )
@@ -475,16 +475,16 @@ def update_figure(R0,incub_time,infec_time,exposed,death_rate,death_time,p_sever
         'data' :[
             {'x':sim.Idx.unique(),'y':sim[sim.Type == 'Death'].Nb,'type':'bar',
             'width':'0.7',
-            'name':'Décès',"hoverinfo": "none",'marker':{'color':'rgba(56, 108, 176,0.6)'}},
+            'name':'Death',"hoverinfo": "none",'marker':{'color':'rgba(56, 108, 176,0.6)'}},
             {'x':sim.Idx.unique(),'y':sim[sim.Type == 'Hospital'].Nb,'type':'bar',
             'width':'0.7',
             'name':'Hospitalisation',"hoverinfo": "none",'marker':{'color':'rgba(141, 160, 203,0.6)'}},
             {'x':sim.Idx.unique(),'y':sim[sim.Type == 'I'].Nb,'type':'bar',
             'width':'0.7',
-            'name':'Infectieux',"hoverinfo": "none",'marker':{'color':'rgba(237, 2, 128, 0.6)'}},
+            'name':'Infected',"hoverinfo": "none",'marker':{'color':'rgba(237, 2, 128, 0.6)'}},
             {'x':sim.Idx.unique(),'y':sim[sim.Type == 'E'].Nb,'type':'bar',
             'width':'0.7',
-            'name':'Exposé',"hoverinfo": "none",'marker':{'color':'rgba(253, 192, 134, 0.6)'}},
+            'name':'Exposed',"hoverinfo": "none",'marker':{'color':'rgba(253, 192, 134, 0.6)'}},
             
         ],
         'layout':{
@@ -494,12 +494,12 @@ def update_figure(R0,incub_time,infec_time,exposed,death_rate,death_time,p_sever
             'annotations':[{
                 'x':dist_jour,
                 'y':sim[sim.Type == 'I'].Nb.max()+sim[sim.Type == 'Hospital'].Nb.max()+sim[sim.Type == 'E'].Nb.max()+sim[sim.Type == 'Death'].Nb.max(),
-                'text':'Mise en place du confinement : R0 = {}'.format(round(R0*rho,2))
+                'text':'Start of the containment : R0 = {}'.format(round(R0*rho,2))
             },
                 {
                 'x':sim.loc[sim[sim.Type == 'Death'].ne(0).idxmax()[0]].Idx,
                 'y':sim[sim.Type == 'I'].Nb.max(),
-                'text':'Premier décès'
+                'text':'First death'
                 }],
             'shapes':[{
                 'type':'line',
@@ -545,9 +545,9 @@ def update_dist_display(value):
 )
 def update_dist_jour_display(value):
     if value >1:
-        return '{} jours'.format(value)
+        return '{} days'.format(value)
     else:
-        return '{} jour'.format(value)
+        return '{} day'.format(value)
 @app.callback(
     Output('Value_R0','children'),
     [Input('R0_slider','value')]
@@ -560,27 +560,27 @@ def update_R0_display(value):
 )
 def update_infect_display(value):
     if value >1:
-        return '{} jours'.format(value)
+        return '{} days'.format(value)
     else:
-        return '{} jour'.format(value)
+        return '{} day'.format(value)
 @app.callback(
     Output('Value_incub','children'),
     [Input('incub_time_slide','value')]
 )
 def update_incub_display(value):
     if value >1:
-        return '{} jours'.format(value)
+        return '{} days'.format(value)
     else:
-        return '{} jour'.format(value)
+        return '{} day'.format(value)
 @app.callback(
     Output('Value_infected','children'),
     [Input('N_malade_slider','value')]
 )
 def update_infected_display(value):
     if value >1:
-        return '{} infectés'.format(value)
+        return '{} infected'.format(value)
     else:
-        return '{} infecté'.format(value)
+        return '{} infected'.format(value)
 @app.callback(
     Output('Value_death_rate','children'),
     [Input('death_rate_slide','value')]
@@ -593,9 +593,9 @@ def update_death_rate_display(value):
 )
 def update_death_time_display(value):
     if value >1:
-        return '{} jours'.format(value)
+        return '{} days'.format(value)
     else:
-        return '{} jour'.format(value)
+        return '{} day'.format(value)
 @app.callback(
     Output('Value_severe','children'),
     [Input('Severe_slide','value')]
@@ -608,9 +608,9 @@ def update_severe_display(value):
 )
 def update_jour_hosp_display(value):
     if value >1:
-        return '{} jours'.format(value)
+        return '{} days'.format(value)
     else:
-        return '{} jour'.format(value)
+        return '{} day'.format(value)
 #right text display slider value and graph value
 
 @app.callback(
@@ -621,11 +621,11 @@ def display_jour(hoverData):
     try:
         x = hoverData['points'][0]['x']
         if x == 1:
-            return '1 jour'
+            return '1 day'
         else:
-            return str(int(x)) + ' jours'
+            return str(int(x)) + ' days'
     except:
-        return '365 jours'
+        return '365 days'
 # TOTAL
 @app.callback(
     [Output('Total_Deces','children'),

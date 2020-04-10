@@ -11,8 +11,60 @@ from app import app
 from apps import GetData
 from apps import graph 
 import plotly.graph_objects as go
-#dataLoad
+from datetime import datetime
 
+#dataLoad
+df_confirmed_world = GetData.get_world('confirmed')
+df_deaths_world = GetData.get_world('deaths')
+df_recovered_world = GetData.get_world('recovered')
+
+## World
+df_trend_world = pd.DataFrame()
+df_trend_world['Date'] = pd.to_datetime(df_confirmed_world.iloc[:,5:].columns)
+df_trend_world['Confirmed'] = df_confirmed_world.iloc[:,5:].sum().values
+df_trend_world['Recovered'] = df_recovered_world.iloc[:,5:].sum().values
+df_trend_world['Deaths'] = df_deaths_world.iloc[:,5:].sum().values
+df_trend_world['Active Cases'] = df_trend_world['Confirmed'] - df_trend_world['Recovered'] - df_trend_world['Deaths']
+
+labels = ['Confirmed', 'Recovered', 'Deaths', 'Active Cases']
+colors = ['rgb(44, 62, 80)', 'rgb(84, 153, 199)', 'rgb(244, 208, 63)', 'rgb(192, 57, 43)']
+line_size = [4, 4, 4, 4]
+
+fig_trend_world = go.Figure()
+for i in range(4):
+    fig_trend_world.add_trace(go.Scatter(x=df_trend_world['Date'], y=df_trend_world.iloc[:,i+1], mode='lines',
+        name=labels[i],
+        line=dict(color=colors[i], width=line_size[i])))
+    
+fig_trend_world.update_layout(
+    xaxis=dict(
+        showline=True,
+        showgrid=False,
+        showticklabels=True,
+        linecolor='rgb(204, 204, 204)',
+        linewidth=2,
+        ticks='outside',
+        tickangle = 15,
+        tickfont=dict(
+            family='Arial',
+            size=15,
+            color='rgb(37, 37, 37)',
+        ),
+    ),
+    yaxis=dict(
+        showgrid=True,
+        gridcolor='lightgray',
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(
+                family='Arial',
+                size=15,
+                color='rgb(37, 37, 37)')
+    ),
+    showlegend=True,
+    plot_bgcolor='white'
+)
+   
 #FCT 
 sidebar = html.Div(id='mySidebar',className ="sidebar",children=[
             html.A(href='/',children = [html.Img(src='../assets/png/home.png',style={'width':'32px','height':'32px','margin-left':'5.6em'}),html.Div('Home',style={
@@ -64,7 +116,9 @@ layout = html.Div([
                     ],className ='sideBarOnglet',width = 2),
                 dbc.Col([
                     dbc.Row("dada",style={'color':'white','margin-left':'2em','margin-top':'1em'}),
-                    html.Div(
+                    dcc.Loading(
+                        dcc.Graph(figure=fig_trend_world,style={'height':'850px'}),
+                        type='circle'
                     )
                 ],style={'padding':'0px'},width = 10),
             ]
@@ -73,28 +127,3 @@ layout = html.Div([
     ],style={'padding-top':'0px'})
 ])
 
-#CALLBACKS
-# @app.callback(
-#     [Output('doubleGraph','figure'),
-#     Output('titleMaladie','children')],
-#     [Input('BtnFigureDoubleGraph1','className')]
-# )
-# def show_graph(className,fig1=fig1,fig2=fig2):
-#     if className == 'btnChoixActive':
-#         return fig1,'Comparison of Differents Infectious Diseases (Annual total cases)'
-#     else:
-#         return fig2,'Comparison of Differents Infectious Diseases (Annual total fatalities)'
-
-
-# @app.callback(
-#     [Output('BtnFigureDoubleGraph1','className'),
-#     Output('BtnFigureDoubleGraph2','className')],
-#     [Input('BtnFigureDoubleGraph1','n_clicks'),
-#     Input('BtnFigureDoubleGraph2','n_clicks')
-#     ]
-# )
-# def change_color(n_clicks1,n_clicks2):
-#     if n_clicks1 > n_clicks2:
-#         return 'btnChoixActive','btnChoixNonActive'
-#     else:
-#         return 'btnChoixNonActive','btnChoixActive'

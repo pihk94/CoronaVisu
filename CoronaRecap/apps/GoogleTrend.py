@@ -16,7 +16,7 @@ from plotly.offline import plot
 from app import app
 
 #fct
-mot_base = ['coronavirus','toilet','porno','china','twitch',]
+mot_base = ['coronavirus','toilet paper','porno','china','twitch',]
 def google_trend_graph(w):
     pytrend = TrendReq()
     lst = w
@@ -105,7 +105,7 @@ layout = html.Div([
                         dbc.Row(
                             [
                                 dbc.Col( 
-                                    dbc.Input(
+                                    dbc.Input(debounce=True,
                                     id='search',
                                     type='search',
                                     placeholder='Search...',
@@ -137,11 +137,10 @@ layout = html.Div([
                     ],className ='sideBarOnglet',width = 2),
                 dbc.Col([
                     dbc.Row("dada",style={'color':'white','margin-left':'2em','margin-top':'1em'}),
-                    dcc.Loading(
-                        dcc.Graph(id='trend',figure=fig,style={'height':'800px'}),
-                        type='circle'
-                    )
+                    dcc.Graph(id='trend',figure=fig,style={'height':'850px'}),
+                        
                 ],style={'padding':'0px'},width = 10),
+                dbc.Row(id='test')
             ]
         )
         
@@ -161,25 +160,27 @@ def change_search(elements,options):
         return google_trend_graph(elements),"Too much word selected, only 5 has been displayed"
     else:
         return google_trend_graph(elements),""
-# @app.callback(
-#     Output("test",'children'),
-#     [Input("BtnSearch",'n_clicks'),
-#     Input('search','value'),
-#     Input('checklist','options'),
-#     Input('checklist','value')]
-# )
-# def add_elements(n_clicks,value,options,checked):
-#     if n_clicks != 1:
-#         cases = [el['label'] for el in options]
-#         return dbc.Checklist(id='checklist',
-#             options =
-#                 [{'label':el,'value':el} for el in cases],
-#             style={'color':'white'},
-#             value = [el for el in checked])
-#     else:
-#         return dbc.Checklist(id='checklist',
-#             options =
-#                 [{'label':el,'value':el} for el in checked],
-#             style={'color':'white'},
-#             value = [el for el in checked])
+@app.callback(
+    [Output("test",'children'),
+    Output("search","placeholder")],
+    [Input('search','value'),
+    Input('checklist','options'),
+    Input('checklist','value')]
+)
+def add_elements(value,options,checked):
+    print(value)
+    return '',''
+    # cases = [el['label'] for el in options]
+    # cases += value
+    # return dbc.Checklist(id='checklist',
+    #     options =
+    #         [{'label':el,'value':el} for el in cases],
+    #     style={'color':'white'},
+    #     value = [el for el in checked])
+    # else:
+    #     return dbc.Checklist(id='checklist',
+    #         options =
+    #             [{'label':el,'value':el} for el in checked],
+    #         style={'color':'white'},
+    #         value = [el for el in checked])
     

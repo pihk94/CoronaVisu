@@ -96,7 +96,6 @@ body {
     height:850px;
     background-color:#404040 ;
   }
-
   .encoche{
     background: url('png/encoche.png');
     position:absolute;
@@ -121,3 +120,12 @@ body {
     .sidebar {padding-top: 15px;}
     .sidebar a {font-size: 18px;}
   }
+.toprow{
+  margin-right:2em;
+  margin-left:2em;
+  margin-top:3em;
+  text-align: center;
+}
+.topRowCol1{
+  border:1px solid black;
+}

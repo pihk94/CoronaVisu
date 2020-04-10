@@ -94,7 +94,7 @@ recap = [
             dbc.Row([
                 dbc.Col([
                     dbc.Row(
-                        html.Span('Cas confirmé')
+                        html.Span('Confirmed')
                     ),
                     dbc.Row(
                         html.Span(id='Total_confirm_case',children ='',style=CSS['important'])
@@ -105,7 +105,7 @@ recap = [
                 ],width = 4),
                 dbc.Col([
                     dbc.Row(
-                        html.Span('Décès')
+                        html.Span('Deaths')
                     ),
                     dbc.Row(
                         html.Span(id='Total_death',children = '',style=CSS['important'])
@@ -116,7 +116,7 @@ recap = [
                 ],width = 4),
                 dbc.Col([
                     dbc.Row(
-                        html.Span('Rétabli')
+                        html.Span('Recovered')
                     ),
                     dbc.Row(
                         html.Span(id='Total_recov',children = '',style=CSS['important'])
@@ -133,23 +133,23 @@ recap = [
             dbc.Row(
                 [
                     html.P([
-                        'Dans les ',
+                        'In the last',
                         html.Span(id='NbreJours',children ='',style={'font-weight':'bold'}),
-                        ' derniers jours, ',
+                        ' days, ',
                         html.Span(id='NbreCasNew',children ='',style={'font-weight':'bold'}),
-                        '  nouveaux cas de Coronavirus ont été reporté à travers le monde. Parmis ceux-là ',
+                        '  new cases of COVID-19 has been reported around the world. Among them ',
                         html.Span(id='NbreCasNewFr',children ='',style={'font-weight':'bold'}),
-                        ' viennent de France.',
+                        ' come from France.',
                     ])
                     
                 ],className='justify-content-center'
             ),
-            dbc.Row(html.H4(children = 'CAS',style={'font-weight':'bold'}),className='justify-content-center'),
+            dbc.Row(html.H4(children = 'CASES',style={'font-weight':'bold'}),className='justify-content-center'),
             dbc.Row(
                 [
                     dbc.Col([
                         dbc.Row(
-                            html.Span('Chine')
+                            html.Span('China')
                         ),
                         dbc.Row(
                             html.Span(id='chine_cas',style=CSS['important'])
@@ -160,7 +160,7 @@ recap = [
                     ]),
                     dbc.Col([
                         dbc.Row(
-                            html.Span('Italie')
+                            html.Span('Italy')
                         ),
                         dbc.Row(
                             html.Span(id='italy_cas',style=CSS['important'])
@@ -171,7 +171,7 @@ recap = [
                     ]),
                     dbc.Col([
                         dbc.Row(
-                            html.Span('Allemagne')
+                            html.Span('Germany')
                         ),
                         dbc.Row(
                             html.Span(id='allemagne_cas',style=CSS['important'])
@@ -182,7 +182,7 @@ recap = [
                     ]),
                     dbc.Col([
                         dbc.Row(
-                            html.Span('Espagne')
+                            html.Span('Spain')
                         ),
                         dbc.Row(
                             html.Span(id='spain_cas',style=CSS['important'])
@@ -193,7 +193,7 @@ recap = [
                     ]),
                     dbc.Col([
                         dbc.Row(
-                            html.Span('Etats-Unis')
+                            html.Span('United States')
                         ),
                         dbc.Row(
                             html.Span(id='us_cas',style=CSS['important'])
@@ -342,7 +342,7 @@ def recap_world(dt,previous):
     spain_cases=f'{int(df_recap["Cases"][df_recap["Country/Region"]=="Spain"]):,}'
     spain_casesp=f'{int(df_recap["Cases (+)"][df_recap["Country/Region"]=="Spain"]):,}'
     return '{:,}'.format(confirmed),'(+ {:,})'.format(confirmedp),'{:,}'.format(deaths),'(+ {:,})'.format(deathsp),'{:,}'.format(recovered),'(+ {:,})'.format(recoveredp),\
-        'Mise à jour le {} (+ Variations sur les {} derniers jours)'.format(pd.to_datetime(dt).strftime('%d/%m/%Y'),previous),'{:,}'.format(previous),'{:,}'.format(recoveredp),'{}'.format(france_casesp2),\
+        'Updated on {} (+ variation in the last {} days)'.format(pd.to_datetime(dt).strftime('%d/%m/%Y'),previous),'{:,}'.format(previous),'{:,}'.format(recoveredp),'{}'.format(france_casesp2),\
             '{}'.format(china_cases),'(+ {})'.format(china_casesp),'{}'.format(italy_cases),'(+ {})'.format(italy_casesp),'{}'.format(germany_cases),'(+ {})'.format(germany_casesp),\
                 '{}'.format(spain_cases),'(+ {})'.format(spain_casesp),'{}'.format(us_cases),'(+ {})'.format(us_casesp),'{}'.format(france_cases),'(+ {})'.format(france_casesp2)
 @app.callback(
@@ -464,43 +464,43 @@ def recap_table(dt,previous):
             html.Tr(
                 [
                     html.Th(
-                    'Pays',style={'text-align':'right','width':'180px'}
+                    'Country',style={'text-align':'right','width':'180px'}
                     ),
                     html.Th(
-                    'Evolution des cas',style={'text-align':'center','width':'170px'}
+                    'Evolution',style={'text-align':'center','width':'170px'}
                     ),
                     html.Th(
-                        'Total des cas',style ={
+                        'Total cases',style ={
                             'text-align':'center',
                             'width':'250px'
                         }
                     ),
                     html.Th(
-                        'Nouveaux cas',style={
+                        'New cases',style={
                             'text-align':'center',
                             'width':'250px'
                         }
                     ),
                     html.Th(
-                        'Total décès',style={
+                        'Total deaths',style={
                             'text-align':'center',
                             'width':'250px'
                         }
                     ),
                     html.Th(
-                        'Nouveaux décès',style={
+                        'New deaths',style={
                             'text-align':'center',
                             'width':'300px'
                         }
                     ),
                     html.Th(
-                        'Mortalité',style={
+                        'Fatality',style={
                             'text-align':'center',
                             'width':'200px'
                         }
                     ),
                     html.Th(
-                        'Rétablis',style={
+                        'Recovered',style={
                             'text-align':'center',
                             'width':'200px'
                         }
@@ -514,7 +514,7 @@ def recap_table(dt,previous):
             )
         ]),
         html.Tbody(
-            [html.Tr([html.Td(),html.Td([html.Div('22 Janvier'),html.Div("Aujourd'hui")],style = {'display':'flex','justify-content':'space-between','font-size':'9px'}),html.Td(),html.Td('( + NOUVEAU ) depuis le {}'.format((pd.to_datetime(dt,dayfirst=True) - timedelta(previous)).strftime('%d/%m/%Y')),style={"font-size": "9px",'color':'#999','text-align':'left'}),html.Td(),html.Td()])]+
+            [html.Tr([html.Td(),html.Td([html.Div('22 January'),html.Div("Today")],style = {'display':'flex','justify-content':'space-between','font-size':'9px'}),html.Td(),html.Td('( + NEW ) since {}'.format((pd.to_datetime(dt,dayfirst=True) - timedelta(previous)).strftime('%d/%m/%Y')),style={"font-size": "9px",'color':'#999','text-align':'left'}),html.Td(),html.Td()])]+
             rows
         )
     ]

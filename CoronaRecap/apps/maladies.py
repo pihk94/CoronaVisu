@@ -86,8 +86,8 @@ layout = html.Div([
                 dbc.Col([
                     dbc.Row(
                         [
-                            html.Button('Figure1',id='BtnFigureDoubleGraph1',className='btnChoixActive',n_clicks=1),
-                            html.Button('Figure2',id='BtnFigureDoubleGraph2',className='btnChoixNonActive',n_clicks=0),
+                            html.Button('Cases',id='BtnFigureDoubleGraph1',className='btnChoixActive',n_clicks=1),
+                            html.Button('Fatality',id='BtnFigureDoubleGraph2',className='btnChoixNonActive',n_clicks=0),
                         ],className='justify-content-end',style={
                             'margin-right':'8em',
                             'margin-top':'2em'

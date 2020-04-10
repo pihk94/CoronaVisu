@@ -11,7 +11,171 @@ from app import app
 from apps import GetData
 from apps import graph 
 import plotly.graph_objects as go
+from datetime import datetime
+
 #dataLoad
+df_confirmed_world = GetData.get_world('confirmed')
+df_deaths_world = GetData.get_world('deaths')
+df_recovered_world = GetData.get_world('recovered')
+
+## Continent                                 
+df_trend_continent_confirmed = df_confirmed_world.groupby('Continent').sum().iloc[:,2:].T
+df_trend_continent_confirmed.index = pd.to_datetime(df_trend_continent_confirmed.index)
+df_trend_continent_recovered = df_recovered_world.groupby('Continent').sum().iloc[:,2:].T
+df_trend_continent_recovered.index = pd.to_datetime(df_trend_continent_recovered.index)
+df_trend_continent_deaths = df_deaths_world.groupby('Continent').sum().iloc[:,2:].T
+df_trend_continent_deaths.index = pd.to_datetime(df_trend_continent_deaths.index)
+df_trend_continent_active_cases = df_trend_continent_confirmed - df_trend_continent_recovered - df_trend_continent_deaths
+
+labels = df_trend_continent_confirmed.columns
+colors = ['rgb(44, 62, 80)', 'rgb(84, 153, 199)', 'rgb(244, 208, 63)', 'rgb(192, 57, 43)', 'rgb(154, 14, 14)', 'rgb(100, 145, 122)']
+line_size = [4, 4, 4, 4, 4, 4]
+
+# Confirmed
+fig_trend_continent_confirmed = go.Figure()
+for i in range(6):
+    fig_trend_continent_confirmed.add_trace(go.Scatter(x=df_trend_continent_confirmed.index, y=df_trend_continent_confirmed.iloc[:,i], mode='lines',
+        name=labels[i],
+        line=dict(color=colors[i], width=line_size[i])))
+    
+fig_trend_continent_confirmed.update_layout(
+    xaxis=dict(
+        showline=True,
+        showgrid=False,
+        showticklabels=True,
+        linecolor='rgb(204, 204, 204)',
+        linewidth=2,
+        ticks='outside',
+        tickangle = 15,
+        tickfont=dict(
+            family='Arial',
+            size=15,
+            color='rgb(37, 37, 37)',
+        ),
+    ),
+    yaxis=dict(
+        showgrid=True,
+        gridcolor='lightgray',
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(
+                family='Arial',
+                size=15,
+                color='rgb(37, 37, 37)')
+    ),
+    showlegend=True,
+    plot_bgcolor='white'
+)
+# Active Cases
+fig_trend_continent_active_cases = go.Figure()
+for i in range(6):
+    fig_trend_continent_active_cases.add_trace(go.Scatter(x=df_trend_continent_active_cases.index, y=df_trend_continent_active_cases.iloc[:,i], mode='lines',
+        name=labels[i],
+        line=dict(color=colors[i], width=line_size[i])))
+    
+fig_trend_continent_active_cases.update_layout(
+    xaxis=dict(
+        showline=True,
+        showgrid=False,
+        showticklabels=True,
+        linecolor='rgb(204, 204, 204)',
+        linewidth=2,
+        ticks='outside',
+        tickangle = 15,
+        tickfont=dict(
+            family='Arial',
+            size=15,
+            color='rgb(37, 37, 37)',
+        ),
+    ),
+    yaxis=dict(
+        showgrid=True,
+        gridcolor='lightgray',
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(
+                family='Arial',
+                size=15,
+                color='rgb(37, 37, 37)')
+    ),
+    showlegend=True,
+    plot_bgcolor='white'
+)
+# Deaths
+fig_trend_continent_deaths = go.Figure()
+for i in range(6):
+    fig_trend_continent_deaths.add_trace(go.Scatter(x=df_trend_continent_deaths.index, y=df_trend_continent_deaths.iloc[:,i], mode='lines',
+        name=labels[i],
+        line=dict(color=colors[i], width=line_size[i])))
+    
+fig_trend_continent_deaths.update_layout(
+    xaxis=dict(
+        showline=True,
+        showgrid=False,
+        showticklabels=True,
+        linecolor='rgb(204, 204, 204)',
+        linewidth=2,
+        ticks='outside',
+        tickangle = 15,
+        tickfont=dict(
+            family='Arial',
+            size=15,
+            color='rgb(37, 37, 37)',
+        ),
+    ),
+    yaxis=dict(
+        showgrid=True,
+        gridcolor='lightgray',
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(
+                family='Arial',
+                size=15,
+                color='rgb(37, 37, 37)')
+    ),
+    showlegend=True,
+    plot_bgcolor='white'
+)
+                           
+# Recovered
+fig_trend_continent_recovered = go.Figure()
+for i in range(6):
+    fig_trend_continent_recovered.add_trace(go.Scatter(x=df_trend_continent_recovered.index, y=df_trend_continent_recovered.iloc[:,i], mode='lines',
+        name=labels[i],
+        line=dict(color=colors[i], width=line_size[i])))
+    
+fig_trend_continent_recovered.update_layout(
+    xaxis=dict(
+        showline=True,
+        showgrid=False,
+        showticklabels=True,
+        linecolor='rgb(204, 204, 204)',
+        linewidth=2,
+        ticks='outside',
+        tickangle = 15,
+        tickfont=dict(
+            family='Arial',
+            size=15,
+            color='rgb(37, 37, 37)',
+        ),
+    ),
+    yaxis=dict(
+        showgrid=True,
+        gridcolor='lightgray',
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(
+                family='Arial',
+                size=15,
+                color='rgb(37, 37, 37)')
+    ),
+    showlegend=True,
+    plot_bgcolor='white'
+)
+     
+
+
+
 
 #FCT 
 sidebar = html.Div(id='mySidebar',className ="sidebar",children=[
@@ -32,7 +196,7 @@ layout = html.Div([
             [
                 html.Button(id='btnOpen',className='openbtn',children='☰',n_clicks=1),
                 html.Div(style={'width':'56em'}),
-                html.H4('COVID-19 CONTINENTAL TREND',id='titleMaladie',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px'})
+                html.H4('COVID-19 CONTINENTAL TREND',id='titleConti',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px'})
             ],style={'box-shadow':'0 5px 10px 0 rgba(50,50,50,.33)'}
         ),
         dbc.Row(
@@ -61,8 +225,25 @@ layout = html.Div([
                         ),
                     ],className ='sideBarOnglet',width = 2),
                 dbc.Col([
-                    dbc.Row("dada",style={'color':'white','margin-left':'2em','margin-top':'1em'}),
-                    html.Div(
+                    dbc.Row(
+                        dbc.RadioItems(
+                                    options=[
+                                        {'label':'Active cases','value':1},
+                                        {'label':'Confirmed cases','value':2},
+                                        {'label':'Recovered cases','value':3},
+                                        {'label':'Deaths cases','value':4}
+                                    ],
+                                    value=1,
+                                    id='radiochoiceconti',
+                                    inline=True
+                                        ),className='justify-content-end',style={
+                            'margin-right':'8em',
+                            'margin-top':'2em'
+                        }
+                         ),
+                    dcc.Loading(
+                        dcc.Graph(id='choixContinent',style={'height':'850px'}),
+                        type='circle'
                     )
                 ],style={'padding':'0px'},width = 10),
             ]
@@ -70,29 +251,18 @@ layout = html.Div([
         
     ],style={'padding-top':'0px'})
 ])
-
 #CALLBACKS
-# @app.callback(
-#     [Output('doubleGraph','figure'),
-#     Output('titleMaladie','children')],
-#     [Input('BtnFigureDoubleGraph1','className')]
-# )
-# def show_graph(className,fig1=fig1,fig2=fig2):
-#     if className == 'btnChoixActive':
-#         return fig1,'Comparison of Differents Infectious Diseases (Annual total cases)'
-#     else:
-#         return fig2,'Comparison of Differents Infectious Diseases (Annual total fatalities)'
-
-
-# @app.callback(
-#     [Output('BtnFigureDoubleGraph1','className'),
-#     Output('BtnFigureDoubleGraph2','className')],
-#     [Input('BtnFigureDoubleGraph1','n_clicks'),
-#     Input('BtnFigureDoubleGraph2','n_clicks')
-#     ]
-# )
-# def change_color(n_clicks1,n_clicks2):
-#     if n_clicks1 > n_clicks2:
-#         return 'btnChoixActive','btnChoixNonActive'
-#     else:
-#         return 'btnChoixNonActive','btnChoixActive'
+@app.callback(
+    [Output('choixContinent','figure'),
+    Output('titleConti','children')],
+    [Input('radiochoiceconti','value')]
+)
+def show_graph(value,fig1=fig_trend_continent_active_cases,fig2=fig_trend_continent_confirmed,fig3=fig_trend_continent_recovered,fig4=fig_trend_continent_deaths):
+    if value == 1:
+        return fig1,'COVID-19 CONTINENTAL TREND (ACTIVE)'
+    elif value == 2:
+        return fig2,'COVID-19 CONTINENTAL TREND (CONFIRMED)'
+    elif value == 3:
+        return fig3,'COVID-19 CONTINENTAL TREND (RECOVERED)'
+    else:
+        return fig4,'COVID-19 CONTINENTAL TREND (DEATHS)'
