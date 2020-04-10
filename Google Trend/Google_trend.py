@@ -1,26 +1,20 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Apr  3 13:23:03 2020
-
-@author: eleon
-"""
 from pytrends.request import TrendReq
 import plotly.graph_objects as go
 from plotly.offline import plot
+import pandas as pd
 
 def google_trend_graph(w):
-    pytrend = TrendReq()
 
     pytrend = TrendReq()
-    lst = [w]
-    pytrend.build_payload(kw_list=lst, timeframe='today 12-m')
-
-    interest_w = pytrend.interest_over_time() 
-    interest_w = interest_w.reset_index()
+    df = pd.DataFrame()
+    for i in w:
+        pytrend.build_payload(kw_list=[i], timeframe='today 3-m')
+        interest_w = pytrend.interest_over_time() 
+        df[i] = interest_w[i]
 
     fig_trend_w = go.Figure()
-    for i in range(1):
-        fig_trend_w.add_trace(go.Scatter(x=interest_w['date'], y=interest_w.iloc[:,i+1], mode='lines', name=lst[i]))
+    for i in range(len(w)):
+        fig_trend_w.add_trace(go.Scatter(x=df.index, y=df.iloc[:,i], mode='lines', name=w[i]))
     
     fig_trend_w.update_layout(
         xaxis=dict(
@@ -50,19 +44,9 @@ def google_trend_graph(w):
         showlegend=True,
         plot_bgcolor='white'
         )
-
-    annotations = []
-    annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
-                            xanchor='left', yanchor='bottom',
-                            text='<b>GOOGLE RESEARCH INTERESTS FOR {}</b>'.format(w.upper()),
-                            font=dict(family='Arial',
-                            size=40,
-                            color='rgb(37, 37, 37)'),
-                            showarrow=False))
-                              
-    fig_trend_w.update_layout(annotations=annotations)                             
+                    
     return fig_trend_w
 
-word = 'nintendo switch'
+word = ['carrefour', 'deliveroo', 'ubereats']
 fig = google_trend_graph(word)
 plot(fig, filename = 'google_trend_{}.html'.format(word))
