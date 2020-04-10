@@ -15,17 +15,17 @@ import plotly.graph_objects as go
 from plotly.offline import plot
 from app import app
 
+
 #fct
-mot_base = ['coronavirus','toilet paper','porno','china','twitch',]
+mot_base = ['coronavirus','disney plus','pornhub','nintendo switch','netflix',]
 def google_trend_graph(w):
     pytrend = TrendReq()
     lst = w
     pytrend.build_payload(kw_list=lst, timeframe='today 3-m')
     interest_w = pytrend.interest_over_time() 
-    interest_w = interest_w.reset_index()
     fig_trend_w = go.Figure()
     for i in range(len(lst)):
-        fig_trend_w.add_trace(go.Scatter(x=interest_w['date'], y=interest_w.iloc[:,i+1], mode='lines', name=lst[i]))
+        fig_trend_w.add_trace(go.Scatter(x=interest_w.index, y=interest_w.iloc[:,i], mode='lines', name=lst[i]))
     fig_trend_w.update_layout(
         xaxis=dict(
             showline=True,
@@ -54,17 +54,6 @@ def google_trend_graph(w):
         showlegend=True,
         plot_bgcolor='white'
         )
-
-    annotations = []
-    annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
-                            xanchor='left', yanchor='bottom',
-                            text='',
-                            font=dict(family='Arial',
-                            size=40,
-                            color='rgb(37, 37, 37)'),
-                            showarrow=False))
-                              
-    fig_trend_w.update_layout(annotations=annotations)                             
     return fig_trend_w
 fig = google_trend_graph(mot_base)
 
@@ -114,7 +103,7 @@ layout = html.Div([
                                     }
                                 ),width = 9,style={'padding-right':'0px'}),
                                 dbc.Col(
-                                    dbc.Button(id='BtnSearch',n_clicks=1,children=html.Img(src ='https://img.icons8.com/ios/500/search--v1.png',style = {'width':'16px','height':'16px'}),color='primary',className='ml-2')
+                                    dbc.Button(id='BtnSearch',children=html.Img(src ='https://img.icons8.com/ios/500/search--v1.png',style = {'width':'16px','height':'16px'}),color='primary',className='ml-2')
                                 ,width = 3,style={'padding-left':'0px'})
                             ],style={
                                 'margin-top':'4em',
@@ -160,16 +149,15 @@ def change_search(elements,options):
         return google_trend_graph(elements),"Too much word selected, only 5 has been displayed"
     else:
         return google_trend_graph(elements),""
-@app.callback(
-    [Output("test",'children'),
-    Output("search","placeholder")],
-    [Input('search','value'),
-    Input('checklist','options'),
-    Input('checklist','value')]
-)
-def add_elements(value,options,checked):
-    print(value)
-    return '',''
+# @app.callback(
+#     [Output("test",'children')],
+#     [Input('search','value'),
+#     Input('checklist','options'),
+#     Input('checklist','value')]
+# )
+# def add_elements(value,options,checked):
+#     print(value)
+#     return value
     # cases = [el['label'] for el in options]
     # cases += value
     # return dbc.Checklist(id='checklist',
@@ -183,4 +171,22 @@ def add_elements(value,options,checked):
     #             [{'label':el,'value':el} for el in checked],
     #         style={'color':'white'},
     #         value = [el for el in checked])
-    
+@app.callback(
+    [Output('test','children'),
+    Output('search','value')],
+    [Input('BtnSearch','n_clicks'),
+    Input('checklist','options'),
+    Input('checklist','value')],
+    [State('search','value')]
+)
+def update_output(clicks,options,checked,value):
+    if clicks is not None and len(value) >1:
+        cases = [el['label'] for el in options]
+        cases = cases + [value]
+        return dbc.Checklist(id='checklist2',
+            options =
+                [{'label':el,'value':el} for el in cases],
+            style={'color':'white'},
+            value = [el for el in checked]),''
+    else:
+        return '',''

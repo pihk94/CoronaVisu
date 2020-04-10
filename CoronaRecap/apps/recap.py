@@ -133,7 +133,7 @@ recap = [
             dbc.Row(
                 [
                     html.P([
-                        'In the last',
+                        'In the last ',
                         html.Span(id='NbreJours',children ='',style={'font-weight':'bold'}),
                         ' days, ',
                         html.Span(id='NbreCasNew',children ='',style={'font-weight':'bold'}),

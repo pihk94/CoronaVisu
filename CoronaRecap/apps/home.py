@@ -122,14 +122,14 @@ fig_dict["layout"]["updatemenus"] = [
     {
         "buttons": [
             {
-                "args": [None, {"frame": {"duration": 500, "redraw": False},
+                "args": [None, {"frame": {"duration": 500, "redraw":True},
                                 "fromcurrent": True, "transition": {"duration": 300,
                                                                     "easing": "quadratic-in-out"}}],
                 "label": "⯈",
                 "method": "animate"
             },
             {
-                "args": [[None], {"frame": {"duration": 0, "redraw": False},
+                "args": [[None], {"frame": {"duration": 0, "redraw": True},
                                   "mode": "immediate",
                                   "transition": {"duration": 0}}],
                 "label": "⯀",
@@ -174,7 +174,7 @@ data_dict = dict(
     text = df_sub['text'],
     marker = dict(
         size = df_sub['Number']/100,
-        color = 'crimson',
+        color = 'rgb(255, 152, 1)',
         line_color = 'rgb(40,40,40)',
         line_width = 0.5,
         sizemode = 'area'))
@@ -197,7 +197,7 @@ for date in dates:
         marker = dict(
             size = df_sub['Number']/100,
             sizemin = 3,
-            color = 'crimson',
+            color = 'rgb(255, 152, 1)',
             line_color = 'rgb(40,40,40)',
             line_width = 0.5,
             sizemode = 'area'))
@@ -207,7 +207,7 @@ for date in dates:
     fig_dict["frames"].append(frame)
     slider_step = {"args": [
         [date],
-        {"frame": {"duration": 300, "redraw": False},
+        {"frame": {"duration": 300, "redraw": True},
          "mode": "immediate",
          "transition": {"duration": 300}}
     ],
@@ -218,16 +218,15 @@ for date in dates:
 fig_dict["layout"]["sliders"] = [sliders_dict]
 fig_dict['layout']['geo'] = dict(
         showland = True,        
-        landcolor = "rgb(25, 25, 25)",
+        landcolor = "rgb(64, 64, 64)",
         showlakes = True,
-        lakecolor = "rgb(25, 25, 25)",
+        lakecolor = "rgb(64, 64, 64)",
         showsubunits = True,
-        subunitcolor = "rgb(60, 60, 60)",
+        subunitcolor = "rgb(255, 255, 255)",
         showcountries = True,
-        countrycolor = "rgb(100, 100, 100)",
+        countrycolor = "rgb(255, 255, 255)",
         showocean = True,
-        oceancolor = "rgb(60, 60, 60)")
-fig_dict['layout']['height']=650
+        oceancolor = "rgb(255, 255, 255)")
 fig1=fig_dict
 df_recovered_world =  GetData.get_world('recovered')
 lst = []
@@ -272,14 +271,14 @@ fig_dict["layout"]["updatemenus"] = [
     {
         "buttons": [
             {
-                "args": [None, {"frame": {"duration": 500, "redraw": False},
+                "args": [None, {"frame": {"duration": 500, "redraw":True},
                                 "fromcurrent": True, "transition": {"duration": 300,
                                                                     "easing": "quadratic-in-out"}}],
                 "label": "⯈",
                 "method": "animate"
             },
             {
-                "args": [[None], {"frame": {"duration": 0, "redraw": False},
+                "args": [[None], {"frame": {"duration": 0, "redraw": True},
                                   "mode": "immediate",
                                   "transition": {"duration": 0}}],
                 "label": "⯀",
@@ -355,7 +354,7 @@ for date in dates:
     fig_dict["frames"].append(frame)
     slider_step = {"args": [
         [date],
-        {"frame": {"duration": 300, "redraw": False},
+        {"frame": {"duration": 300, "redraw": True},
          "mode": "immediate",
          "transition": {"duration": 300}}
     ],
@@ -419,14 +418,14 @@ fig_dict["layout"]["updatemenus"] = [
     {
         "buttons": [
             {
-                "args": [None, {"frame": {"duration": 500, "redraw": False},
+                "args": [None, {"frame": {"duration": 500, "redraw": True},
                                 "fromcurrent": True, "transition": {"duration": 300,
                                                                     "easing": "quadratic-in-out"}}],
                 "label": "⯈",
                 "method": "animate"
             },
             {
-                "args": [[None], {"frame": {"duration": 0, "redraw": False},
+                "args": [[None], {"frame": {"duration": 0, "redraw": True},
                                   "mode": "immediate",
                                   "transition": {"duration": 0}}],
                 "label": "⯀",
@@ -503,7 +502,7 @@ for date in dates:
     fig_dict["frames"].append(frame)
     slider_step = {"args": [
         [date],
-        {"frame": {"duration": 300, "redraw": False},
+        {"frame": {"duration": 300, "redraw": True},
          "mode": "immediate",
          "transition": {"duration": 300}}
     ],
@@ -735,7 +734,7 @@ layout = html.Div([
             [
                 html.Button(id='btnOpen',className='openbtn',children='☰',n_clicks=1),
                 html.Div(style={'width':'50em'}),
-                html.H4('COVID-19 GLOBAL CASES OVERVIEW',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px'})
+                html.H4('COVID-19 GLOBAL CASES OVERVIEW',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px','font-weight':'bolder'})
             ],style={'box-shadow':'0 5px 10px 0 rgba(50,50,50,.33)'}
         ),
         dbc.Row(className='toprow',children=
@@ -745,18 +744,18 @@ layout = html.Div([
                         [
                             dbc.Col(
                                 [
-                                    html.H4('Total cases'),
+                                    html.H4('Total cases',style={'margin-top': '1em','font-weight':'bolder'}),
                                     html.Span(
-                                        children='{:,}'.format(confirmed)
+                                        children='{:,}'.format(confirmed),style={'color':'rgb(255, 152, 1)','font-weight':'bolder'}
                                     )
                                 ]
-                                ,width=6,style={'padding':'0px','border-right':'1px solid black'}
+                                ,width=6,style={'padding':'0px','border-right':'1px solid black','height':'108px'}
                             ),
                             dbc.Col(
                                 [
-                                    html.H4('Total deaths'),
+                                    html.H4('Total deaths',style={'margin-top': '1em','font-weight':'bolder'}),
                                     html.Span(
-                                        children='{:,}'.format(deaths)
+                                        children='{:,}'.format(deaths),style={'color':'red','font-weight':'bolder'}
                                     )
                                 ]
                                 ,width=6,style={'padding':'0px',}
@@ -764,10 +763,8 @@ layout = html.Div([
                         ]
                     )
                     ,width=4,style={'padding-left':'0px',
-                    'padding-right':'0px',
-                    'padding-top':'15px',}
+                    'padding-right':'0px',}
                 ),
-                dbc.Col(width=1),
                 dbc.Col(
                     [
                         dbc.Row(
@@ -775,26 +772,43 @@ layout = html.Div([
                                 html.Div('Updated on : '),
                                 html.Span('{}'.format((datetime.now() - timedelta(1)).strftime('%d/%m/%Y')),style={'margin-left':'2px'})
                             ],className='justify-content-center',style={
-                                'border-bottom':'1px solid black'
+                                'border-bottom':'1px solid black',
+                                'color':'rgb(64, 64, 64)',
+                                'font-weight': 'bolder'
                             }
                         ),
                         dbc.Row(
                             [
                                 dbc.Col(
                                     [
-                                        html.H5('China'),
+                                        html.H5('China',style={
+                                            'font-weight':'bolder',
+                                            'font-size':'1.15rem'
+                                        }),
                                         dbc.Row(
                                             [
                                                 dbc.Col(
                                                     [
-                                                        html.H6('Confirmed'),
-                                                        html.Span('{}'.format(china_cases))
+                                                        html.H6('Confirmed',style={
+                                                            'font-weight':'550',
+                                                            'font-size':'0.85rem'
+                                                        }),
+                                                        html.Span('{}'.format(china_cases),style={
+                                                            'color':'rgb(255, 152, 1)',
+                                                            'font-size':'15px'
+                                                        })
                                                     ]
                                                 ,width = 6),
                                                 dbc.Col(
                                                     [
-                                                        html.H6('Deaths'),
-                                                        html.Span('{}'.format(china_death))
+                                                        html.H6('Deaths',style={
+                                                            'font-weight':'550',
+                                                            'font-size':'0.85rem'
+                                                        }),
+                                                        html.Span('{}'.format(china_death),style={
+                                                            'color':'red',
+                                                            'font-size':'15px'
+                                                        })
                                                     ]
                                                 ,width = 6)
                                             ]
@@ -805,19 +819,34 @@ layout = html.Div([
                                     }),
                                 dbc.Col(
                                     [
-                                        html.H5('France'),
+                                        html.H5('France',style={
+                                            'font-weight':'bolder',
+                                            'font-size':'1.15rem'
+                                        }),
                                         dbc.Row(
                                             [
                                                 dbc.Col(
                                                     [
-                                                        html.H6('Confirmed'),
-                                                        html.Span('{}'.format(fr_confirm))
+                                                        html.H6('Confirmed',style={
+                                                            'font-weight':'550',
+                                                            'font-size':'0.85rem'
+                                                        }),
+                                                        html.Span('{}'.format(fr_confirm),style={
+                                                            'color':'rgb(255, 152, 1)',
+                                                            'font-size':'15px'
+                                                        })
                                                     ]
                                                 ,width = 6),
                                                 dbc.Col(
                                                     [
-                                                        html.H6('Deaths'),
-                                                        html.Span('{}'.format(fr_death))
+                                                        html.H6('Deaths',style={
+                                                            'font-weight':'550',
+                                                            'font-size':'0.85rem'
+                                                        }),
+                                                        html.Span('{}'.format(fr_death),style={
+                                                            'color':'red',
+                                                            'font-size':'15px'
+                                                        })
                                                     ]
                                                 ,width = 6)
                                             ]
@@ -828,19 +857,34 @@ layout = html.Div([
                                     }),
                                 dbc.Col(
                                     [
-                                        html.H5('United States'),
+                                        html.H5('United States',style={
+                                            'font-weight':'bolder',
+                                            'font-size':'1.15rem'
+                                        }),
                                         dbc.Row(
                                             [
                                                 dbc.Col(
                                                     [
-                                                        html.H6('Confirmed'),
-                                                        html.Span('{}'.format(us_cases))
+                                                        html.H6('Confirmed',style={
+                                                            'font-weight':'550',
+                                                            'font-size':'0.85rem'
+                                                        }),
+                                                        html.Span('{}'.format(us_cases),style={
+                                                            'color':'rgb(255, 152, 1)',
+                                                            'font-size':'15px'
+                                                        })
                                                     ]
                                                 ,width = 6),
                                                 dbc.Col(
                                                     [
-                                                        html.H6('Deaths'),
-                                                        html.Span('{}'.format(us_death))
+                                                        html.H6('Deaths',style={
+                                                            'font-weight':'550',
+                                                            'font-size':'0.85rem'
+                                                        }),
+                                                        html.Span('{}'.format(us_death),style={
+                                                            'color':'red',
+                                                            'font-size':'15px'
+                                                        })
                                                     ]
                                                 ,width = 6)
                                             ]
@@ -850,17 +894,11 @@ layout = html.Div([
                             ]
                         )
                     ]
-                    ,width=7,style={'border':'1px solid black'}
+                    ,width=8,style={'border-left':'1px solid black',
+                    'border-right':'1px solid black',
+                    'border-top':'1px solid black',
+                    }
                 )
-            ]
-        ),
-        dbc.Row(className='justify-content-center mt-2',children=
-            [
-                html.Div([
-                    'In the last 5 days ',
-                    html.Span("{:,}".format(confirmedp)),
-                    html.Span(' new cases have been reported worldwide.')
-                    ]),
             ]
         ),
         dbc.Row(className='toprow',children=
@@ -884,11 +922,13 @@ layout = html.Div([
                             'margin-top':'2em'
                         }
                         ),
-                        dcc.Graph(figure=fig2,id='dbleMap',style={'height':'100%'}),
-                    ],width = 7,style={
+                        dcc.Loading(
+                            dcc.Graph(id='dbleMap',style={'height':'650px'}),
+                            type='circle'
+                        ),
+                    ],width = 8,style={ 
                         'border':'1px solid black'
                     }),
-                dbc.Col([],width = 1),
                 dbc.Col(children=[
                     dbc.Row(
                         html.H4('TOP 20 OVERVIEW'),className='justify-content-center'
@@ -899,9 +939,11 @@ layout = html.Div([
                         )
                     )
                 ],width = 4,style={
-                    'border':'1px solid black'
+                    'border-right':'1px solid black',
+                    'border-top':'1px solid black',
+                    'border-bottom':'1px solid black',
                 }),
-            ]
+            ],style={'margin-top':'0px'}
         )
         
     ],style={'padding-top':'0px'})
