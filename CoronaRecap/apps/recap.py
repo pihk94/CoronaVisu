@@ -77,17 +77,7 @@ CSS =  {
 recap = [
     dbc.Container(
         [
-        dcc.DatePickerRange(
-        id='my-date-picker-range',
-        minimum_nights=2,
-        with_portal=True,
-        min_date_allowed=datetime(2020, 1, 22),
-        max_date_allowed=datetime.now() - timedelta(1),
-        initial_visible_month=datetime(2020, 4, 1),
-        start_date=datetime.now() - timedelta(6),
-        end_date=datetime.now() - timedelta(1),
-        display_format='D-M-Y',
-        style={"display":"None"}
+        dcc.Input(id='my-date-picker-range',value=datetime.now() - timedelta(1),style={"display":"None"}
         ),
         dcc.Loading([  
             dbc.Row(html.Span(id='Maj_date',style={'text-transform':'uppercase','font-size':'9px'}),className='justify-content-center'),
@@ -275,7 +265,7 @@ layout = html.Div([
                                 html.A([html.Div('Country Trend')],href ='/recap/country',className = "sousOnglet")
                             ]
                         ),
-                    ],className ='sideBarOnglet',width = 2),
+                    ],className ='sideBarOnglet',style={'height':'4500px'},width = 2),
                 dbc.Col([
                     dbc.Row("dada",style={'color':'white','margin-left':'2em','margin-top':'1em'}),
                     html.Div(
@@ -311,11 +301,9 @@ layout = html.Div([
     Output('us_delta','children'),
     Output('fr_cas','children'),
     Output('fr_delta','children')],
-    [Input('my-date-picker-range','end_date'),
-    Input('my-date-picker-range','start_date')]
+    [Input('my-date-picker-range','value')]
 )
-def recap_world(dt,previous):
-    previous = (pd.to_datetime(dt,dayfirst=True)-pd.to_datetime(previous,dayfirst=True)).days
+def recap_world(dt,previous=5):
     if dt == time.strftime('%d/%m/%Y'):
         dt = (datetime.now() - timedelta(1)).strftime('%d/%m/%Y')
     df_recap=GetData.get_recap_by_country(dt,previous=int(previous))
@@ -347,11 +335,9 @@ def recap_world(dt,previous):
                 '{}'.format(spain_cases),'(+ {})'.format(spain_casesp),'{}'.format(us_cases),'(+ {})'.format(us_casesp),'{}'.format(france_cases),'(+ {})'.format(france_casesp2)
 @app.callback(
     Output('recap','children'),
-    [Input('my-date-picker-range','end_date'),
-    Input('my-date-picker-range','start_date')]
+    [Input('my-date-picker-range','value')]
 )
-def recap_table(dt,previous):
-    previous = (pd.to_datetime(dt,dayfirst=True)-pd.to_datetime(previous,dayfirst=True)).days
+def recap_table(dt,previous=5):
     df_recap=GetData.get_recap_by_country(dt,previous=previous)
     columns = ['Pays','Nouveaux Cas','Total des cas','Total décès','Nouveau décès','Mortalité','Rétabli']
     df_H5=pd.DataFrame(columns=columns)
@@ -522,33 +508,3 @@ def recap_table(dt,previous):
 
 
 
-
-
-
-
-
-#CALLBACKS
-# @app.callback(
-#     [Output('doubleGraph','figure'),
-#     Output('titleMaladie','children')],
-#     [Input('BtnFigureDoubleGraph1','className')]
-# )
-# def show_graph(className,fig1=fig1,fig2=fig2):
-#     if className == 'btnChoixActive':
-#         return fig1,'Comparison of Differents Infectious Diseases (Annual total cases)'
-#     else:
-#         return fig2,'Comparison of Differents Infectious Diseases (Annual total fatalities)'
-
-
-# @app.callback(
-#     [Output('BtnFigureDoubleGraph1','className'),
-#     Output('BtnFigureDoubleGraph2','className')],
-#     [Input('BtnFigureDoubleGraph1','n_clicks'),
-#     Input('BtnFigureDoubleGraph2','n_clicks')
-#     ]
-# )
-# def change_color(n_clicks1,n_clicks2):
-#     if n_clicks1 > n_clicks2:
-#         return 'btnChoixActive','btnChoixNonActive'
-#     else:
-#         return 'btnChoixNonActive','btnChoixActive'

@@ -17,15 +17,20 @@ from app import app
 
 
 #fct
-mot_base = ['coronavirus','disney plus','pornhub','nintendo switch','netflix',]
+mot_base = ['coronavirus','ubereats','pornhub','nintendo switch','netflix',]
 def google_trend_graph(w):
+
     pytrend = TrendReq()
-    lst = w
-    pytrend.build_payload(kw_list=lst, timeframe='today 3-m')
-    interest_w = pytrend.interest_over_time() 
+    df = pd.DataFrame()
+    for i in w:
+        pytrend.build_payload(kw_list=[i], timeframe='today 3-m')
+        interest_w = pytrend.interest_over_time() 
+        df[i] = interest_w[i]
+
     fig_trend_w = go.Figure()
-    for i in range(len(lst)):
-        fig_trend_w.add_trace(go.Scatter(x=interest_w.index, y=interest_w.iloc[:,i], mode='lines', name=lst[i]))
+    for i in range(len(w)):
+        fig_trend_w.add_trace(go.Scatter(x=df.index, y=df.iloc[:,i], mode='lines', name=w[i]))
+    
     fig_trend_w.update_layout(
         xaxis=dict(
             showline=True,
@@ -54,6 +59,7 @@ def google_trend_graph(w):
         showlegend=True,
         plot_bgcolor='white'
         )
+                    
     return fig_trend_w
 fig = google_trend_graph(mot_base)
 
@@ -110,14 +116,14 @@ layout = html.Div([
                             }
                         ),
                         dbc.Row(
-                           [ dbc.Label('Choose or add words (5 choices maximum)',style={'color':'white'}),
+                           [ dbc.Label('Choose or add words',style={'color':'white'}),
                             html.Div("",id='msgError',style={'color':'red','text-transform':'uppercase'}),
                             html.Div(style={'margin-left':'2em'},id='containerCheckList',children = 
                                 dbc.Checklist(id='checklist',
                                 options =
                                     [{'label':el,'value':el} for el in mot_base],
                                 style={'color':'white'},
-                                value = [el for el in mot_base]
+                                value = [mot_base[2],mot_base[4]]
                             ),
                             ),
                             html.Div(id='test'),
@@ -138,55 +144,26 @@ layout = html.Div([
 
 #CALLBACKS
 @app.callback(
-    [Output('trend','figure'),
-    Output('msgError','children')],
-    [Input('checklist','value'),
-    Input('checklist','options')]
+    Output('trend','figure'),
+    [Input('checklist','value')]
 )
-def change_search(elements,options):
-    if len(elements)>5:
-        elements = element[:5]
-        return google_trend_graph(elements),"Too much word selected, only 5 has been displayed"
-    else:
-        return google_trend_graph(elements),""
-# @app.callback(
-#     [Output("test",'children')],
-#     [Input('search','value'),
-#     Input('checklist','options'),
-#     Input('checklist','value')]
-# )
-# def add_elements(value,options,checked):
-#     print(value)
-#     return value
-    # cases = [el['label'] for el in options]
-    # cases += value
-    # return dbc.Checklist(id='checklist',
-    #     options =
-    #         [{'label':el,'value':el} for el in cases],
-    #     style={'color':'white'},
-    #     value = [el for el in checked])
-    # else:
-    #     return dbc.Checklist(id='checklist',
-    #         options =
-    #             [{'label':el,'value':el} for el in checked],
-    #         style={'color':'white'},
-    #         value = [el for el in checked])
+def change_search(elements):
+    return google_trend_graph(elements)
 @app.callback(
-    [Output('test','children'),
+    [Output('containerCheckList','children'),
     Output('search','value')],
-    [Input('BtnSearch','n_clicks'),
-    Input('checklist','options'),
-    Input('checklist','value')],
-    [State('search','value')]
+    [Input('BtnSearch','n_clicks')],
+    [State('search','value'),
+    State('checklist','options'),
+    State('checklist','value')]
 )
-def update_output(clicks,options,checked,value):
-    if clicks is not None and len(value) >1:
+def update_output(clicks,value,options,checked):
+    if value is not None:
         cases = [el['label'] for el in options]
         cases = cases + [value]
-        return dbc.Checklist(id='checklist2',
+        return dbc.Checklist(id='checklist',
             options =
                 [{'label':el,'value':el} for el in cases],
             style={'color':'white'},
             value = [el for el in checked]),''
-    else:
-        return '',''
+    

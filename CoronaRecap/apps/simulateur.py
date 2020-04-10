@@ -224,7 +224,7 @@ sim = [dbc.Row([
                         id='R0_slider',
                         min = 0.1,
                         max = 10,
-                        value=3.2,
+                        value=2.5,
                         step=0.1
                         ),
                     dbc.Row([
@@ -437,9 +437,27 @@ layout = html.Div([
                         ),
                         dbc.Row(
                             [
-
+                                html.Div(
+                                    [
+                                        html.P('This COVID-19 simulator is based on the SEIR model. You can move every variables to see thir impact on the population.'),
+                                        html.P('The initial value we choose are extracted from several past studies. Because of the simplicity of the model, the number may be exagerated but the purpose is to play with the model and observe the variation. For example, when the social distance rate is near 0%, there is less fatality.'),
+                                        html.P('Do not be selfish, STAY HOME STAY SAFE !'),
+                                        html.H6('Sources :'),
+                                        html.Ul(
+                                            [
+                                                html.Li(
+                                                    [html.A("SEIR Model",href='https://www.idmod.org/docs/hiv/model-seir.html')],
+                                                ),
+                                                html.Li(
+                                                    [html.A("Variables",href='https://www.college-de-france.fr/media/philippe-sansonetti/UPL1414529259917354829_Covid_19_Sansonetti.pdf')],
+                                                ),
+                                            ]
+                                        )
+                                    ],style={'color':'white','width':'200px'}
+                                )
                             ],style={
                                 'margin-top':'4em',
+                                'margin-left':'1em'
                             }
                         ),
                     ],className ='sideBarOnglet',width = 2),
