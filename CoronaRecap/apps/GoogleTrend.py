@@ -32,33 +32,28 @@ def google_trend_graph(w):
         fig_trend_w.add_trace(go.Scatter(x=df.index, y=df.iloc[:,i], mode='lines', name=w[i]))
     
     fig_trend_w.update_layout(
+        font=dict(
+            family='Montserrat',
+            size=15,
+            color='rgb(87, 88, 90)'
+            ),
         xaxis=dict(
             showline=True,
             showgrid=False,
             showticklabels=True,
             linecolor='rgb(204, 204, 204)',
-            linewidth=2,
-            ticks='outside',
-            tickangle = 15,
-            tickfont=dict(
-                family='Arial',
-                size=15,
-                color='rgb(37, 37, 37)',
-            ),
+            linewidth=3,
+            ticks='outside'
         ),
         yaxis=dict(
             showgrid=True,
             gridcolor='lightgray',
             showline=False,
             showticklabels=True,
-            tickfont=dict(
-                family='Arial',
-                size=15,
-                color='rgb(37, 37, 37)')
         ),
         showlegend=True,
         plot_bgcolor='white'
-        )
+    )
                     
     return fig_trend_w
 fig = google_trend_graph(mot_base)
@@ -85,7 +80,7 @@ layout = html.Div([
             [
                 html.Button(id='btnOpen',className='openbtn',children='☰',n_clicks=1),
                 html.Div(style={'width':'50em'}),
-                html.H4('GOOGLE RESEARCH INTERESTS',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px'})
+                html.H4('GOOGLE RESEARCH INTERESTS',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px','color':'rgb(87, 88, 90)','font-weight':'bolder'})
             ],style={'box-shadow':'0 5px 10px 0 rgba(50,50,50,.33)'}
         ),
         dbc.Row(
@@ -94,7 +89,7 @@ layout = html.Div([
                     [
                         dbc.Row(
                             [
-                                html.A([html.Div('Internet Trend'),html.Div(className='encoche',style={'top':'36px','margin-top':'0px'})],href ='/GoogleTrend',className = "sousOngletActived")
+                                html.A([html.Div('Internet Trend'),html.Div(className='encoche',style={'top':'52px','margin-top':'0px'})],href ='/GoogleTrend',className = "sousOngletActived")
                             ]
                         ),
                         dbc.Row(
@@ -116,7 +111,7 @@ layout = html.Div([
                             }
                         ),
                         dbc.Row(
-                           [ dbc.Label('Choose or add words',style={'color':'white'}),
+                           [ dbc.Label('Choose or add words',style={'color':'white','margin-left':'1em'}),
                             html.Div("",id='msgError',style={'color':'red','text-transform':'uppercase'}),
                             html.Div(style={'margin-left':'2em'},id='containerCheckList',children = 
                                 dbc.Checklist(id='checklist',

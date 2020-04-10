@@ -89,12 +89,6 @@ fig4.update_xaxes(
     title_text = ""
 )
 
-fig4.update_layout(annotations=[dict(xref='paper', yref='paper', x=0.5, y=-0.2,
-                              xanchor='center', yanchor='top',
-                              text='Source: WHO Mortality Database & Wikipedia',
-                              font=dict(family='Arial',
-                                        size=10),
-                              showarrow=False)])
 
 sidebar = html.Div(id='mySidebar',className ="sidebar",children=[
             html.A(href='/',children = [html.Img(src='../assets/png/home.png',style={'width':'32px','height':'32px','margin-left':'5.6em'}),html.Div('Home',style={
@@ -115,7 +109,7 @@ layout = html.Div([
             [
                 html.Button(id='btnOpen',className='openbtn',children='☰',n_clicks=1),
                 html.Div(style={'width':'50em'}),
-                html.H4('Evolution of Infectious Diseases in History',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px'})
+                html.H4('Evolution of Infectious Diseases in History',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px','color':'rgb(87, 88, 90)','font-weight':'bolder'})
             ],style={'box-shadow':'0 5px 10px 0 rgba(50,50,50,.33)'}
         ),
         dbc.Row(
@@ -134,14 +128,14 @@ layout = html.Div([
                         ),
                         dbc.Row(
                             [
-                                html.A([html.Div('Evolution'),html.Div(className='encoche',style={'top':'288px','margin-top':'0px'})],href ='#',className = "sousOngletActived")
+                                html.A([html.Div('Evolution'),html.Div(className='encoche',style={'top':'375px','margin-top':'0px'})],href ='#',className = "sousOngletActived")
                             ]
                         ),
                     ],className ='sideBarOnglet',width = 2),
                 dbc.Col([
                     dbc.Row("dada",style={'color':'white','margin-left':'2em','margin-top':'1em'}),
                     dcc.Loading(
-                        dcc.Graph(id='evolv',figure=fig4,style={'height':'800px'}),
+                        dcc.Graph(id='evolv',figure=fig4,style={'height':'850px'}),
                         type='circle'
                     )
                 ],style={'padding':'0px'},width = 10),

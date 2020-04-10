@@ -39,7 +39,7 @@ layout = html.Div([
             [
                 html.Button(id='btnOpen',className='openbtn',children='☰',n_clicks=1),
                 html.Div(style={'width':'50em'}),
-                html.H4('FINANCIAL IMPACT OF COVID-19',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px'})
+                html.H4('FINANCIAL IMPACT OF COVID-19',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px','color':'rgb(87, 88, 90)','font-weight':'bolder'})
             ],style={'box-shadow':'0 5px 10px 0 rgba(50,50,50,.33)'}
         ),
         dbc.Row(
@@ -53,7 +53,7 @@ layout = html.Div([
                         ), 
                         dbc.Row(
                             [
-                                html.A([html.Div('RECESSIONS COMPARISON'),html.Div(className='encoche',style={'top':'162px','margin-top':'0px'})],href ='/finance/compare',className = "sousOngletActived")
+                                html.A([html.Div('RECESSIONS COMPARISON'),html.Div(className='encoche',style={'top':'213px','margin-top':'0px'})],href ='/finance/compare',className = "sousOngletActived")
                             ]
                         ), 
                     ],className ='sideBarOnglet',width = 2),

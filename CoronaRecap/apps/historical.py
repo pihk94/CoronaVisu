@@ -97,7 +97,7 @@ layout = html.Div([
                         ),
                         dbc.Row(
                             [
-                                html.A([html.Div('Historical Epidemics'),html.Div(className='encoche',style={'top':'162px','margin-top':'0px'})],href ='/maladies/historical',className = "sousOngletActived")
+                                html.A([html.Div('Historical Epidemics'),html.Div(className='encoche',style={'top':'213px','margin-top':'0px'})],href ='/maladies/historical',className = "sousOngletActived")
                             ]
                         ),
                         dbc.Row(
@@ -109,7 +109,7 @@ layout = html.Div([
                 dbc.Col([
                     dbc.Row("dada",style={'color':'white','margin-left':'2em','margin-top':'1em'}),
                     dcc.Loading(
-                        dcc.Graph(id='historical',figure=fig3,style={'height':'800px'}),
+                        dcc.Graph(id='historical',figure=fig3,style={'height':'850px'}),
                         type='circle'
                     )
                 ],style={'padding':'0px'},width = 10),

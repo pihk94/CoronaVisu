@@ -37,29 +37,24 @@ for i in range(4):
         line=dict(color=colors[i], width=line_size[i])))
     
 fig_trend_world.update_layout(
+    font=dict(
+            family='Montserrat',
+            size=15,
+            color='rgb(87, 88, 90)'
+            ),
     xaxis=dict(
         showline=True,
         showgrid=False,
         showticklabels=True,
         linecolor='rgb(204, 204, 204)',
-        linewidth=2,
-        ticks='outside',
-        tickangle = 15,
-        tickfont=dict(
-            family='Arial',
-            size=15,
-            color='rgb(37, 37, 37)',
-        ),
+        linewidth=3,
+        ticks='outside'
     ),
     yaxis=dict(
         showgrid=True,
         gridcolor='lightgray',
         showline=False,
         showticklabels=True,
-        tickfont=dict(
-                family='Arial',
-                size=15,
-                color='rgb(37, 37, 37)')
     ),
     showlegend=True,
     plot_bgcolor='white'
@@ -86,7 +81,7 @@ layout = html.Div([
             [
                 html.Button(id='btnOpen',className='openbtn',children='☰',n_clicks=1),
                 html.Div(style={'width':'56em'}),
-                html.H4('COVID-19 WORLD TREND',id='titleMaladie',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px'})
+                html.H4('COVID-19 WORLD TREND',id='titleMaladie',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px','color':'rgb(87, 88, 90)','font-weight':'bolder'})
             ],style={'box-shadow':'0 5px 10px 0 rgba(50,50,50,.33)'}
         ),
         dbc.Row(
@@ -100,7 +95,7 @@ layout = html.Div([
                         ),
                         dbc.Row(
                             [
-                                html.A([html.Div('World Trend'),html.Div(className='encoche',style={'top':'162px','margin-top':'0px'})],href ='/recap/world',className = "sousOngletActived")
+                                html.A([html.Div('World Trend'),html.Div(className='encoche',style={'top':'213px','margin-top':'0px'})],href ='/recap/world',className = "sousOngletActived")
                             ]
                         ),
                         dbc.Row(

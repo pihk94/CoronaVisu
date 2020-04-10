@@ -44,7 +44,7 @@ def google_trend_graph(w):
         showlegend=True,
         plot_bgcolor='white'
         )
-                    
+    print('fsdlkflsdfsdf',df)  
     return fig_trend_w
 
 word = ['carrefour', 'deliveroo', 'ubereats']

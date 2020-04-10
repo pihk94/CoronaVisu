@@ -80,7 +80,7 @@ recap = [
         dcc.Input(id='my-date-picker-range',value=datetime.now() - timedelta(1),style={"display":"None"}
         ),
         dcc.Loading([  
-            dbc.Row(html.Span(id='Maj_date',style={'text-transform':'uppercase','font-size':'9px'}),className='justify-content-center'),
+            dbc.Row(html.Span(id='Maj_date',style={'text-transform':'uppercase','font-size':'14px','margin-bottom': '1em'}),className='justify-content-center'),
             dbc.Row([
                 dbc.Col([
                     dbc.Row(
@@ -118,7 +118,7 @@ recap = [
             ],
             style={
                 'background':'#f8f9fa',
-                'padding-left': '10em'
+                'padding-left': '15em'
                 }),
             dbc.Row(
                 [
@@ -130,7 +130,7 @@ recap = [
                         '  new cases of COVID-19 has been reported around the world. Among them ',
                         html.Span(id='NbreCasNewFr',children ='',style={'font-weight':'bold'}),
                         ' come from France.',
-                    ])
+                    ],style={'margin-top':'1em'})
                     
                 ],className='justify-content-center'
             ),
@@ -238,7 +238,7 @@ layout = html.Div([
             [
                 html.Button(id='btnOpen',className='openbtn',children='☰',n_clicks=1),
                 html.Div(style={'width':'56em'}),
-                html.H4('COVID-19 OVERVIEW',id='titleMaladie',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px'})
+                html.H4('COVID-19 OVERVIEW',id='titleMaladie',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px','color':'rgb(87, 88, 90)','font-weight':'bolder'})
             ],style={'box-shadow':'0 5px 10px 0 rgba(50,50,50,.33)'}
         ),
         dbc.Row(
@@ -247,7 +247,7 @@ layout = html.Div([
                     [
                         dbc.Row(
                             [
-                                html.A([html.Div('Overview'),html.Div(className='encoche',style={'top':'36px','margin-top':'0px'})],href ='/recap',className = "sousOngletActived")
+                                html.A([html.Div('Overview'),html.Div(className='encoche',style={'top':'52px','margin-top':'0px'})],href ='/recap',className = "sousOngletActived")
                             ]
                         ),
                         dbc.Row(

@@ -152,7 +152,7 @@ sliders_dict = {
     "yanchor": "top",
     "xanchor": "left",
     "currentvalue": {
-        "font": {"size": 20},
+        "font": {"size": 15,'family':'Montserrat'},
         "prefix": "Date : ",
         "visible": True,
         "xanchor": "right"
@@ -301,7 +301,7 @@ sliders_dict = {
     "yanchor": "top",
     "xanchor": "left",
     "currentvalue": {
-        "font": {"size": 20},
+        "font": {"size": 15,'family':'Montserrat'},
         "prefix": "Date : ",
         "visible": True,
         "xanchor": "right"
@@ -448,7 +448,7 @@ sliders_dict = {
     "yanchor": "top",
     "xanchor": "left",
     "currentvalue": {
-        "font": {"size": 20},
+        "font": {"size": 15,'family':'Montserrat'},
         "prefix": "Date : ",
         "visible": True,
         "xanchor": "right"
@@ -643,7 +643,7 @@ layout = html.Div([
             [
                 html.Button(id='btnOpen',className='openbtn',children='☰',n_clicks=1),
                 html.Div(style={'width':'50em'}),
-                html.H4('COVID-19 GLOBAL CASES OVERVIEW',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px','font-weight':'bolder'})
+                html.H4('COVID-19 GLOBAL CASES OVERVIEW',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px','font-weight':'bolder','color':'rgb(87, 88, 90)','font-weight':'bolder'})
             ],style={'box-shadow':'0 5px 10px 0 rgba(50,50,50,.33)'}
         ),
         dbc.Row(className='toprow',children=
@@ -828,7 +828,8 @@ layout = html.Div([
                             )
                         ],className='justify-content-end',style={
                             'margin-right':'8em',
-                            'margin-top':'2em'
+                            'margin-top':'2em',
+                            'color':'rgb(87, 88, 90)'
                         }
                         ),
                         dcc.Loading(
