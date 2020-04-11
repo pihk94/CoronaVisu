@@ -3,15 +3,10 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
-import dash
-import dash_bootstrap_components as dbc
-import dash_core_components as dcc
-import dash_html_components as html
-from dash.dependencies import Input, Output, State
 import numpy as np
 import pandas as pd
 from app import app
-
+from apps import sidebar
 #fct
 
 # FUNCTION FOR SIMULATION
@@ -403,21 +398,9 @@ sim = [dbc.Row([
             })]
 
 #FIGURE SLIDE COMPARAIRAISON
-sidebar = html.Div(id='mySidebar',className ="sidebar",children=[
-            html.A(href='/',children = [html.Img(src='../assets/png/home.png',style={'width':'32px','height':'32px','margin-left':'5.6em'}),html.Div('Home',style={
-                'font-size':'14px',
-                'text-align':'center'
-            })],style={'background-color':'#036','margin-top':' 0px'}),
-            html.A(href='/recap',children=[html.Span('Summary')],style={'text-align':'left'}),
-            html.A(href='/simulation',children='SIMULATION',style={'text-align':'left'}),
-            html.A(href='/maladies',children='DISEASE COMPARISON',style={'text-align':'left'}),
-            html.A(href='/finance',children='FINANCE',style={'text-align':'left'}),
-            html.A(href='/GoogleTrend',children='INTERNET',style={'text-align':'left'}),
-        ])
-
 
 layout = html.Div([
-    sidebar,
+    sidebar.sidebar,
     html.Div(id='main',children = [
         dbc.Row(
             [
