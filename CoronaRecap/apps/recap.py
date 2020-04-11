@@ -355,7 +355,8 @@ def recap_table(dt,previous=5):
                 [
                     html.Th(children=''
                         ,style ={
-                            'width':'150px'
+                            'width':'150px',
+                            'border':'0px'
                         }
                     ),
                     html.Th(
@@ -364,19 +365,22 @@ def recap_table(dt,previous=5):
                             style={
                                 "width":"27px",
                                 "height":"15px",
-                                "font-size":"8px"
+                                "font-size":"8px",
+                            'border':'0px'
                             }),
                             html.Div(children='100',
                             style={
                                 "width":"27px",
                                 "height":"15px",
-                                "font-size":"8px"
+                                "font-size":"8px",
+                            'border':'0px'
                             }),
                             html.Div(children='1000',
                             style={
                                 "width":"27px",
                                 "height":"15px",
-                                "font-size":"8px"
+                                "font-size":"8px",
+                            'border':'0px'
                             }),
                         ]
                         ,style ={
@@ -384,17 +388,19 @@ def recap_table(dt,previous=5):
                             "height":"15px",
                             'vertical-align':'middle',
                             "display":"flex",
-                            "margin-left":"85px"
+                            "margin-left":"85px",
+                            'border':'0px'
                         }
                     ),
-                    html.Th()
+                    html.Th(style={'border':'0px'})
                 ]
             ),
             html.Tr(
                 [
                     html.Th(children=''
                         ,style ={
-                            'width':'150px'
+                            'width':'150px',
+                            'border':'0px'
                         }
                     ),
                     html.Th(
@@ -403,25 +409,29 @@ def recap_table(dt,previous=5):
                             style={
                                 "background": "rgba(255, 152, 0,0.1)",
                                 "width":"27px",
-                                "height":"15px"
+                                "height":"15px",
+                            'border':'0px'
                             }),
                             html.Div(children='',
                             style={
                                 "background": "rgba(255, 152, 0,0.4)",
                                 "width":"27px",
-                                "height":"15px"
+                                "height":"15px",
+                            'border':'0px'
                             }),
                             html.Div(children='',
                             style={
                                 "background": "rgba(255, 152, 0,0.7)",
                                 "width":"27px",
-                                "height":"15px"
+                                "height":"15px",
+                            'border':'0px'
                             }),
                             html.Div(children='',
                             style={
                                 "background": "rgba(255, 152, 1)",
                                 "width":"27px",
-                                "height":"15px"
+                                "height":"15px",
+                            'border':'0px'
                             }),
                         ]
                         ,style ={
@@ -429,10 +439,11 @@ def recap_table(dt,previous=5):
                             "height":"15px",
                             'vertical-align':'middle',
                             "display":"flex",
-                            "margin-left":"50px"
+                            "margin-left":"50px",
+                            'border':'0px'
                         }
                     ),
-                    html.Th()
+                    html.Th(style={'border':'0px'})
                 ]
             ),
             html.Tr(

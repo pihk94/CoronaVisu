@@ -125,17 +125,17 @@ body {
     .sidebar {padding-top: 15px;}
     .sidebar a {font-size: 18px;}
   }
-.toprow{
+/* .toprow{
   margin-right:2em;
   margin-left:2em;
   margin-top:3em;
   text-align: center;
-}
+} */
 .topRowCol1{
   border-left:1px solid black;
   border-top:1px solid black;
 }
 
 body{
-  font-family: Montserrat;
+  font-family: 'Montserrat', sans-serif;
 }

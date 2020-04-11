@@ -25,6 +25,17 @@ CSS =  {
 }
 
 #FCT
+def get_top3_country(name):
+    index_top3 = GetData.get_world(name).groupby('Country/Region').sum().iloc[:,2:].T.iloc[-1].sort_values(ascending = False).index[0:3].values
+    df_confirmed_world = GetData.get_world('confirmed').groupby('Country/Region').sum().iloc[:,2:].T
+    df_deaths_world = GetData.get_world('deaths').groupby('Country/Region').sum().iloc[:,2:].T
+    df_recovered_world = GetData.get_world('recovered').groupby('Country/Region').sum().iloc[:,2:].T
+    df = pd.DataFrame()
+    df['Confirmed'] = df_confirmed_world[index_top3].iloc[-1,:]
+    df['Recovered'] = df_recovered_world[index_top3].iloc[-1,:]
+    df['Deaths'] = df_deaths_world[index_top3].iloc[-1,:]
+    return df
+top3 = get_top3_country('confirmed')
 df  =GetData.get_world('confirmed')
 def make_bars(country,df = df):
     
@@ -221,7 +232,8 @@ fig_dict['layout']['geo'] = dict(
         showcountries = True,
         countrycolor = "rgb(255, 255, 255)",
         showocean = True,
-        oceancolor = "rgb(255, 255, 255)")
+        oceancolor = "rgb(255, 255, 255)",
+        framecolor='rgb(255,255,255)')
 fig1=fig_dict
 df_recovered_world =  GetData.get_world('recovered')
 lst = []
@@ -368,7 +380,8 @@ fig_dict['layout']['geo'] = dict(
         showcountries = True,
         countrycolor = "rgb(255, 255, 255)",
         showocean = True,
-        oceancolor = "rgb(255, 255, 255)")
+        oceancolor = "rgb(255, 255, 255)",
+        framecolor='rgb(255,255,255)')
 fig3=fig_dict
 
 df_deaths_world = GetData.get_world('deaths')
@@ -516,12 +529,13 @@ fig_dict['layout']['geo'] = dict(
         showcountries = True,
         countrycolor = "rgb(255, 255, 255)",
         showocean = True,
-        oceancolor = "rgb(255, 255, 255)")
+        oceancolor = "rgb(255, 255, 255)",
+        framecolor='rgb(255,255,255)')
 fig2 =fig_dict
 
 
 #DATA
-dt = (datetime.now() - timedelta(2)).strftime('%d/%m/%Y')
+dt = (datetime.now() - timedelta(1)).strftime('%d/%m/%Y')
 df_recap=GetData.get_recap_by_country(dt,previous=5)
 df_confirmed=GetData.get_world('confirmed')
 confirmed=df_confirmed.iloc[:,-1].sum()
@@ -576,9 +590,9 @@ def recap_table(dt=dt,previous=5):
     df_H5["Total des cas"]=[f'{i:,}'for i in df_H5["Total des cas"]]
     df_H5["Total décès"]=[f'{i:,}'for i in df_H5["Total décès"]]
     rows =[]
-    for index,row in df_H5.head(20).iterrows():
-        rows.append(html.Tr([html.Td(row.Pays,style={'font-weight':'bold','text-align':'left'}),
-        html.Td(row['Total des cas'],style={'font-weight':'bolder'}),html.Td(row['Total décès']),html.Td(row['Mortalité'])],style={
+    for index,row in df_H5.head(10).iterrows():
+        rows.append(html.Tr([html.Td(row.Pays,style={'font-weight':'bold','text-align':'center'}),
+        html.Td(row['Total des cas']),html.Td(row['Total décès']),html.Td(row['Mortalité'])],style={
             'border-bottom':'1px solid #e8e8e8'
         }))
     return [
@@ -586,7 +600,7 @@ def recap_table(dt=dt,previous=5):
             html.Tr(
                 [
                     html.Th(
-                    'COuntry',style={'text-align':'right','width':'180px'}
+                    'COuntry',style={'text-align':'center','width':'180px'}
                     ),
                     html.Th(
                         'CASES',style ={
@@ -615,6 +629,217 @@ def recap_table(dt=dt,previous=5):
             rows
         )
     ]
+sous_header = dbc.Row(
+    [
+        dbc.Col(
+            dbc.Card(
+                        dbc.CardBody(
+                            [
+                                html.Img(src='https://image.flaticon.com/icons/svg/2785/2785819.svg',width="70px",height="70px",style={'margin-top':'1em'}),
+                                html.Div('{:,}'.format(confirmed),style={
+                                    'color':'rgb(255, 152, 1)',
+                                    'font-weight':"bolder",
+                                    'font-size':'27px'
+                                }),
+                                html.Div('Total cases')
+                            ]
+                        ),style={"height":"219px","margin-top":"1em","text-align":"center",'font-family':'Montserrat'},
+                    ),
+        ),
+        dbc.Col(
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.Img(src='https://image.flaticon.com/icons/svg/2747/2747789.svg',width="70px",height="70px",style={'margin-top':'1em'}),
+                        html.Div('{:,}'.format(deaths),style={
+                            'color':'red',
+                            'font-weight':"bolder",
+                            'font-size':'27px'
+                        }),
+                        html.Div('Total deaths')
+                    ]
+                ),style={"height":"219px","margin-top":"1em","text-align":"center",'font-family':'Montserrat'},
+            ),
+        ),
+        dbc.Col(
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.Img(src='../assets/png/019-virus.png',width="70px",height="70px",style={'margin-top':'1em'}),
+                        html.Div('{:,}'.format(GetData.get_world('recovered').iloc[:,-1].sum()),style={
+                            'color':'#28a745',
+                            'font-weight':"bolder",
+                            'font-size':'27px'
+                        }),
+                        html.Div('Total recovered')
+                    ]
+                ),style={"height":"219px","margin-top":"1em","text-align":"center",'font-family':'Montserrat'},
+            ),
+        ),
+        dbc.Col(
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.Img(src='../assets/png/'+top3.index[0].replace(' ','-') +'.png',width="60px",height="54px"),
+                        dbc.Row(
+                            [
+                                dbc.Table(
+                                    [
+                                        html.Thead(
+                                            html.Tr(
+                                                [
+                                                    html.Th(
+                                                        html.Img(src='https://image.flaticon.com/icons/svg/2785/2785819.svg',width="32px",height="32px")
+                                                    ),
+                                                    html.Th(
+                                                        html.Img(src='https://image.flaticon.com/icons/svg/2747/2747789.svg',width="32px",height="32px")
+                                                    ),
+                                                    html.Th(
+                                                        html.Img(src='../assets/png/019-virus.png',width="32px",height="32px")
+                                                    )
+                                                ]
+                                            )
+                                        ),
+                                        html.Tbody(
+                                            [
+                                                html.Tr(
+                                                    [
+                                                        html.Td(
+                                                            '{:,}'.format(top3['Confirmed'].iloc[0]),style={'color':'rgb(255, 152, 1)',
+                                                                            'font-weight':"bolder"}
+                                                        ),
+                                                        html.Td(
+                                                            '{:,}'.format(top3['Deaths'].iloc[0]),style={'color':'red',
+                                                                            'font-weight':"bolder"}
+                                                        ),
+                                                        html.Td(
+                                                            '{:,}'.format(top3['Recovered'].iloc[0]),style={'color':'#28a745',
+                                                                            'font-weight':"bolder"}
+                                                        )
+                                                    ]
+                                                )
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ]
+                        )
+                    ]
+                ),style={"margin-top":"1em","text-align":"center",'font-family':'Montserrat'},
+            ),
+        ),
+        dbc.Col(
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.Img(src='../assets/png/'+top3.index[1].replace(' ','-') +'.png',width="60px",height="54px"),
+                        dbc.Row(
+                            [
+                                dbc.Table(
+                                    [
+                                        html.Thead(
+                                            html.Tr(
+                                                [
+                                                    html.Th(
+                                                        html.Img(src='https://image.flaticon.com/icons/svg/2785/2785819.svg',width="32px",height="32px")
+                                                    ),
+                                                    html.Th(
+                                                        html.Img(src='https://image.flaticon.com/icons/svg/2747/2747789.svg',width="32px",height="32px")
+                                                    ),
+                                                    html.Th(
+                                                        html.Img(src='../assets/png/019-virus.png',width="32px",height="32px")
+                                                    )
+                                                ]
+                                            )
+                                        ),
+                                        html.Tbody(
+                                            [
+                                                html.Tr(
+                                                    [
+                                                        html.Td(
+                                                            '{:,}'.format(top3['Confirmed'].iloc[1]),style={'color':'rgb(255, 152, 1)',
+                                                                            'font-weight':"bolder"}
+                                                        ),
+                                                        html.Td(
+                                                            '{:,}'.format(top3['Deaths'].iloc[1]),style={'color':'red',
+                                                                            'font-weight':"bolder"}
+                                                        ),
+                                                        html.Td(
+                                                            '{:,}'.format(top3['Recovered'].iloc[1]),style={'color':'#28a745',
+                                                                            'font-weight':"bolder"}
+                                                        )
+                                                    ]
+                                                )
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ]
+                        )
+                    ]
+                ),style={"margin-top":"1em","text-align":"center",'font-family':'Montserrat'},
+            ),
+        ),
+        dbc.Col(
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.Img(src='../assets/png/'+top3.index[2].replace(' ','-') +'.png',width="60px",height="54px"),
+                        dbc.Row(
+                            [
+                                dbc.Table(
+                                    [
+                                        html.Thead(
+                                            html.Tr(
+                                                [
+                                                    html.Th(
+                                                        html.Img(src='https://image.flaticon.com/icons/svg/2785/2785819.svg',width="32px",height="32px")
+                                                    ),
+                                                    html.Th(
+                                                        html.Img(src='https://image.flaticon.com/icons/svg/2747/2747789.svg',width="32px",height="32px")
+                                                    ),
+                                                    html.Th(
+                                                        html.Img(src='../assets/png/019-virus.png',width="32px",height="32px")
+                                                    )
+                                                ]
+                                            )
+                                        ),
+                                        html.Tbody(
+                                            [
+                                                html.Tr(
+                                                    [
+                                                        html.Td(
+                                                            '{:,}'.format(top3['Confirmed'].iloc[2]),style={'color':'rgb(255, 152, 1)',
+                                                                            'font-weight':"bolder"}
+                                                        ),
+                                                        html.Td(
+                                                            '{:,}'.format(top3['Deaths'].iloc[2]),style={'color':'red',
+                                                                            'font-weight':"bolder"}
+                                                        ),
+                                                        html.Td(
+                                                            '{:,}'.format(top3['Recovered'].iloc[2]),style={'color':'#28a745',
+                                                                            'font-weight':"bolder"}
+                                                        )
+                                                    ]
+                                                )
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ]
+                        )
+                    ]
+                ),style={"margin-top":"1em","text-align":"center",'font-family':'Montserrat'},
+            )
+        )
+        
+    ],style={
+        'margin-right':'1em',
+        'margin-left':'1em',
+        'margin-bottom':'1em'
+    }
+    
+)
 
 
 layout = html.Div([
@@ -623,219 +848,65 @@ layout = html.Div([
         dbc.Row(
             [
                 html.Button(id='btnOpen',className='openbtn',children='☰',n_clicks=1),
-                html.Div(style={'width':'50em'}),
+                html.Div(style={'width':'36em'}),
                 html.H4('COVID-19 GLOBAL CASES OVERVIEW',style={'text-transform':'uppercase','margin-top':'20px','letter-spacing': '3px','font-weight':'bolder','color':'rgb(87, 88, 90)','font-weight':'bolder'})
             ],style={'box-shadow':'0 5px 10px 0 rgba(50,50,50,.33)'}
         ),
-        dbc.Row(className='toprow',children=
+        sous_header,
+        dbc.Row(children=
             [
-                dbc.Col(className='topRowCol1',children=
-                    dbc.Row(
-                        [
-                            dbc.Col(
-                                [
-                                    html.H4('Total cases',style={'margin-top': '1em','font-weight':'bolder'}),
-                                    html.Span(
-                                        children='{:,}'.format(confirmed),style={'color':'rgb(255, 152, 1)','font-weight':'bolder'}
-                                    )
-                                ]
-                                ,width=6,style={'padding':'0px','border-right':'1px solid black','height':'108px'}
-                            ),
-                            dbc.Col(
-                                [
-                                    html.H4('Total deaths',style={'margin-top': '1em','font-weight':'bolder'}),
-                                    html.Span(
-                                        children='{:,}'.format(deaths),style={'color':'red','font-weight':'bolder'}
-                                    )
-                                ]
-                                ,width=6,style={'padding':'0px',}
-                            )
-                        ]
-                    )
-                    ,width=4,style={'padding-left':'0px',
-                    'padding-right':'0px',}
-                ),
                 dbc.Col(
                     [
-                        dbc.Row(
+                        dbc.Card(
+                            dbc.CardBody(
+                                [
+                                dbc.Row(
+                                [
+                                    dbc.RadioItems(
+                                        options=[
+                                            {'label':'Confirmed cases','value':1},
+                                            {'label':'Deaths cases','value':2},
+                                            {'label':'Recovered cases','value':3}
+                                        ],
+                                        value=1,
+                                        id='radiochoice',
+                                        inline=True
+                                    )
+                                ],className='justify-content-end',style={
+                                    'margin-right':'8em',
+                                    'margin-top':'2em',
+                                    'color':'rgb(87, 88, 90)'
+                                }
+                                ),
+                                dcc.Loading(
+                                    dcc.Graph(id='dbleMap',style={'height':'650px'}),
+                                    type='circle'
+                                ),
+                                ]
+                            )
+                        ) 
+                    ],width=8),
+                dbc.Col(children=[
+                    dbc.Card(
+                        dbc.CardBody(
                             [
-                                html.Div('Updated on : '),
-                                html.Span('{}'.format((datetime.now() - timedelta(1)).strftime('%d/%m/%Y')),style={'margin-left':'2px'})
-                            ],className='justify-content-center',style={
-                                'border-bottom':'1px solid black',
-                                'color':'rgb(64, 64, 64)',
-                                'font-weight': 'bolder'
-                            }
-                        ),
-                        dbc.Row(
-                            [
-                                dbc.Col(
-                                    [
-                                        html.H5('China',style={
-                                            'font-weight':'bolder',
-                                            'font-size':'1.15rem'
-                                        }),
-                                        dbc.Row(
-                                            [
-                                                dbc.Col(
-                                                    [
-                                                        html.H6('Confirmed',style={
-                                                            'font-weight':'550',
-                                                            'font-size':'0.85rem'
-                                                        }),
-                                                        html.Span('{}'.format(china_cases),style={
-                                                            'color':'rgb(255, 152, 1)',
-                                                            'font-size':'15px'
-                                                        })
-                                                    ]
-                                                ,width = 6),
-                                                dbc.Col(
-                                                    [
-                                                        html.H6('Deaths',style={
-                                                            'font-weight':'550',
-                                                            'font-size':'0.85rem'
-                                                        }),
-                                                        html.Span('{}'.format(china_death),style={
-                                                            'color':'red',
-                                                            'font-size':'15px'
-                                                        })
-                                                    ]
-                                                ,width = 6)
-                                            ]
-                                        )
-                                    ]
-                                    ,width=4,style={
-                                        'border-right':'1px solid black'
-                                    }),
-                                dbc.Col(
-                                    [
-                                        html.H5('France',style={
-                                            'font-weight':'bolder',
-                                            'font-size':'1.15rem'
-                                        }),
-                                        dbc.Row(
-                                            [
-                                                dbc.Col(
-                                                    [
-                                                        html.H6('Confirmed',style={
-                                                            'font-weight':'550',
-                                                            'font-size':'0.85rem'
-                                                        }),
-                                                        html.Span('{}'.format(fr_confirm),style={
-                                                            'color':'rgb(255, 152, 1)',
-                                                            'font-size':'15px'
-                                                        })
-                                                    ]
-                                                ,width = 6),
-                                                dbc.Col(
-                                                    [
-                                                        html.H6('Deaths',style={
-                                                            'font-weight':'550',
-                                                            'font-size':'0.85rem'
-                                                        }),
-                                                        html.Span('{}'.format(fr_death),style={
-                                                            'color':'red',
-                                                            'font-size':'15px'
-                                                        })
-                                                    ]
-                                                ,width = 6)
-                                            ]
-                                        )
-                                    ]
-                                    ,width=4,style={
-                                        'border-right':'1px solid black'
-                                    }),
-                                dbc.Col(
-                                    [
-                                        html.H5('United States',style={
-                                            'font-weight':'bolder',
-                                            'font-size':'1.15rem'
-                                        }),
-                                        dbc.Row(
-                                            [
-                                                dbc.Col(
-                                                    [
-                                                        html.H6('Confirmed',style={
-                                                            'font-weight':'550',
-                                                            'font-size':'0.85rem'
-                                                        }),
-                                                        html.Span('{}'.format(us_cases),style={
-                                                            'color':'rgb(255, 152, 1)',
-                                                            'font-size':'15px'
-                                                        })
-                                                    ]
-                                                ,width = 6),
-                                                dbc.Col(
-                                                    [
-                                                        html.H6('Deaths',style={
-                                                            'font-weight':'550',
-                                                            'font-size':'0.85rem'
-                                                        }),
-                                                        html.Span('{}'.format(us_death),style={
-                                                            'color':'red',
-                                                            'font-size':'15px'
-                                                        })
-                                                    ]
-                                                ,width = 6)
-                                            ]
-                                        )
-                                    ]
-                                    ,width=4)
+                                dbc.Row(
+                                    html.H4(['TOP 10 OVERVIEW']),className='justify-content-center',style={'margin-top':'3em','margin-bottom':'1em'}
+                                ),
+                                dcc.Loading(
+                                    dbc.Table(
+                                        recap_table(),
+                                        responsive =True
+                                    )
+                                )
                             ]
                         )
-                    ]
-                    ,width=8,style={'border-left':'1px solid black',
-                    'border-right':'1px solid black',
-                    'border-top':'1px solid black',
-                    }
-                )
-            ]
-        ),
-        dbc.Row(className='toprow',children=
-            [
-                dbc.Col(
-                    [
-                        dbc.Row(
-                        [
-                            dbc.RadioItems(
-                                options=[
-                                    {'label':'Confirmed cases','value':1},
-                                    {'label':'Deaths cases','value':2},
-                                    {'label':'Recovered cases','value':3}
-                                ],
-                                value=1,
-                                id='radiochoice',
-                                inline=True
-                            )
-                        ],className='justify-content-end',style={
-                            'margin-right':'8em',
-                            'margin-top':'2em',
-                            'color':'rgb(87, 88, 90)'
-                        }
-                        ),
-                        dcc.Loading(
-                            dcc.Graph(id='dbleMap',style={'height':'650px'}),
-                            type='circle'
-                        ),
-                    ],width = 8,style={ 
-                        'border':'1px solid black'
-                    }),
-                dbc.Col(children=[
-                    dbc.Row(
-                        html.H4('TOP 20 OVERVIEW'),className='justify-content-center'
-                    ),
-                    dcc.Loading(
-                        dbc.Table(
-                            recap_table(),
-                            responsive =True
-                        )
                     )
-                ],width = 4,style={
-                    'border-right':'1px solid black',
-                    'border-top':'1px solid black',
-                    'border-bottom':'1px solid black',
-                }),
-            ],style={'margin-top':'0px'}
+                ]
+                ),
+            ],style={'margin-top':'0px','margin-right':'2em',
+                    'margin-left':'1em',
+                    'text-align': 'center'}
         )
         
     ],style={'padding-top':'0px'})
