@@ -36,29 +36,24 @@ for i in range(4):
         line=dict(color=colors[i], width=line_size[i])))
     
 fig_trend_world.update_layout(
+   font=dict(
+            family='Montserrat',
+            size=15,
+            color='rgb(87, 88, 90)'
+            ),
     xaxis=dict(
         showline=True,
         showgrid=False,
         showticklabels=True,
         linecolor='rgb(204, 204, 204)',
-        linewidth=2,
-        ticks='outside',
-        tickangle = 15,
-        tickfont=dict(
-            family='Arial',
-            size=15,
-            color='rgb(37, 37, 37)',
-        ),
+        linewidth=3,
+        ticks='outside'
     ),
     yaxis=dict(
         showgrid=True,
         gridcolor='lightgray',
         showline=False,
         showticklabels=True,
-        tickfont=dict(
-                family='Arial',
-                size=15,
-                color='rgb(37, 37, 37)')
     ),
     showlegend=True,
     plot_bgcolor='white'
@@ -87,29 +82,24 @@ for i in range(6):
         line=dict(color=colors[i], width=line_size[i])))
     
 fig_trend_continent_confirmed.update_layout(
+     font=dict(
+            family='Montserrat',
+            size=15,
+            color='rgb(87, 88, 90)'
+            ),
     xaxis=dict(
         showline=True,
         showgrid=False,
         showticklabels=True,
         linecolor='rgb(204, 204, 204)',
-        linewidth=2,
-        ticks='outside',
-        tickangle = 15,
-        tickfont=dict(
-            family='Arial',
-            size=15,
-            color='rgb(37, 37, 37)',
-        ),
+        linewidth=3,
+        ticks='outside'
     ),
     yaxis=dict(
         showgrid=True,
         gridcolor='lightgray',
         showline=False,
         showticklabels=True,
-        tickfont=dict(
-                family='Arial',
-                size=15,
-                color='rgb(37, 37, 37)')
     ),
     showlegend=True,
     plot_bgcolor='white'
@@ -125,29 +115,24 @@ for i in range(6):
         line=dict(color=colors[i], width=line_size[i])))
     
 fig_trend_continent_active_cases.update_layout(
+    font=dict(
+            family='Montserrat',
+            size=15,
+            color='rgb(87, 88, 90)'
+            ),
     xaxis=dict(
         showline=True,
         showgrid=False,
         showticklabels=True,
         linecolor='rgb(204, 204, 204)',
-        linewidth=2,
-        ticks='outside',
-        tickangle = 15,
-        tickfont=dict(
-            family='Arial',
-            size=15,
-            color='rgb(37, 37, 37)',
-        ),
+        linewidth=3,
+        ticks='outside'
     ),
     yaxis=dict(
         showgrid=True,
         gridcolor='lightgray',
         showline=False,
         showticklabels=True,
-        tickfont=dict(
-                family='Arial',
-                size=15,
-                color='rgb(37, 37, 37)')
     ),
     showlegend=True,
     plot_bgcolor='white'
@@ -163,29 +148,24 @@ for i in range(6):
         line=dict(color=colors[i], width=line_size[i])))
     
 fig_trend_continent_deaths.update_layout(
+     font=dict(
+            family='Montserrat',
+            size=15,
+            color='rgb(87, 88, 90)'
+            ),
     xaxis=dict(
         showline=True,
         showgrid=False,
         showticklabels=True,
         linecolor='rgb(204, 204, 204)',
-        linewidth=2,
-        ticks='outside',
-        tickangle = 15,
-        tickfont=dict(
-            family='Arial',
-            size=15,
-            color='rgb(37, 37, 37)',
-        ),
+        linewidth=3,
+        ticks='outside'
     ),
     yaxis=dict(
         showgrid=True,
         gridcolor='lightgray',
         showline=False,
         showticklabels=True,
-        tickfont=dict(
-                family='Arial',
-                size=15,
-                color='rgb(37, 37, 37)')
     ),
     showlegend=True,
     plot_bgcolor='white'
@@ -201,29 +181,24 @@ for i in range(6):
         line=dict(color=colors[i], width=line_size[i])))
     
 fig_trend_continent_recovered.update_layout(
+    font=dict(
+            family='Montserrat',
+            size=15,
+            color='rgb(87, 88, 90)'
+            ),
     xaxis=dict(
         showline=True,
         showgrid=False,
         showticklabels=True,
         linecolor='rgb(204, 204, 204)',
-        linewidth=2,
-        ticks='outside',
-        tickangle = 15,
-        tickfont=dict(
-            family='Arial',
-            size=15,
-            color='rgb(37, 37, 37)',
-        ),
+        linewidth=3,
+        ticks='outside'
     ),
     yaxis=dict(
         showgrid=True,
         gridcolor='lightgray',
         showline=False,
         showticklabels=True,
-        tickfont=dict(
-                family='Arial',
-                size=15,
-                color='rgb(37, 37, 37)')
     ),
     showlegend=True,
     plot_bgcolor='white'
@@ -257,29 +232,24 @@ for i in range(10):
         line=dict(color=colors[i], width=line_size[i])))
     
 fig_trend_country_confirmed.update_layout(
+    font=dict(
+            family='Montserrat',
+            size=15,
+            color='rgb(87, 88, 90)'
+            ),
     xaxis=dict(
         showline=True,
         showgrid=False,
         showticklabels=True,
         linecolor='rgb(204, 204, 204)',
-        linewidth=2,
-        ticks='outside',
-        tickangle = 15,
-        tickfont=dict(
-            family='Arial',
-            size=15,
-            color='rgb(37, 37, 37)',
-        ),
+        linewidth=3,
+        ticks='outside'
     ),
     yaxis=dict(
         showgrid=True,
         gridcolor='lightgray',
         showline=False,
         showticklabels=True,
-        tickfont=dict(
-                family='Arial',
-                size=15,
-                color='rgb(37, 37, 37)')
     ),
     showlegend=True,
     plot_bgcolor='white'
@@ -299,29 +269,24 @@ for i in range(10):
         line=dict(color=colors[i], width=line_size[i])))
     
 fig_trend_country_active_cases.update_layout(
+    font=dict(
+            family='Montserrat',
+            size=15,
+            color='rgb(87, 88, 90)'
+            ),
     xaxis=dict(
         showline=True,
         showgrid=False,
         showticklabels=True,
         linecolor='rgb(204, 204, 204)',
-        linewidth=2,
-        ticks='outside',
-        tickangle = 15,
-        tickfont=dict(
-            family='Arial',
-            size=15,
-            color='rgb(37, 37, 37)',
-        ),
+        linewidth=3,
+        ticks='outside'
     ),
     yaxis=dict(
         showgrid=True,
         gridcolor='lightgray',
         showline=False,
         showticklabels=True,
-        tickfont=dict(
-                family='Arial',
-                size=15,
-                color='rgb(37, 37, 37)')
     ),
     showlegend=True,
     plot_bgcolor='white'
@@ -341,29 +306,24 @@ for i in range(10):
         line=dict(color=colors[i], width=line_size[i])))
     
 fig_trend_country_deaths.update_layout(
+     font=dict(
+            family='Montserrat',
+            size=15,
+            color='rgb(87, 88, 90)'
+            ),
     xaxis=dict(
         showline=True,
         showgrid=False,
         showticklabels=True,
         linecolor='rgb(204, 204, 204)',
-        linewidth=2,
-        ticks='outside',
-        tickangle = 15,
-        tickfont=dict(
-            family='Arial',
-            size=15,
-            color='rgb(37, 37, 37)',
-        ),
+        linewidth=3,
+        ticks='outside'
     ),
     yaxis=dict(
         showgrid=True,
         gridcolor='lightgray',
         showline=False,
         showticklabels=True,
-        tickfont=dict(
-                family='Arial',
-                size=15,
-                color='rgb(37, 37, 37)')
     ),
     showlegend=True,
     plot_bgcolor='white'
@@ -383,29 +343,24 @@ for i in range(10):
         line=dict(color=colors[i], width=line_size[i])))
     
 fig_trend_country_recovered.update_layout(
+     font=dict(
+            family='Montserrat',
+            size=15,
+            color='rgb(87, 88, 90)'
+            ),
     xaxis=dict(
         showline=True,
         showgrid=False,
         showticklabels=True,
         linecolor='rgb(204, 204, 204)',
-        linewidth=2,
-        ticks='outside',
-        tickangle = 15,
-        tickfont=dict(
-            family='Arial',
-            size=15,
-            color='rgb(37, 37, 37)',
-        ),
+        linewidth=3,
+        ticks='outside'
     ),
     yaxis=dict(
         showgrid=True,
         gridcolor='lightgray',
         showline=False,
         showticklabels=True,
-        tickfont=dict(
-                family='Arial',
-                size=15,
-                color='rgb(37, 37, 37)')
     ),
     showlegend=True,
     plot_bgcolor='white'
@@ -438,9 +393,6 @@ fig_dict = {
     "frames": []
 }
 
-print_date = datetime.strptime(date, '%Y-%m-%d').date()
-print_date = (print_date.strftime("%a") + ' ' +  print_date.strftime("%b") + ' ' + print_date.strftime("%d") + ' ' + print_date.strftime("%Y")).upper()
-
 fig_dict['layout']['sliders'] = {
     'args': [
         'transition', {
@@ -458,14 +410,14 @@ fig_dict["layout"]["updatemenus"] = [
     {
         "buttons": [
             {
-                "args": [None, {"frame": {"duration": 500, "redraw": False},
+                "args": [None, {"frame": {"duration": 500, "redraw": True},
                                 "fromcurrent": True, "transition": {"duration": 300,
                                                                     "easing": "quadratic-in-out"}}],
                 "label": "⯈",
                 "method": "animate"
             },
             {
-                "args": [[None], {"frame": {"duration": 0, "redraw": False},
+                "args": [[None], {"frame": {"duration": 0, "redraw": True},
                                   "mode": "immediate",
                                   "transition": {"duration": 0}}],
                 "label": "⯀",
@@ -488,7 +440,7 @@ sliders_dict = {
     "yanchor": "top",
     "xanchor": "left",
     "currentvalue": {
-        "font": {"size": 20},
+        "font": {"size": 15, "family" : "Montserrat"},
         "prefix": "Date : ",
         "visible": True,
         "xanchor": "right"
@@ -543,7 +495,7 @@ for date in dates:
     fig_dict["frames"].append(frame)
     slider_step = {"args": [
         [date],
-        {"frame": {"duration": 300, "redraw": False},
+        {"frame": {"duration": 300, "redraw": True},
          "mode": "immediate",
          "transition": {"duration": 300}}
     ],
@@ -589,10 +541,6 @@ fig_dict = {
     "frames": []
 }
 
-print_date = datetime.strptime(date, '%Y-%m-%d').date()
-print_date = (print_date.strftime("%a") + ' ' +  print_date.strftime("%b") + ' ' + print_date.strftime("%d") + ' ' + print_date.strftime("%Y")).upper()
-
-
 fig_dict['layout']['sliders'] = {
     'args': [
         'transition', {
@@ -610,14 +558,14 @@ fig_dict["layout"]["updatemenus"] = [
     {
         "buttons": [
             {
-                "args": [None, {"frame": {"duration": 500, "redraw": False},
+                "args": [None, {"frame": {"duration": 500, "redraw": True},
                                 "fromcurrent": True, "transition": {"duration": 300,
                                                                     "easing": "quadratic-in-out"}}],
                 "label": "⯈",
                 "method": "animate"
             },
             {
-                "args": [[None], {"frame": {"duration": 0, "redraw": False},
+                "args": [[None], {"frame": {"duration": 0, "redraw": True},
                                   "mode": "immediate",
                                   "transition": {"duration": 0}}],
                 "label": "⯀",
@@ -640,7 +588,7 @@ sliders_dict = {
     "yanchor": "top",
     "xanchor": "left",
     "currentvalue": {
-        "font": {"size": 20},
+        "font": {"size": 15, "family" : "Montserrat"},
         "prefix": "Date : ",
         "visible": True,
         "xanchor": "right"
@@ -693,7 +641,7 @@ for date in dates:
     fig_dict["frames"].append(frame)
     slider_step = {"args": [
         [date],
-        {"frame": {"duration": 300, "redraw": False},
+        {"frame": {"duration": 300, "redraw": True},
          "mode": "immediate",
          "transition": {"duration": 300}}
     ],
@@ -738,9 +686,6 @@ fig_dict = {
     "frames": []
 }
 
-print_date = datetime.strptime(date, '%Y-%m-%d').date()
-print_date = (print_date.strftime("%a") + ' ' +  print_date.strftime("%b") + ' ' + print_date.strftime("%d") + ' ' + print_date.strftime("%Y")).upper()
-
 fig_dict['layout']['sliders'] = {
     'args': [
         'transition', {
@@ -758,14 +703,14 @@ fig_dict["layout"]["updatemenus"] = [
     {
         "buttons": [
             {
-                "args": [None, {"frame": {"duration": 500, "redraw": False},
+                "args": [None, {"frame": {"duration": 500, "redraw": True},
                                 "fromcurrent": True, "transition": {"duration": 300,
                                                                     "easing": "quadratic-in-out"}}],
                 "label": "⯈",
                 "method": "animate"
             },
             {
-                "args": [[None], {"frame": {"duration": 0, "redraw": False},
+                "args": [[None], {"frame": {"duration": 0, "redraw": True},
                                   "mode": "immediate",
                                   "transition": {"duration": 0}}],
                 "label": "⯀",
@@ -788,7 +733,7 @@ sliders_dict = {
     "yanchor": "top",
     "xanchor": "left",
     "currentvalue": {
-        "font": {"size": 20},
+        "font": {"size": 15, "family" : "Montserrat"},
         "prefix": "Date : ",
         "visible": True,
         "xanchor": "right"
@@ -810,11 +755,10 @@ data_dict = dict(
     text = df_sub['text'],
     marker = dict(
         size = df_sub['Number']/100,
-        color = 'lightskyblue',
+        color = 'lightgreen',
         line_color = 'rgb(40,40,40)',
         line_width = 0.5,
-        sizemode = 'area'))
-    
+        sizemode = 'area')) 
 fig_dict["data"].append(data_dict)
 
 fig_dict["layout"]["sliders"] = [sliders_dict]
@@ -832,17 +776,17 @@ for date in dates:
         marker = dict(
             size = df_sub['Number']/100,
             sizemin = 3,
-            color = 'lightskyblue',
+            color = 'lightgreen',
             line_color = 'rgb(40,40,40)',
             line_width = 0.5,
             sizemode = 'area'))
         
     frame['data'].append(data_dict)
-        
+  
     fig_dict["frames"].append(frame)
     slider_step = {"args": [
         [date],
-        {"frame": {"duration": 300, "redraw": False},
+        {"frame": {"duration": 300, "redraw": True},
          "mode": "immediate",
          "transition": {"duration": 300}}
     ],
@@ -863,7 +807,3 @@ fig_dict['layout']['geo'] = dict(
         showocean = True,
         oceancolor = "rgb(60, 60, 60)")
 plot(fig_dict, False, filename = 'World Recap/deaths_map.html')
-
-
- 
-                       
