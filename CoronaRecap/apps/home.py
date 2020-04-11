@@ -1,14 +1,9 @@
-import dash
-import dash_bootstrap_components as dbc
-import dash_core_components as dcc
-import dash_html_components as html
-from dash.dependencies import Input, Output, State
-import dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 from apps import GetData
 from apps import graph 
+from apps import sidebar
 from dash.dependencies import Input, Output, State
 import numpy as np
 import pandas as pd
@@ -160,7 +155,7 @@ sliders_dict = {
     "transition": {"duration": 300, "easing": "cubic-in-out"},
     "pad": {"b": 10, "t": 50},
     "len": 0.9,
-    "x": 0.1,
+    "x": 0.12,
     "y": 0,
     "steps": []
 }
@@ -309,7 +304,7 @@ sliders_dict = {
     "transition": {"duration": 300, "easing": "cubic-in-out"},
     "pad": {"b": 10, "t": 50},
     "len": 0.9,
-    "x": 0.1,
+    "x": 0.12,
     "y": 0,
     "steps": []
 }
@@ -456,7 +451,7 @@ sliders_dict = {
     "transition": {"duration": 300, "easing": "cubic-in-out"},
     "pad": {"b": 10, "t": 50},
     "len": 0.9,
-    "x": 0.1,
+    "x": 0.12,
     "y": 0,
     "steps": []
 }
@@ -561,20 +556,6 @@ paysUE = ['Spain','Italy','France','Germany','United Kingdom','Belgium',
 fr_death = df_H5[df_H5.Pays=='France']["Total décès"].sum()
 fr_confirm = df_H5[df_H5.Pays=='France']["Total des cas"].sum()
 
-
-
-sidebar = html.Div(id='mySidebar',className ="sidebar",children=[
-            html.A(href='/',children = [html.Img(src='../assets/png/home.png',style={'width':'32px','height':'32px','margin-left':'5.6em'}),html.Div('Home',style={
-                'font-size':'14px',
-                'text-align':'center'
-            })],style={'background-color':'#036','margin-top':' 0px'}),
-            html.A(href='/recap',children=[html.Span('Summary')],style={'text-align':'left'}),
-            html.A(href='/simulation',children='SIMULATION',style={'text-align':'left'}),
-            html.A(href='/maladies',children='DISEASE COMPARISON',style={'text-align':'left'}),
-            html.A(href='/finance',children='FINANCE',style={'text-align':'left'}),
-            html.A(href='/GoogleTrend',children='INTERNET',style={'text-align':'left'}),
-        ])
-
 #def
 def recap_table(dt=dt,previous=5):
     df_recap=GetData.get_recap_by_country(dt,previous=previous)
@@ -637,7 +618,7 @@ def recap_table(dt=dt,previous=5):
 
 
 layout = html.Div([
-    sidebar,
+    sidebar.sidebar,
     html.Div(id='main',children = [
         dbc.Row(
             [
