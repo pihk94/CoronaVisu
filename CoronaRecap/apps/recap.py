@@ -268,7 +268,7 @@ layout = html.Div([
                     ],className ='sideBarOnglet',style={'height':'4500px'},width = 2),
                 dbc.Col([
                     dbc.Row("dada",style={'color':'white','margin-left':'2em','margin-top':'1em'}),
-                    html.Div(
+                    dbc.Table(
                         recap
                     )
                 ],style={'padding':'0px'},width = 10),

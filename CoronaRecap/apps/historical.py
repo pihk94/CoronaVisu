@@ -49,19 +49,26 @@ fig3 = px.scatter(df2, x="Beginning time", y="Average Death log",
            size="Duration x", hover_name="Disease", color="Disease", color_discrete_sequence = colorway, 
            range_x=[1800,2020], range_y=[0,max(df2['Death toll log'])]) 
 fig3.update_layout(
+    font=dict(
+            family='Montserrat',
+            size=15,
+            color='rgb(87, 88, 90)'
+            ),
     xaxis=dict(
         showline=True,
-        showgrid=True,
+        showgrid=False,
         showticklabels=True,
-        linecolor = 'lightgray',
-        ticks='inside'
+        linecolor='rgb(204, 204, 204)',
+        linewidth=3,
+        ticks='outside'
     ),
     yaxis=dict(
-        gridcolor = 'lightgray',
         showgrid=True,
-        zeroline=False,
+        gridcolor='lightgray',
         showline=False,
+        showticklabels=True,
     ),
+    showlegend=True,
     plot_bgcolor='white')
 
 sidebar = html.Div(id='mySidebar',className ="sidebar",children=[

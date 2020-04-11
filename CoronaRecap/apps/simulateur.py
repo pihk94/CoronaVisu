@@ -510,6 +510,11 @@ def update_figure(R0,incub_time,infec_time,exposed,death_rate,death_time,p_sever
             'barmode':'stack',
             'xaxis':{'type':'category',
             'dtick':'20'},
+            'font':{
+                'family':'Montserrat',
+                'size':'15',
+                'color':'rgb(87, 88, 90)'
+            },
             'annotations':[{
                 'x':dist_jour,
                 'y':sim[sim.Type == 'I'].Nb.max()+sim[sim.Type == 'Hospital'].Nb.max()+sim[sim.Type == 'E'].Nb.max()+sim[sim.Type == 'Death'].Nb.max(),

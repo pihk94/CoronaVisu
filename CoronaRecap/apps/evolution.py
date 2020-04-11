@@ -61,25 +61,27 @@ fig4 = px.bar(df_new, x="Disease", y="Average Death log", animation_frame="Year"
               range_y=[0,max(df_new['Death toll log'])]) 
 
 fig4.update_layout(
+   font=dict(
+            family='Montserrat',
+            size=12,
+            color='rgb(87, 88, 90)'
+            ),
     xaxis=dict(
         showline=True,
         showgrid=False,
         showticklabels=True,
-        tickfont=dict(
-            family='Arial',
-            size=8,
-        ),
-        automargin = True,
-        tickangle = 45
+        linecolor='rgb(204, 204, 204)',
+        linewidth=3,
+        ticks='outside'
     ),
     yaxis=dict(
         showgrid=True,
-        gridcolor = 'lightgray',
-        zeroline=False,
+        gridcolor='lightgray',
         showline=False,
+        showticklabels=True,
     ),
-    plot_bgcolor='white',
-    showlegend=False
+    showlegend=True,
+    plot_bgcolor='white'
 )
 
 fig4.update_xaxes(

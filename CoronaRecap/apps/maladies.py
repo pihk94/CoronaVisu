@@ -23,7 +23,29 @@ fig1 = px.treemap(df, path=['Diseases', 'Epidemic','InfectiousDiseases'], values
                   color = np.log10(df["CFR"]), hover_data=['R0'],
                   color_continuous_scale='RdBu', range_color=[-4,0],
                   color_continuous_midpoint=np.average(df['CFR']))
-
+fig1.update_layout(
+    font=dict(
+            family='Montserrat',
+            size=15,
+            color='rgb(87, 88, 90)'
+            ),
+    xaxis=dict(
+        showline=True,
+        showgrid=False,
+        showticklabels=True,
+        linecolor='rgb(204, 204, 204)',
+        linewidth=3,
+        ticks='outside'
+    ),
+    yaxis=dict(
+        showgrid=True,
+        gridcolor='lightgray',
+        showline=False,
+        showticklabels=True,
+    ),
+    showlegend=True,
+    plot_bgcolor='white'
+)
 fig1.update_layout(coloraxis_colorbar=dict(
     title="CFR",
     tickvals = np.arange(-4, 1),
@@ -33,7 +55,29 @@ fig2 = px.treemap(df, path=['Diseases', 'Epidemic','InfectiousDiseases'], values
                   color = np.log10(df["CFR"]), hover_data=['R0'],
                   color_continuous_scale='RdBu', range_color=[-4,0],
                   color_continuous_midpoint=np.average(df['CFR']))
-
+fig2.update_layout(
+    font=dict(
+            family='Montserrat',
+            size=15,
+            color='rgb(87, 88, 90)'
+            ),
+    xaxis=dict(
+        showline=True,
+        showgrid=False,
+        showticklabels=True,
+        linecolor='rgb(204, 204, 204)',
+        linewidth=3,
+        ticks='outside'
+    ),
+    yaxis=dict(
+        showgrid=True,
+        gridcolor='lightgray',
+        showline=False,
+        showticklabels=True,
+    ),
+    showlegend=True,
+    plot_bgcolor='white'
+)
 fig2.update_layout(coloraxis_colorbar=dict(
     title="CFR",
     tickvals = np.arange(-4, 1),

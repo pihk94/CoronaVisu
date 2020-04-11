@@ -365,15 +365,15 @@ for date in dates:
 fig_dict["layout"]["sliders"] = [sliders_dict]
 fig_dict['layout']['geo'] = dict(
         showland = True,        
-        landcolor = "rgb(25, 25, 25)",
+        landcolor = "rgb(64, 64, 64)",
         showlakes = True,
-        lakecolor = "rgb(25, 25, 25)",
+        lakecolor = "rgb(64, 64, 64)",
         showsubunits = True,
-        subunitcolor = "rgb(60, 60, 60)",
+        subunitcolor = "rgb(255, 255, 255)",
         showcountries = True,
-        countrycolor = "rgb(100, 100, 100)",
+        countrycolor = "rgb(255, 255, 255)",
         showocean = True,
-        oceancolor = "rgb(60, 60, 60)")
+        oceancolor = "rgb(255, 255, 255)")
 fig3=fig_dict
 
 df_deaths_world = GetData.get_world('deaths')
@@ -513,15 +513,15 @@ for date in dates:
 fig_dict["layout"]["sliders"] = [sliders_dict]
 fig_dict['layout']['geo'] = dict(
         showland = True,        
-        landcolor = "rgb(25, 25, 25)",
+        landcolor = "rgb(64, 64, 64)",
         showlakes = True,
-        lakecolor = "rgb(25, 25, 25)",
+        lakecolor = "rgb(64, 64, 64)",
         showsubunits = True,
-        subunitcolor = "rgb(60, 60, 60)",
+        subunitcolor = "rgb(255, 255, 255)",
         showcountries = True,
-        countrycolor = "rgb(100, 100, 100)",
+        countrycolor = "rgb(255, 255, 255)",
         showocean = True,
-        oceancolor = "rgb(60, 60, 60)")
+        oceancolor = "rgb(255, 255, 255)")
 fig2 =fig_dict
 
 
