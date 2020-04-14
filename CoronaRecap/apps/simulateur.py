@@ -119,9 +119,9 @@ sim = [dbc.Row([
         dbc.Col([
             dbc.Row([
                 html.Span(id='NbJours',children='365 jours')
-            ],className = 'justify-content-center'),
+            ]),
             html.Img(src=app.get_asset_url('png/014-quarantine.png'),
-            style={'height':'32px','width':'32px','margin-left':'7em'}),
+            style={'height':'32px','width':'32px','margin-left':'1em','margin-bottom':'1em'}),
             dbc.Row([
                 html.Span(children='Susceptible',style={'font-weight':'600'})
                     ]),
@@ -436,7 +436,7 @@ layout = html.Div([
                                                 ),
                                             ]
                                         )
-                                    ],style={'color':'white','width':'200px'}
+                                    ],style={'color':'white','width':'200px',"text-align":"justify"}
                                 )
                             ],style={
                                 'margin-top':'4em',

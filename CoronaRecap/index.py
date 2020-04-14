@@ -5,7 +5,7 @@ from dash.dependencies import Input, Output
 from app import app
 from apps import (maladies,simulateur,recap,
 world,continent,country,home,pastrecessions,finance,historical,evolution,GoogleTrend)#
-
+app.title= 'CoronaRecap'
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),

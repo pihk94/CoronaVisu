@@ -211,8 +211,7 @@ recap = [
                 }
             ),
         html.Table(id='recap',style = {
-            'margin-top':'2em',
-            'margin-left':'5em'
+            'margin-top':'2em'
         })
         ],type='default'),
     ])
@@ -499,7 +498,7 @@ def recap_table(dt,previous=5):
             )
         ]),
         html.Tbody(
-            [html.Tr([html.Td(),html.Td([html.Div('22 January'),html.Div("Today")],style = {'display':'flex','justify-content':'space-between','font-size':'9px'}),html.Td(),html.Td('( + NEW ) since {}'.format((pd.to_datetime(dt,dayfirst=True) - timedelta(previous)).strftime('%d/%m/%Y')),style={"font-size": "9px",'color':'#999','text-align':'left'}),html.Td(),html.Td()])]+
+            [html.Tr([html.Td(),html.Td([html.Div('22 January'),html.Div("Today")],style = {'display':'flex','justify-content':'space-between','font-size':'9px','border-top':'0px'}),html.Td(),html.Td('( + NEW ) since {}'.format((pd.to_datetime(dt,dayfirst=True) - timedelta(previous)).strftime('%d/%m/%Y')),style={"font-size": "9px",'color':'#999','text-align':'left'}),html.Td(),html.Td()])]+
             rows
         )
     ]

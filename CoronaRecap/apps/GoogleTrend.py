@@ -13,7 +13,7 @@ from apps import sidebar
 
 
 #fct
-mot_base = ['coronavirus','ubereats','pornhub','nintendo switch','netflix',]
+mot_base = ['coronavirus','ubereats','pornhub','nintendo switch','netflix',"bac"]
 def google_trend_graph(w):
 
     pytrend = TrendReq()
